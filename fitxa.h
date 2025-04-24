@@ -26,20 +26,23 @@ class Fitxa
 {
 public:
 	Fitxa() {}
-	Fitxa(const string& color, const Posicio& pos) { m_posicio = pos; m_color = color; }
+	Fitxa(const TipusFitxa& tipus, const ColorFitxa& color, const Posicio& pos) { m_tipus = tipus;  m_posicio = pos; m_color = color; }
 
 	void afegirMoviment();
 	void netejaMoviments();
 
 	void movimentsValids(const Tauler& t);
 	void convertirDama();
-	string getColor() const { return m_color; }
+	ColorFitxa getColor() const { return m_color; }
+	TipusFitxa getTipus() const { return m_tipus; }
+	Posicio getPosicio() const { return m_posicio; }
+
 	bool operator==(const Fitxa& f);
 
 
 private:
 	Posicio m_posicio;
-	string m_color;
+	ColorFitxa m_color;
 	Moviments m_movimentsPossibles; //array aqui? o dintre de moviments
 	TipusFitxa m_tipus;
 

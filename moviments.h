@@ -1,4 +1,3 @@
-
 #include "posicio.h"
 
 using namespace std;

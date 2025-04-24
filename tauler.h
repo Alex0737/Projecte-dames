@@ -1,5 +1,3 @@
-
-
 int const N_FITXES = 24;
 #include <string>
 #include <fstream>
@@ -11,6 +9,8 @@ using namespace std;
 class Tauler
 {
 public:
+	Tauler() { netejaTauler(); }
+
 	void inicialitza(const string& nomFitxer);
 	void mostraTauler();
 
@@ -32,10 +32,11 @@ public:
 	
 	string toString() const;
 
+	void setPosBuida(const Posicio& pos);
+
+	void netejaTauler();
+	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
 
 private:
-	int tauler[N_FILES][N_COLUMNES];
-	Fitxa m_fitxes[N_FITXES];
-	int m_nFitxesBlanques;
-	int m_nFitxesNegres;
+	Fitxa m_tauler[N_FILES][N_COLUMNES];
 };

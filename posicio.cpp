@@ -2,46 +2,22 @@
 
 const int N_FILES = 8;
 
-Posicio::Posicio(const string& posicio) 
-{ 
-	fromString(posicio); 
-}
-
-
-void Posicio::fromString(const string& pos)
-{
-	m_x = (N_FILES - 1) - (pos[1] - '1');
-	m_y = pos[0] - 'a';
-
-}
 string Posicio::toString() const
 {
 	string pos = "a1";
-	pos[0] = 'a' + m_x;
-	pos[1] = '1' + (N_FILES - 1) - m_y;
+	pos[0] = 'a' + m_y;
+	pos[1] = '1' + (N_FILES - 1 - m_x);
 	return pos;
 }
 
-ifstream& operator>>(ifstream& fitxer, Posicio& posicio)
+bool Posicio::operator==(const Posicio& pos) const
 {
-	string pos;
-	fitxer >> pos;
-	posicio.fromString(pos);
-	return fitxer;
+	return m_x == pos.m_x && m_y == pos.m_y;
 }
 
-ofstream& operator<<(ofstream& fitxer, const Posicio& posicio)
-{
-	fitxer << posicio.toString();
-	return fitxer;
-}
-
-void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio)
-{
-	ifstream fitxer(nomFitxer);
-	fitxer >> tipusFitxa;
-	fitxer >> posicio;
-	fitxer.close();
+ostream& operator<<(ostream& out, const Posicio& pos) {
+	out << pos.toString();
+	return out;
 }
 
 void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
@@ -50,4 +26,3 @@ void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posici
 	fitxer << tipusFitxa << ' ' << posicio.toString();
 	fitxer.close();
 }
-
