@@ -21,6 +21,10 @@ public:
 	void veureMovimentsFitxaNormal(const Fitxa& fitxa);
 	void veureMovimentsFitxaDama(const Fitxa& fitxa);
 
+	TipusFitxa getTipusFitxa(int x, int y);
+	ColorFitxa getColorFitxa(int x, int y);
+
+	Posicio saltsFitxesEsquerra(int x, int y);
 
 	void getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
 	void llegeixTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
@@ -28,8 +32,7 @@ public:
 
 	bool mouFitxa(const Posicio& origen, const Posicio& desti);
 
-	bool operator==(const Tauler&);
-	
+
 	string toString() const;
 
 	void setPosBuida(const Posicio& pos);
