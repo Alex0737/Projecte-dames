@@ -26,3 +26,8 @@ void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posici
 	fitxer << tipusFitxa << ' ' << posicio.toString();
 	fitxer.close();
 }
+
+TipusFitxa Posicio::getTipus()
+{
+
+}
