@@ -12,7 +12,7 @@ public:
 	Moviments();
 
 	void posicio();
-	Posicio getPosicions();
+	void getPosicions(Posicio& p[30]);
 
 	void posicionsValides(const Posicio& p);
 	bool esPotMoureMes(const Posicio& p);
