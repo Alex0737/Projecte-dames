@@ -181,21 +181,21 @@ void Tauler::getPosicionsPossibles3(
 {
 	nPos = 0;
 
-	// 1) Agafem una còpia de la fitxa al tauler
+	// 1) Agafem una cÃ²pia de la fitxa al tauler
 	int x = origen.getX();
 	int y = origen.getY();
 	Fitxa fitxa = m_tauler[x][y];
 
-	// 2) Si està buida, res a fer
+	// 2) Si estÃ  buida, res a fer
 	if (fitxa.getTipus() == TIPUS_EMPTY)
 		return;
 
-	// 3) Calculem tots els moviments amb un nou mètode de Tauler
+	// 3) Calculem tots els moviments amb un nou mÃ¨tode de Tauler
 	//    que ja no requereix passar-li *this
 	Moviment movs[MAX_MOVS_FITXA];
 	int      nMovs = calcularMovimentsValidsDeFitxa(fitxa, movs);
 
-	// 4) Extraiem la última posició de cada moviment
+	// 4) Extraiem la Ãºltima posiciÃ³ de cada moviment
 	for (int i = 0; i < nMovs; ++i)
 	{
 		int len = movs[i].getNombre();
@@ -313,7 +313,9 @@ void Tauler::actualitzaMovimentsValids()
 	{
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
-			m_tauler[i][j].calcularMovimentsValids(*this);
+			if (m_tauler[i][j].getTipus() != TIPUS_EMPTY)
+				m_tauler[i][j].netejaMoviments();
+				m_tauler[i][j].calcularMovimentsValids(*this);
 		}
 	}
 }
