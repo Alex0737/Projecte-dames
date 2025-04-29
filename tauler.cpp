@@ -216,8 +216,11 @@ void Tauler::getPosicionsPossibles4(const Posicio& origen, int& nPos, Posicio po
 	
 		for (int i = 0; i < fitxa.getMoviments().getNPosicionsValides(); ++i)
 		{
-			posicions[nPos] = fitxa.getMoviments().getPosicioIndex(i);
-			nPos++;
+			for (int k = 0; k < fitxa.getMoviment(i).getNombre();)
+			{
+				posicions[nPos] = fitxa.getMoviment(i).getPosicioIndex(i);
+				nPos++;
+			}
 			//Moviments mov = fitxa.getMoviment();
 			//int numPosMoviment = mov.getNombre();
 	
