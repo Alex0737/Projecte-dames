@@ -39,3 +39,21 @@ bool Moviments::operator==(const Moviments& m) const
     }
     return igual;
 }
+
+
+Posicio Moviments::getPosicioIndex(int n)
+{
+	return m_movimentsValides[n];
+
+}
+
+
+
+void Moviments::afegirPosicio(const Posicio& p)
+{
+    if (m_nMoviments < POSICIONS_MAXIMES)
+    {
+        m_posicions[m_nMoviments] = p;
+        m_nMoviments++;
+    }
+}
