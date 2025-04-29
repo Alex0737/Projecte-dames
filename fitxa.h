@@ -33,6 +33,7 @@ public:
     Posicio getPosicio() const { return m_posicio; }
     int getNumMoviments() const { return m_nMoviments; }
     Moviments getMoviment(int i) const { return m_moviments[i]; }
+    Moivments getMoviments() const {return m_moviment;}
 
     void setColor(ColorFitxa c) { m_color = c; }
     void setTipus(TipusFitxa t) { m_tipus = t; }

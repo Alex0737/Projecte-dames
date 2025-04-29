@@ -29,8 +29,10 @@ public:
     bool operator==(const Moviments& m) const;
 
 private:
-    Posicio m_posicions[POSICIONS_MAXIMES];
-    int m_nMoviments;
+    Posicio m_movimentsValides[POSICIONS_MAXIMES];
+    int m_menjadesPerPosicio[POSICIONS_MAXIMES];
+    int m_nPosicionsValides;
+    int m_menjadesMàximes;
 };
 
 #endif
