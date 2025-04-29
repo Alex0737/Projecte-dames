@@ -1,59 +1,65 @@
+#ifndef FITXA_H
+#define FITXA_H
 
-#include <string.h>
 #include "moviments.h"
 #include "posicio.h"
+#include "tauler.h"
 
-using namespace std;
-
-int const N_FILES = 8;
-int const N_COLUMNES = 8;
+int const MAX_MOVS_FITXA = 64;
 
 typedef enum
 {
-	TIPUS_NORMAL,
-	TIPUS_DAMA,
-	TIPUS_EMPTY
+    TIPUS_NORMAL,
+    TIPUS_DAMA,
+    TIPUS_EMPTY
 } TipusFitxa;
 
 typedef enum
 {
-	COLOR_NEGRE,
-	COLOR_BLANC,
+    COLOR_NEGRE,
+    COLOR_BLANC,
 } ColorFitxa;
-
 
 class Fitxa
 {
 public:
-	Fitxa() {}
-	Fitxa(const TipusFitxa& tipus, const ColorFitxa& color, const Posicio& pos) { m_tipus = tipus;  m_posicio = pos; m_color = color; }
+    Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY) {};
+    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos) {};
 
-	void afegirMoviment();
-	void netejaMoviments();
+    int getX() const { return m_posicio.getX(); }
+    int getY() const { return m_posicio.getY(); }
+    ColorFitxa getColor() const { return m_color; }
+    TipusFitxa getTipus() const { return m_tipus; }
+    Posicio getPosicio() const { return m_posicio; }
+    int getNumMoviments() const { return m_nMoviments; }
+    Moviments getMoviment(int i) const { return m_moviments[i]; }
 
-	void convertirDama();
-	int getX() { m_posicio.getX(); }
-	int getY() { m_posicio.getY(); }
-	ColorFitxa getColor() const { return m_color; }
-	TipusFitxa getTipus() const { return m_tipus; }
-	Posicio getPosicio() const { return m_posicio; }
-
-	void setColor(ColorFitxa c) { m_color = c; }
-	void setTipus(TipusFitxa t) { m_tipus = t; }
-
+    void setColor(ColorFitxa c) { m_color = c; }
+    void setTipus(TipusFitxa t) { m_tipus = t; }
+    void setPosicio(const Posicio& p) { m_posicio = p; }
 	void setPosicioBuida(const Posicio& p);
+    void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
 
-	int getTipusFitxa();
+    string posicionsMoviment();
+	Posicio movimentsValids(int n);
 
-	bool operator==(const Fitxa& f);
-	void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
 
-	void posicionsMoviment();
+    bool operator==(const Fitxa& f);
+
+
+    void convertirDama();
+    void afegirMoviment(const Moviments& moviment);
+    void netejaMoviments();
+    void calcularMovimentsValids(const Tauler& tauler);
+
+    bool operator==(const Fitxa& f) const;
 
 private:
-	Posicio m_posicio;
-	ColorFitxa m_color;
-	Moviments m_movimentsPossibles; //array aqui? o dintre de moviments
-	TipusFitxa m_tipus;
-
+    Posicio    m_posicio;
+    ColorFitxa m_color;
+    TipusFitxa m_tipus;
+    Moviments  m_moviments[MAX_MOVS_FITXA];
+    int        m_nMoviments;
 };
+
+#endif

@@ -15,13 +15,13 @@ public:
 	int getX() const { return m_x; }
 	int getY() const { return m_y; }
 
+
+
 	void setPosicio(int x, int y) { m_x = x; m_y = y; }
 	void setX(int x) { m_x = x; }
 	void setY(int y) { m_y = y; }
 
 	string toString() const;
-
-	TipusFitxa getTipus();
 
 	bool operator==(const Posicio& posicio) const;
 

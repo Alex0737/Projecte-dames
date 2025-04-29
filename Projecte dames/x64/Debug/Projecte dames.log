@@ -1,5 +1,4 @@
 ﻿  tauler.cpp
-  posicio.cpp
 C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(12,38): error C2065: 'N_FILES': identificador no declarado
   (compilando archivo de origen "tauler.cpp")
   
@@ -13,80 +12,288 @@ C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologi
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
       vea la declaración de 'Posicio'
   
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(32,13): error C2079: 'Moviments::m_posicions' utiliza class 'Posicio' sin definir
+  (compilando archivo de origen "tauler.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(20,13): error C2027: uso del tipo 'Posicio' sin definir
+  (compilando archivo de origen "tauler.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(20,59): error C2109: el subíndice requiere una matriz o tipo de puntero
+  (compilando archivo de origen "tauler.cpp")
+  
 C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11): error C2374: 'DIMENSIO': nueva definición; inicialización múltiple
   (compilando archivo de origen "tauler.cpp")
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11):
       vea la declaración de 'DIMENSIO'
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(5,11): error C2374: 'POSICIONS_MAXIMES': nueva definición; inicialización múltiple
-  (compilando archivo de origen "tauler.cpp")
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(5,11):
-      vea la declaración de 'POSICIONS_MAXIMES'
-  
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(9,7): error C2011: 'Moviments': nueva definición del tipo 'class'
-  (compilando archivo de origen "tauler.cpp")
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(9,7):
-      vea la declaración de 'Moviments'
-  
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11): error C2374: 'DIMENSIO': nueva definición; inicialización múltiple
-  (compilando archivo de origen "tauler.cpp")
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11):
-      vea la declaración de 'DIMENSIO'
-  
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(34,23): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(53,34): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
   (compilando archivo de origen "tauler.cpp")
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(34,35): error C2143: error de sintaxis: falta ',' delante de '&'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(53,46): error C2143: error de sintaxis: falta ',' delante de '&'
   (compilando archivo de origen "tauler.cpp")
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(44,10): error C2079: 'Fitxa::m_posicio' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(58,16): error C2079: 'Fitxa::m_posicio' utiliza class 'Posicio' sin definir
   (compilando archivo de origen "tauler.cpp")
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(46,12): error C2079: 'Fitxa::m_movimentsPossibles' utiliza class 'Moviments' sin definir
-  (compilando archivo de origen "tauler.cpp")
-  
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(29,110): error C2027: uso del tipo 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(27,110): error C2027: uso del tipo 'Posicio' sin definir
   (compilando archivo de origen "tauler.cpp")
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
       vea la declaración de 'Posicio'
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(38,10): error C2027: uso del tipo 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(27,110): error C2439: 'Fitxa::m_posicio': no se pudo inicializar el miembro
+  (compilando archivo de origen "tauler.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(58,16):
+      vea la declaración de 'Fitxa::m_posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(33,13): error C2027: uso del tipo 'Posicio' sin definir
   (compilando archivo de origen "tauler.cpp")
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
       vea la declaración de 'Posicio'
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(28,12): error C2079: 'pos' utiliza class 'Posicio' sin definir
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(28,15): error C2440: 'inicializando': no se puede realizar la conversión de 'std::string' a 'int'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(28,15):
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(39,53): error C2027: uso del tipo 'Posicio' sin definir
+  (compilando archivo de origen "tauler.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(59,12): error C2079: 'pos' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(59,15): error C2440: 'inicializando': no se puede realizar la conversión de 'std::string' a 'int'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(59,15):
       No hay disponible ningún operador de conversión definido por el usuario que pueda realizar esta conversión, o bien no se puede llamar al operador
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(32,22): error C2664: 'Fitxa Tauler::creaFitxa(char,const Posicio &)': el argumento 2 no puede convertirse de 'int' a 'const Posicio &'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(32,39):
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(63,22): error C2664: 'Fitxa Tauler::creaFitxa(char,const Posicio &)': el argumento 2 no puede convertirse de 'int' a 'const Posicio &'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(63,39):
       Razón: no se puede realizar la conversión de 'int' a 'const Posicio'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(32,39):
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(63,39):
       Uso del tipo no definido 'Posicio'
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
       vea la declaración de 'Posicio'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(38,8):
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(14,15):
       vea la declaración de 'Tauler::creaFitxa'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(32,22):
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(63,22):
       al hacer coincidir la lista de argumentos '(char, int)'
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(67,2): error C2059: error de sintaxis: '}'
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(87,11): error C2079: 'posicio' utiliza class 'Posicio' sin definir
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(91,25): error C7732: expected an expression before ']'
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(91,41): error C7732: expected an expression before ']'
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(109,13): error C2079: 'posicio' utiliza class 'Posicio' sin definir
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(109,20): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
-      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(109,20):
-      El inicializador contiene demasiados elementos
-  
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(119,17): error C2027: uso del tipo 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(129,26): error C2027: uso del tipo 'Posicio' sin definir
       C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
       vea la declaración de 'Posicio'
   
-C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(119,17): error C2270: 'toString': modificadores no permitidos en funciones que no sean miembro
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(129,39): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(129,41): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(129,54): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(137,8): error C2664: 'void Fitxa::calcularMovimentsValids(const int)': el argumento 1 no puede convertirse de 'Tauler' a 'const int'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(137,32):
+      No hay disponible ningún operador de conversión definido por el usuario que pueda realizar esta conversión, o bien no se puede llamar al operador
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(53,10):
+      vea la declaración de 'Fitxa::calcularMovimentsValids'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(137,8):
+      al hacer coincidir la lista de argumentos '(Tauler)'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(146,26): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(155,11): error C2079: 'llista' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(159,2): error C2664: 'void Tauler::getPosicionsPossibles(const Posicio &,int &,Posicio [])': el argumento 3 no puede convertirse de 'int' a 'Posicio []'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(159,38):
+      La conversión de un tipo entero a un tipo de puntero requiere reinterpret_cast, conversión de estilo de C o conversión de estilo de función entre paréntesis
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(126,14):
+      vea la declaración de 'Tauler::getPosicionsPossibles'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(159,2):
+      al hacer coincidir la lista de argumentos '(const Posicio, int, int)'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(166,17): error C2109: el subíndice requiere una matriz o tipo de puntero
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(179,25): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(179,38): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(179,40): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(179,53): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(180,11): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(180,24): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(180,26): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(180,39): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(183,6): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(185,7): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(191,11): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(191,23): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(191,25): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(191,37): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(199,10): error C2079: 'posicionsValidesPila' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(205,33): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(227,11): error C2079: 'posicio' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(231,25): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(231,41): error C7732: expected an expression before ']'
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(249,13): error C2079: 'posicio' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(249,20): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(249,20):
+      El inicializador contiene demasiados elementos
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(259,17): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(261,10): error C2079: 'res' utiliza class 'Posicio' sin definir
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(265,16): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(330,10): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.cpp(331,10): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+  posicio.cpp
 C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(12,38): error C2065: 'N_FILES': identificador no declarado
   (compilando archivo de origen "posicio.cpp")
   
+  moviments.cpp
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(12,38): error C2065: 'N_FILES': identificador no declarado
+  (compilando archivo de origen "moviments.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.cpp(16,20): error C2039: "getPosicioIndex": no es un miembro de "Moviments"
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.h(8,7):
+      vea la declaración de 'Moviments'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\moviments.cpp(18,9): error C2065: 'm_movimentsValides': identificador no declarado
+  fitxa.cpp
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(12,38): error C2065: 'N_FILES': identificador no declarado
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11): error C2374: 'DIMENSIO': nueva definición; inicialización múltiple
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11):
+      vea la declaración de 'DIMENSIO'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7): error C2011: 'Posicio': nueva definición del tipo 'class'
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11): error C2374: 'DIMENSIO': nueva definición; inicialización múltiple
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(6,11):
+      vea la declaración de 'DIMENSIO'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(23,8): error C3646: 'creaFitxa': especificador de invalidación desconocido
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(23,17): error C2059: error de sintaxis: '('
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(23,53): error C2238: símbolos (token) inesperados delante de ';'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(31,33): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(31,44): error C2143: error de sintaxis: falta ',' delante de '&'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(32,31): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(32,42): error C2143: error de sintaxis: falta ',' delante de '&'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(34,13): error C3646: 'getTipusFitxa': especificador de invalidación desconocido
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(34,26): error C2059: error de sintaxis: '('
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(34,40): error C2238: símbolos (token) inesperados delante de ';'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(35,13): error C3646: 'getColorFitxa': especificador de invalidación desconocido
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(35,26): error C2059: error de sintaxis: '('
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(35,40): error C2238: símbolos (token) inesperados delante de ';'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(45,8): error C3646: 'm_tauler': especificador de invalidación desconocido
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(45,16): error C2143: error de sintaxis: falta ',' delante de '['
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\tauler.h(45,37): error C2238: símbolos (token) inesperados delante de ';'
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(58,16): error C2079: 'Fitxa::m_posicio' utiliza class 'Posicio' sin definir
+  (compilando archivo de origen "fitxa.cpp")
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(27,110): error C2027: uso del tipo 'Posicio' sin definir
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(27,110): error C2439: 'Fitxa::m_posicio': no se pudo inicializar el miembro
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(58,16):
+      vea la declaración de 'Fitxa::m_posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(33,13): error C2027: uso del tipo 'Posicio' sin definir
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.h(39,53): error C2027: uso del tipo 'Posicio' sin definir
+  (compilando archivo de origen "fitxa.cpp")
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(16,5): error C2065: 'm_movimentsPossibles': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(21,5): error C2065: 'm_movimentsPossibles': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(35,10): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(36,10): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(45,22): error C2065: 'm_nPosicionsValides': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(47,8): error C2065: 'm_movimentsPossibles': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(50,7): error C2065: 'm_movimentsPossibles': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(50,44): error C2065: 'm_nPosicionsValides': identificador no declarado
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(54,16): error C2027: uso del tipo 'Posicio' sin definir
+      C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\posicio.h(8,7):
+      vea la declaración de 'Posicio'
+  
+C:\Users\alexo\OneDrive\Desktop\Documentos\1r carrera\2n quadrimestre\Metodologia programació\Projecte dames\fitxa.cpp(56,2): error C2065: 'm_movimentsPossibles': identificador no declarado
   Generando código...

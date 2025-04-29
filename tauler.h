@@ -1,20 +1,30 @@
-int const N_FITXES = 24;
+#ifndef TAULER_H
+#define TAULER_H
+
 #include <string>
 #include <fstream>
-#include "moviments.h"
 #include "posicio.h"
 #include "fitxa.h"
 using namespace std;
+
+static const int N_FILES = 8;
+static const int N_COLUMNES = 8;
 
 class Tauler
 {
 public:
 	Tauler() { netejaTauler(); }
-
+	void netejaTauler();
 	void inicialitza(const string& nomFitxer);
+	void actualitzaMovimentsValids();
+	void getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
+	bool mouFitxa(const Posicio& origen, const Posicio& desti);
+	string toString() const;
+	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
+	//De aqui para arriba necesario para movimientos
+
 	void mostraTauler();
 
-	void actualitzaMovimentsValids();
 
 	void netejaMovimentsValids();
 
@@ -26,20 +36,13 @@ public:
 
 	Posicio saltsFitxesEsquerra(int x, int y);
 
-	void getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
 	void llegeixTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
 	void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
 
-	bool mouFitxa(const Posicio& origen, const Posicio& desti);
-
-
-	string toString() const;
-
 	void setPosBuida(const Posicio& pos);
-
-	void netejaTauler();
-	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
 
 private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];
 };
+
+#endif
