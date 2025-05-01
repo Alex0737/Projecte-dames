@@ -20,8 +20,6 @@ typedef enum
     COLOR_BLANC,
 } ColorFitxa;
 
-class Tauler;
-
 class Fitxa
 {
 public:

@@ -254,7 +254,10 @@ TipusFitxa Tauler::getTipusFitxa(int x, int y)const
 						res = TIPUS_DAMA;
 				}
 			}
+			else
+				j++;
 		}
+		i++;
 	}
 	return res;
 }

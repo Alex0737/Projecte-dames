@@ -55,7 +55,10 @@ bool Posicio::estaDesti(const Fitxa& f)const
 			{
 				trobat = true;
 			}
+			else
+				i++;
 		}
+		j++;
 	}
 	return trobat;
 }

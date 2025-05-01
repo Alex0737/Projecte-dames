@@ -49,6 +49,8 @@ bool Moviments::estaDesti(const Posicio& p)const
         {
             trobat = true;
         }
+        else
+            i++;
     }
 
     return trobat;
@@ -72,6 +74,7 @@ bool Moviments::operator==(const Moviments& m) const
         res = false;
     }
     int i = 0;
+    int j = 0;
     bool trobat = false;
     while (i < m_nPosicionsValides && res)
     {
@@ -80,12 +83,16 @@ bool Moviments::operator==(const Moviments& m) const
             res = false;
 
         }
+        else
+            i++;
     }
-    while (i < m_nPosicionsValides && res)
+    while (j < m_nPosicionsValides && res)
     {
-        if (!(m_posicionsMenjades[i] == m.m_posicionsMenjades[i]))
+        if (!(m_posicionsMenjades[j] == m.m_posicionsMenjades[j]))
         {
             res = false;
         }
+        else
+            j++;
     }
 }
