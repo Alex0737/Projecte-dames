@@ -29,7 +29,7 @@ bool Posicio::operator==(const Posicio& pos) const
 	return m_x == pos.m_x && m_y == pos.m_y;
 }
 
-ostream& operator<<(ostream& out, const Posicio& pos) 
+ostream& operator<<(ostream& out, const Posicio& pos)
 {
 	out << pos.toString();
 	return out;

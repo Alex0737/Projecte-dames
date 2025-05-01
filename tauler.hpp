@@ -3,12 +3,11 @@
 
 #include <string>
 #include <fstream>
-#include "posicio.hpp"
 #include "fitxa.h"
 using namespace std;
 
-const int N_FILES = 8;
-const int N_COLUMNES = 8;
+static const int N_FILES = 8;
+static const int N_COLUMNES = 8;
 
 class Tauler
 {
@@ -22,12 +21,18 @@ public:
 	string toString() const;
 	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
 
+
 	bool dinsTauler(int x, int y) const;
+	bool dinsTauler(int x, int y) const;
+
+
+
 
 	TipusFitxa getTipusFitxa(int x, int y) const;
 	ColorFitxa getColorFitxa(int x, int y) const;
 
 	TipusFitxa toTipus(char s)const;
+
 
 	void setPosBuida(const Posicio& pos);
 	Fitxa getFitxa(int x, int y) const { return m_tauler[x][y]; }
