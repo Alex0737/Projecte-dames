@@ -132,12 +132,6 @@ void Fitxa::convertirDama()
     m_tipus = TIPUS_DAMA;
 }
 
-bool Fitxa::operator==(const Fitxa& f) const
-{
-    return (m_posicio == f.m_posicio && m_color == f.m_color && m_tipus == f.m_tipus);
-}
-
-
 void Fitxa::netejaMoviments()
 {
     for (int i = 0; i < m_nMoviments; i++)

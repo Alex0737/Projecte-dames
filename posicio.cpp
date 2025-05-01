@@ -1,6 +1,4 @@
-#include "posicio.h"
-
-const int N_FILES = 8;
+#include "posicio.hpp"
 
 string Posicio::toString() const
 {
@@ -31,7 +29,8 @@ bool Posicio::operator==(const Posicio& pos) const
 	return m_x == pos.m_x && m_y == pos.m_y;
 }
 
-ostream& operator<<(ostream& out, const Posicio& pos) {
+ostream& operator<<(ostream& out, const Posicio& pos) 
+{
 	out << pos.toString();
 	return out;
 }
@@ -52,13 +51,11 @@ bool Posicio::estaDesti(const Fitxa& f)const
 	{
 		while (i < f.getMoviment(j).getNombre() && !trobat)
 		{
-			if (m_x == f.getMoviment(j).getPosicioIndex(i).getX() && m_y == m_x == f.getMoviment(j).getPosicioIndex(i).getY())
+			if (m_x == f.getMoviment(j).getPosicioIndex(i).getX() && m_y == f.getMoviment(j).getPosicioIndex(i).getY())
 			{
 				trobat = true;
 			}
 		}
 	}
-
 	return trobat;
 }
-

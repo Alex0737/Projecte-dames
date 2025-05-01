@@ -1,4 +1,4 @@
-#include "tauler.h"
+#include "tauler.hpp"
 
 void Tauler::netejaTauler()
 {
@@ -11,7 +11,7 @@ void Tauler::netejaTauler()
 	}
 }
 
-bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti) 
+bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
 	bool resultat = false;
 	bool menjada = false;
@@ -39,6 +39,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 	}
 	else
 		resultat = false;
+	return resultat;
 }
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
@@ -165,7 +166,7 @@ string Tauler::toString() const
 		s += "/n";
 	}
 	s += " a b c d e f g h";
-
+	return s;
 }
 
 
@@ -178,12 +179,16 @@ TipusFitxa Tauler::toTipus(char s)const
 	{
 	case 'O':
 		t = TIPUS_NORMAL;
+		break;
 	case 'X':
 		t = TIPUS_NORMAL;
+		break;
 	case 'D':
 		t = TIPUS_DAMA;
+		break;
 	case 'R':
 		t = TIPUS_DAMA;
+		break;
 	}
 	return t;
 }
@@ -196,12 +201,16 @@ ColorFitxa toColor(char s)
 	{
 	case 'O':
 		c = COLOR_BLANC;
+		break;
 	case 'X':
 		c = COLOR_NEGRE;
+		break;
 	case 'D':
 		c = COLOR_BLANC;
+		break;
 	case 'R':
 		c = COLOR_NEGRE;
+		break;
 	}
 	return c;
 }
@@ -214,7 +223,7 @@ void Tauler::actualitzaMovimentsValids()
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
 			m_tauler[i][j].netejaMoviments();
-			m_tauler[i][j].calcularMovimentsValids7(*this);
+			m_tauler[i][j].calcularMovimentsValids(*this);
 		}
 	}
 }
@@ -255,10 +264,10 @@ ColorFitxa Tauler::getColorFitxa(int x, int y) const
 	ColorFitxa res;
 	bool trobat = false;
 	res = m_tauler[x][y].getColor();
-
+	return res;
 }
 
-void Tauler::setPosBuida(const Posicio & pos)
+void Tauler::setPosBuida(const Posicio& pos)
 {
 	int x = pos.getX();
 	int y = pos.getY();

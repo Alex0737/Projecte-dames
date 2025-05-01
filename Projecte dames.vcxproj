@@ -27,8 +27,8 @@
   <ItemGroup>
     <ClInclude Include="fitxa.h" />
     <ClInclude Include="moviments.h" />
-    <ClInclude Include="posicio.h" />
-    <ClInclude Include="tauler.h" />
+    <ClInclude Include="posicio.hpp" />
+    <ClInclude Include="tauler.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

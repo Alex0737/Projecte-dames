@@ -2,8 +2,8 @@
 #define FITXA_H
 
 #include "moviments.h"
-#include "posicio.h"
-#include "tauler.h"
+#include "posicio.hpp"
+#include "tauler.hpp"
 
 int const MAX_MOVS_FITXA = 64;
 
@@ -19,6 +19,8 @@ typedef enum
     COLOR_NEGRE,
     COLOR_BLANC,
 } ColorFitxa;
+
+class Tauler;
 
 class Fitxa
 {
@@ -41,12 +43,9 @@ public:
     void setPosicioBuida();
     void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
 
-    bool estaDesti(const Posicio& p)const;
-
-    bool operator==(const Fitxa& f) const;
+    bool estaDesti(const Posicio& p) const;
 
     void afegirMoviment(const Moviments& m);
-
 
     void convertirDama();
     void netejaMoviments();

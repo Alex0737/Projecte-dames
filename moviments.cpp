@@ -17,31 +17,7 @@ void Moviments::neteja()
 Posicio Moviments::getPosicioIndex(int n) const
 {
     return m_posicions[n];
-
 }
-
-bool Moviments::operator==(const Moviments& m) const
-{
-    bool igual = true;
-    if (m_nPosicionsValides != m.m_nPosicionsValides)
-    {
-        igual = false;
-    }
-    else
-    {
-        for (int i = 0; i < m_nPosicionsValides; ++i)
-        {
-            if (!(m_posicions[i] == m.m_posicions[i]))
-            {
-                igual = false;
-                break;
-            }
-        }
-    }
-    return igual;
-}
-
-
 
 void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
 {
@@ -51,18 +27,6 @@ void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
         m_posicions[i] = p[i];
     }
     m_menjadesMaximes = menjades;
-}
-
-
-
-
-void Moviments::afegirPosicio(const Posicio& p)
-{
-    if (m_nPosicionsValides < POSICIONS_MAXIMES)
-    {
-        m_posicions[m_nPosicionsValides] = p;
-        m_nPosicionsValides++;
-    }
 }
 
 Posicio Moviments::getUltimaPosicio()
