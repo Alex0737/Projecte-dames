@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "Fitxa.h"
 using namespace std;
 
 int const DIMENSIO = 2;
@@ -15,7 +16,7 @@ public:
 	int getX() const { return m_x; }
 	int getY() const { return m_y; }
 
-
+	bool estaDesti(const Fitxa& f)const;
 
 	void setPosicio(int x, int y) { m_x = x; m_y = y; }
 	void setX(int x) { m_x = x; }

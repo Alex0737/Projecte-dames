@@ -47,6 +47,17 @@ Posicio Moviments::getPosicioIndex(int n)
 
 }
 
+void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
+{
+    m_nPosicionsValides = nPosicions;
+    for (int i = 0; i < nPosicions; i++)
+    {
+        m_posicions[i] = p[i];
+    }
+    m_menjadesMaximes = menjades;
+}
+
+
 
 
 void Moviments::afegirPosicio(const Posicio& p)
@@ -57,3 +68,49 @@ void Moviments::afegirPosicio(const Posicio& p)
         m_nMoviments++;
     }
 }
+
+Posicio Moviments::getUltimaPosicio()
+{
+    return m_posicions[m_nPosicionsValides - 1];
+}
+
+bool Moviments::esUltimaPosicio(const Posicio& p) const
+{
+    return(p == m_posicions[m_nPosicionsValides - 1]);
+}
+
+bool Moviments::estaDesti(const Posicio& p)const
+{
+    int i = 0;
+    bool trobat = false;
+    while (i < m_nPosicionsValides && !trobat)
+    {
+        if (p == m_posicions[i])
+        {
+            trobat = true;
+        }
+    }
+
+    return trobat;
+}
+
+Posicio Moviments::getFitxaMatada(int j) const
+{
+    return m_posicionsMenjades[j];
+}
+
+bool Moviments::estaFinal(const Posicio& p) const
+{
+    return (m_posicions[m_nPosicionsValides - 1]== p);
+}
+
+
+
+//Posicio getUltimaPosicio(const Posicio& posInicial) const {
+//    if (nPosicions == 0) {
+//        return posInicial; // Si no hay movimientos, devuelve la posición inicial
+//    }
+//    else {
+//        return posicions[nPosicions - 1]; // Última posición registrada
+//    }
+//}

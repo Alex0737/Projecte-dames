@@ -33,15 +33,21 @@ public:
     Posicio getPosicio() const { return m_posicio; }
     int getNumMoviments() const { return m_nMoviments; }
     Moviments getMoviment(int i) const { return m_moviments[i]; }
+    int getMaxMenjades() const;
 
     void setColor(ColorFitxa c) { m_color = c; }
     void setTipus(TipusFitxa t) { m_tipus = t; }
     void setPosicio(const Posicio& p) { m_posicio = p; }
-    void setPosicioBuida(const Posicio& p);
+    void setPosicioBuida();
     void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
+
+    bool estaDesti(const Posicio& p)const;
+
 
     string posicionsMoviment();
     Posicio movimentsValids(int n);
+    void movimentNormal2(const Tauler& tauler)
+
 
 
     bool operator==(const Fitxa& f);
@@ -51,10 +57,16 @@ public:
     void afegirMoviment(const Moviments& moviment);
     void netejaMoviments();
     void calcularMovimentsValids(const Tauler& tauler);
-    void movimentNormal(const Tauler& tauler)
-
-
+    void movimentNormal(const Tauler& tauler);
     bool operator==(const Fitxa& f) const;
+
+    void calcularMovimentsValids7(const Tauler& tauler);
+
+    int getDamesMaximes() const;
+
+    bool calBufar(const Posicio& p, int i) const;
+
+    int getIndexMoviment(const Posicio& p) const;
 
 private:
     Posicio    m_posicio;

@@ -23,8 +23,17 @@ public:
 	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
 	//De aqui para arriba necesario para movimientos
 
+	void verificaCapturesObligatorias(ColorFitxa torn);
+    void bufarFitxa(ColorFitxa jugador);
+
 	void mostraTauler();
 
+	bool dinsTauler(int x, int y) const;
+	bool dinsTauler(int x, int y) const;
+
+	bool mouFitxa7(const Posicio& origen, const Posicio& desti);
+
+	bool calBufar(const Posicio& p, int i)const;
 
 	void netejaMovimentsValids();
 

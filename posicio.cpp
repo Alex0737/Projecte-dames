@@ -27,3 +27,26 @@ void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posici
 	fitxer.close();
 }
 
+bool Posicio::estaDesti(const Fitxa& f)const
+{
+	int i = 0;
+	int j = 0;
+	bool trobat = false;
+	while (j < f.getNumMoviments() && trobat)
+	{
+		while (i < f.getMoviment(i).getNombre() && !trobat)
+		{
+			if (m_x == m_posicions[i])
+			{
+				trobat = true;
+			}
+		}
+	}
+
+	return trobat;
+}
+
+Posicio Fitxa::getFitxaMatada(int j) const
+{
+	m_posicionsMenjades
+}
