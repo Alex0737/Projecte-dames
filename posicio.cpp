@@ -10,6 +10,22 @@ string Posicio::toString() const
 	return pos;
 }
 
+bool Posicio::estaDins(const Posicio p[], int nPosicions) const
+{
+	int i = 0;
+	bool trobat = false;
+	while (i < nPosicions && trobat)
+	{
+		if (p[i].getX() == m_x && p[i].getY() == m_y)
+		{
+			trobat = true;
+		}
+		else
+			i++;
+	}
+	return trobat;
+}
+
 bool Posicio::operator==(const Posicio& pos) const
 {
 	return m_x == pos.m_x && m_y == pos.m_y;
@@ -32,11 +48,11 @@ bool Posicio::estaDesti(const Fitxa& f)const
 	int i = 0;
 	int j = 0;
 	bool trobat = false;
-	while (j < f.getNumMoviments() && trobat)
+	while (j < f.getNumMoviments() && !trobat)
 	{
-		while (i < f.getMoviment(i).getNombre() && !trobat)
+		while (i < f.getMoviment(j).getNombre() && !trobat)
 		{
-			if (m_x == m_posicions[i])
+			if (m_x == f.getMoviment(j).getPosicioIndex(i).getX() && m_y == m_x == f.getMoviment(j).getPosicioIndex(i).getY())
 			{
 				trobat = true;
 			}
@@ -46,7 +62,3 @@ bool Posicio::estaDesti(const Fitxa& f)const
 	return trobat;
 }
 
-Posicio Fitxa::getFitxaMatada(int j) const
-{
-	m_posicionsMenjades
-}

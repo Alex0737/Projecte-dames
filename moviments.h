@@ -11,7 +11,7 @@ public:
     Moviments() { m_menjadesMaximes = 0; m_menjadesMaximes = 0; m_menjadesDames = 0; m_menjat = false; }
 
     void setMenjat() { m_menjat = true; };
-    void posicio();
+
 
     bool getMenjat() const { return m_menjat; }
     void afegirPosicio(const Posicio& pos);
@@ -20,23 +20,17 @@ public:
 
     void neteja();
 
-    int getNombre() const { return m_nMoviments; }
-    Posicio getPosicio(int i) const { return m_posicions[i]; }
+    int getNombre() const { return m_nPosicionsValides; }
+    Posicio getPosicioIndex(int i) const { return m_posicions[i]; }
 
     void incrementarMenjades() { m_menjadesMaximes++; }
     void incremetarMenjadesDames() { m_menjadesDames++; }
     int getMenjades() const { return m_menjadesMaximes; }
-   
 
-    void posicionsValides(const Posicio& p);
-    bool esPotMoureMes(const Posicio& p);
-    void executarMoviment();
-    bool operator==(const Moviments& m);
-    bool movimentValid();
 
     bool esUltimaPosicio(const Posicio& p) const;
     Posicio getUltimaPosicio();
-    
+
     bool estaDesti(const Posicio& p)const;
     bool estaFinal(const Posicio& p) const;
 

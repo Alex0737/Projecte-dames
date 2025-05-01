@@ -2,33 +2,34 @@
 
 void Moviments::afegirPosicio(const Posicio& p)
 {
-    if (m_nMoviments < POSICIONS_MAXIMES)
+    if (m_nPosicionsValides < POSICIONS_MAXIMES)
     {
-        m_posicions[m_nMoviments] = p;
-        m_nMoviments++;
+        m_posicions[m_nPosicionsValides] = p;
+        m_nPosicionsValides++;
     }
 }
 void Moviments::neteja()
 {
-    m_nMoviments = 0;
+    m_nPosicionsValides = 0;
+
 }
 
-Posicio Moviments::getPosicioIndex(int n)
+Posicio Moviments::getPosicioIndex(int n) const
 {
-    return m_movimentsValides[n];
+    return m_posicions[n];
 
 }
 
 bool Moviments::operator==(const Moviments& m) const
 {
     bool igual = true;
-    if (m_nMoviments != m.m_nMoviments)
+    if (m_nPosicionsValides != m.m_nPosicionsValides)
     {
         igual = false;
     }
     else
     {
-        for (int i = 0; i < m_nMoviments; ++i)
+        for (int i = 0; i < m_nPosicionsValides; ++i)
         {
             if (!(m_posicions[i] == m.m_posicions[i]))
             {
@@ -41,11 +42,6 @@ bool Moviments::operator==(const Moviments& m) const
 }
 
 
-Posicio Moviments::getPosicioIndex(int n)
-{
-    return m_movimentsValides[n];
-
-}
 
 void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
 {
@@ -62,10 +58,10 @@ void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
 
 void Moviments::afegirPosicio(const Posicio& p)
 {
-    if (m_nMoviments < POSICIONS_MAXIMES)
+    if (m_nPosicionsValides < POSICIONS_MAXIMES)
     {
-        m_posicions[m_nMoviments] = p;
-        m_nMoviments++;
+        m_posicions[m_nPosicionsValides] = p;
+        m_nPosicionsValides++;
     }
 }
 
@@ -101,16 +97,31 @@ Posicio Moviments::getFitxaMatada(int j) const
 
 bool Moviments::estaFinal(const Posicio& p) const
 {
-    return (m_posicions[m_nPosicionsValides - 1]== p);
+    return (m_posicions[m_nPosicionsValides - 1] == p);
 }
 
+bool Moviments::operator==(const Moviments& m) const
+{
+    bool res = true;
+    if (!(m_nPosicionsValides == m.m_nPosicionsValides && m_menjadesMaximes == m.m_menjadesMaximes && m_menjadesDames == m.m_menjadesDames && m_menjat == m.m_menjat))
+    {
+        res = false;
+    }
+    int i = 0;
+    bool trobat = false;
+    while (i < m_nPosicionsValides && res)
+    {
+        if (!(m_posicions[i] == m.m_posicions[i]))
+        {
+            res = false;
 
-
-//Posicio getUltimaPosicio(const Posicio& posInicial) const {
-//    if (nPosicions == 0) {
-//        return posInicial; // Si no hay movimientos, devuelve la posición inicial
-//    }
-//    else {
-//        return posicions[nPosicions - 1]; // Última posición registrada
-//    }
-//}
+        }
+    }
+    while (i < m_nPosicionsValides && res)
+    {
+        if (!(m_posicionsMenjades[i] == m.m_posicionsMenjades[i]))
+        {
+            res = false;
+        }
+    }
+}

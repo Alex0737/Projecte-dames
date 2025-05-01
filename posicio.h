@@ -24,6 +24,8 @@ public:
 
 	string toString() const;
 
+	bool estaDins(const Posicio p[], int nPosicions) const;
+
 	bool operator==(const Posicio& posicio) const;
 
 

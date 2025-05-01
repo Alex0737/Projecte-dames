@@ -43,24 +43,17 @@ public:
 
     bool estaDesti(const Posicio& p)const;
 
+    bool operator==(const Fitxa& f) const;
 
-    string posicionsMoviment();
-    Posicio movimentsValids(int n);
-    void movimentNormal2(const Tauler& tauler)
-
-
-
-    bool operator==(const Fitxa& f);
+    void afegirMoviment(const Moviments& m);
 
 
     void convertirDama();
-    void afegirMoviment(const Moviments& moviment);
     void netejaMoviments();
-    void calcularMovimentsValids(const Tauler& tauler);
-    void movimentNormal(const Tauler& tauler);
+
     bool operator==(const Fitxa& f) const;
 
-    void calcularMovimentsValids7(const Tauler& tauler);
+    void calcularMovimentsValids(const Tauler& tauler);
 
     int getDamesMaximes() const;
 
