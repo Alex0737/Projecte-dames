@@ -15,7 +15,7 @@ void Moviments::neteja()
 
 Posicio Moviments::getPosicioIndex(int n)
 {
-	return m_movimentsValides[n];
+    return m_movimentsValides[n];
 
 }
 
@@ -43,7 +43,7 @@ bool Moviments::operator==(const Moviments& m) const
 
 Posicio Moviments::getPosicioIndex(int n)
 {
-	return m_movimentsValides[n];
+    return m_movimentsValides[n];
 
 }
 

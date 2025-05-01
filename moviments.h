@@ -9,7 +9,7 @@ class Moviments
 {
 public:
     Moviments() : m_nMoviments(0) {}
-    
+
     void posicio();
 
     void afegirPosicio(const Posicio& pos);
@@ -20,10 +20,10 @@ public:
     Posicio getPosicio(int i) const { return m_posicions[i]; }
 
     void posicionsValides(const Posicio& p);
-	bool esPotMoureMes(const Posicio& p);
-	void executarMoviment();
-	bool operator==(const Moviments& m);
-	bool movimentValid();
+    bool esPotMoureMes(const Posicio& p);
+    void executarMoviment();
+    bool operator==(const Moviments& m);
+    bool movimentValid();
 
 
     bool operator==(const Moviments& m) const;

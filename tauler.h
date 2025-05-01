@@ -31,15 +31,16 @@ public:
 	void veureMovimentsFitxaNormal(const Fitxa& fitxa);
 	void veureMovimentsFitxaDama(const Fitxa& fitxa);
 
-	TipusFitxa getTipusFitxa(int x, int y);
-	ColorFitxa getColorFitxa(int x, int y);
+	TipusFitxa getTipusFitxa(int x, int y) const;
+	ColorFitxa getColorFitxa(int x, int y) const;
 
 	Posicio saltsFitxesEsquerra(int x, int y);
 
 	void llegeixTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
-	void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
+	void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]) const;
 
 	void setPosBuida(const Posicio& pos);
+	Fitxa getFitxa(int x, int y) const { return m_tauler[x][y]; }
 
 private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];

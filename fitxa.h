@@ -33,16 +33,15 @@ public:
     Posicio getPosicio() const { return m_posicio; }
     int getNumMoviments() const { return m_nMoviments; }
     Moviments getMoviment(int i) const { return m_moviments[i]; }
-    Moivments getMoviments() const {return m_moviment;}
 
     void setColor(ColorFitxa c) { m_color = c; }
     void setTipus(TipusFitxa t) { m_tipus = t; }
     void setPosicio(const Posicio& p) { m_posicio = p; }
-	void setPosicioBuida(const Posicio& p);
+    void setPosicioBuida(const Posicio& p);
     void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
 
     string posicionsMoviment();
-	Posicio movimentsValids(int n);
+    Posicio movimentsValids(int n);
 
 
     bool operator==(const Fitxa& f);
@@ -52,6 +51,8 @@ public:
     void afegirMoviment(const Moviments& moviment);
     void netejaMoviments();
     void calcularMovimentsValids(const Tauler& tauler);
+    void movimentNormal(const Tauler& tauler)
+
 
     bool operator==(const Fitxa& f) const;
 

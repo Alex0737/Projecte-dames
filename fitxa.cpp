@@ -23,46 +23,46 @@ void Fitxa::netejaMoviments()
 
 void Fitxa::setPosicioBuida(const Posicio& p)
 {
-	m_tipus = TIPUS_EMPTY;
+    m_tipus = TIPUS_EMPTY;
 }
 
 bool Fitxa::operator==(const Fitxa& f)
 {
-	return (m_posicio == f.m_posicio && m_color == f.m_color && m_tipus == f.m_tipus);
+    return (m_posicio == f.m_posicio && m_color == f.m_color && m_tipus == f.m_tipus);
 }
 void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)
 {
-	int x = pos.getX();
-	int y = pos.getY();
-	m_color = c;
-	m_tipus = t;
+    int x = pos.getX();
+    int y = pos.getY();
+    m_color = c;
+    m_tipus = t;
 
 }
 
 string Fitxa::posicionsMoviment()
 {
-	string s;
-	for (int i = 0; i < m_nPosicionsValides - 2; i++)
-	{
-		s += m_movimentsPossibles.getPosicioIndex(i).toString();
-		s += " ,";
-	}
-	s += m_movimentsPossibles.getPosicioIndex(m_nPosicionsValides - 1).toString();
-	return s;
+    string s;
+    for (int i = 0; i < m_nPosicionsValides - 2; i++)
+    {
+        s += m_movimentsPossibles.getPosicioIndex(i).toString();
+        s += " ,";
+    }
+    s += m_movimentsPossibles.getPosicioIndex(m_nPosicionsValides - 1).toString();
+    return s;
 }
 
 Posicio Fitxa::movimentsValids(int n)
 {
-	m_movimentsPossibles.getPosicioIndex(n);
+    m_movimentsPossibles.getPosicioIndex(n);
 }
 
 
 void calcularMovimentsValids(const Tauler& tauler)
 {
-	m_nMoviments = 0;
-	Moviments pendents[];
-	int princpi = 0;
-	int final = 0;
+    m_nMoviments = 0;
+    Moviments pendents[];
+    int princpi = 0;
+    int final = 0;
 
 }
 
@@ -88,7 +88,7 @@ void Fitxa::calcularMovimentsValids2(
         Moviment movimentActual = movimentsPendents[inici++];
         Posicio  posicioActual = movimentActual.ultimPosicio(m_posicio);
 
-        // Calculem les posicions valides des dâ€™aquesta posicio
+        // Calculem les posicions valides des d’aquesta posicio
         Posicio posValides[8];
         int     nPosValides = 0;
 
@@ -115,7 +115,7 @@ void Fitxa::calcularMovimentsValids2(
                     movimentsPendents[final++] = nouMov;
             }
 
-            // Continuem el bucle des de la nova posiciÃ³
+            // Continuem el bucle des de la nova posició
             posicioActual = posValides[0];
             tauler.getPosicionsValides(
                 posicioActual,
@@ -125,7 +125,7 @@ void Fitxa::calcularMovimentsValids2(
                 posValides);
         }
 
-        // Si el moviment final no Ã©s buit, el guardem
+        // Si el moviment final no és buit, el guardem
         if (movimentActual.getNombre() > 0
             && nValid < MAX_MOVIMENTS)
         {
@@ -137,28 +137,28 @@ void Fitxa::calcularMovimentsValids2(
 
 string Fitxa::posicionsMoviment()
 {
-	string s;
-	for (int i = 0; i < m_nPosicionsValides - 2; i++)
-	{
-		s += m_moviments.getPosicioIndex(i).toString();
-		s += " ,";
-	}
-	s += m_moviments.getPosicioIndex(m_nPosicionsValides - 1).toString();
-	return s;
+    string s;
+    for (int i = 0; i < m_nPosicionsValides - 2; i++)
+    {
+        s += m_moviments.getPosicioIndex(i).toString();
+        s += " ,";
+    }
+    s += m_moviments.getPosicioIndex(m_nPosicionsValides - 1).toString();
+    return s;
 }
 
 Posicio Fitxa::movimentsValids(int n)
 {
-	m_movimentsPossibles.getPosicioIndex(n);
+    m_movimentsPossibles.getPosicioIndex(n);
 }
 
 
 
 void Fitxa::movimentNormal(const Tauler& tauler)
 {
-    Posicions mValids[100];
-    int nValids = 0
-    Posicions mPendents[100];
+    Posicio mValids[100];
+    int nValids = 0;
+    Posicio mPendents[100];
     int nPendents = 0;
 
     int nPosicions = 0;
@@ -166,14 +166,14 @@ void Fitxa::movimentNormal(const Tauler& tauler)
     int y = m_posicio.getY();
     if (m_color == COLOR_BLANC)
     {
-        if (tauler.getTipusFitxa(x + 1, y + 1) == TIPUS_EMPTY)
+        if (tauler.getTipusFitxa(x + 1, y + 1) == TIPUS_EMPTY) // mirar hacia la derecha
         {
             Posicio p(x + 1, y + 1);
             m_moviments[nPosicions].afegirPosicio(p);
         }
         else
         {
-            if (tauler[x + 1][y + 1].getColor() == COLOR_NEGRE && tauler[x + 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+            if (tauler.getFitxa(x+1,y+1).getColor() == COLOR_NEGRE && tauler[x + 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
             {
                 mValids[nPendents++] = Posicio(x + 2, x + 2);
                 mPendents[nPendents++] = Posicio(x + 2, x + 2);
@@ -187,30 +187,103 @@ void Fitxa::movimentNormal(const Tauler& tauler)
                     {
                         mPendents[i] = mPendents[i + 1];
                     }
-                    nPentdents--;
-                    if (tauler[x + 1][y + 1].getColor() == COLOR_NEGRE && tauler[x + 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+                    nPendents--;
+                    if (tauler.getColorFitxa(x + 1, y + 1) == COLOR_NEGRE && tauler[x + 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
                     {
-                        if (//esta dentro de alguno q no lo repita)
-                        mValids[nValids++] = Posicio(x + 2, x + 2);
-                        mPendents[nPendents++] = Posicio(x + 2, x + 2);
+                        if (nPendents > 0) //si no está repetido)
+                            mValids[nValids++] = Posicio(x + 2, x + 2);
+                            mPendents[nPendents++] = Posicio(x + 2, x + 2);
                     }
-                    if (tauler[x - 1][y + 1].getColor() == COLOR_NEGRE && tauler[x - 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+                    if (tauler.getColorFitxa(x-1, y+1) == COLOR_NEGRE && tauler[x - 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
                     {
-                        mValids[nValids++] = Posicio(x + 2, x - 2);
-                        mPendents[nPendents++] = Posicio(x + 2, x - 2);
+                        mValids[nValids++] = Posicio(x - 2, y + 2);
+                        mPendents[nPendents++] = Posicio(x - 2, y + 2);
                     }
-                    mPendents[nPendents++] = Posicio(x+2, x+2)
-                }while (mPendents != []);
+                    mPendents[nPendents++] = Posicio(x + 2, x + 2);
+                } while (nPendents > 0);
             }
         }
-        if (getTipusFitxa(x - 1, y + 1) == TIPUS_EMPTY)
+        
+        if (tauler.getTipusFitxa(x - 1, y + 1) == TIPUS_EMPTY) //mirar hacia la izquierda
         {
             Posicio p(x - 1, y + 1);
             m_moviments[nPosicions].afegirPosicio(p);
         }
+        else //Ficha negra
+        {
+            if (tauler.getFitxa(x - 1, y + 1).getColor() == COLOR_NEGRE && tauler[x - 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+            {
+                mValids[nPendents++] = Posicio(x - 2, y + 2);
+                mPendents[nPendents++] = Posicio(x - 2, y + 2);
+                Posicio p;
+                do
+                {
+                    p = mPendents[0];
+                    x = p.getX();
+                    y = p.getY();
+                    for (int i = 0; i > nPendents - 1; i++)
+                    {
+                        mPendents[i] = mPendents[i + 1];
+                    }
+                    nPendents--;
+                    if (tauler.getColorFitxa(x + 1, y + 1) == COLOR_NEGRE && tauler[x + 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+                    {
+                        if (nPendents > 0) //si no está repetido)
+                        {
+                            mValids[nValids++] = Posicio(x + 2, x + 2);
+                            mPendents[nPendents++] = Posicio(x + 2, x + 2);
+                        }
+                    }
+                    if (tauler.getColorFitxa(x - 1, y + 1) == COLOR_NEGRE && tauler[x - 2][y + 2].getTipusFitxa() == TIPUS_EMPTY)
+                    {
+                        if (nPendents > 0) //si no está repetido)
+                        {
+                            mValids[nValids++] = Posicio(x - 2, y - 2);
+                            mPendents[nPendents++] = Posicio(x - 2, y - 2);
+                        }
+                    }
+                } while (mPendents != []);
+            }
+        }
     }
     else
     {
+        if (tauler.getTipusFitxa(x, y) == TIPUS_DAMA) //dreta
+        {
+
+            if (tauler.getColorFitxa(x,y) == COLOR_BLANC)
+            {
+                Posicio p(x, y);
+                bool trobat = false;
+                int i = 1;
+                int j = 1;
+                while (x < 8 && y < 8 && !trobat) //mirar hacia la derecha
+                {
+                    if (tauler.getTipusFitxa(x + i, y + i) == TIPUS_EMPTY)
+                    {
+                        mValids[nPendents++] = p.setPosicio(x + i, y + i);
+                        i++;
+                    }
+                    else
+                        trobat = true;
+
+                    if (trobat)
+                    {
+
+                    }
+                }
+
+                while (x < 8 && y < 8 && !trobat) //mirar hacia la izquierda
+                {
+                    if ()
+                }
+            }
+            else
+            {
+                if (tauler.getColorFitxa(x, y) == COLOR_NEGRE)
+            }
+        }
+
 
     }
 }

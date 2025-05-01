@@ -47,7 +47,7 @@ void Tauler::inicialitza(const string& nomFitxer)
 	ifstream fitxer;
 	fitxer.open(nomFitxer);
 	netejaTauler();
-	
+
 	if (fitxer.is_open())
 	{
 		char tipus;
@@ -73,7 +73,7 @@ void Tauler::inicialitza(const string& nomFitxer)
 
 string Tauler::toString() const
 {
-	string s;	
+	string s;
 	for (int i = 0; i < 8; i++)
 	{
 		int t = 8 - i;
@@ -119,7 +119,7 @@ string Tauler::toString() const
 		s += "/n";
 	}
 	s += " a b c d e f g h";
-	
+
 }
 
 
@@ -131,7 +131,7 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPos, Posicio pos
 
 	if (fitxa.getTipus() == TIPUS_EMPTY)
 	{
-		
+
 	}
 
 	fitxa.netejaMoviments();
@@ -159,12 +159,12 @@ void Tauler::getPosicionsPossibles2(const Posicio& origen, int& nPos, Posicio po
 	{
 		fitxa.netejaMoviments();
 		fitxa.calcularMovimentsValids(*this);
-	
+
 		for (int i = 0; i < fitxa.getNumMoviments(); ++i)
 		{
 			Moviments mov = fitxa.getMoviment(i);
 			int numPosMoviment = mov.getNombre();
-	
+
 			if (numPosMoviment > 0)
 			{
 				posicions[nPos] = mov.getPosicio(numPosMoviment - 1);
@@ -181,21 +181,21 @@ void Tauler::getPosicionsPossibles3(
 {
 	nPos = 0;
 
-	// 1) Agafem una cÃ²pia de la fitxa al tauler
+	// 1) Agafem una còpia de la fitxa al tauler
 	int x = origen.getX();
 	int y = origen.getY();
 	Fitxa fitxa = m_tauler[x][y];
 
-	// 2) Si estÃ  buida, res a fer
+	// 2) Si està buida, res a fer
 	if (fitxa.getTipus() == TIPUS_EMPTY)
 		return;
 
-	// 3) Calculem tots els moviments amb un nou mÃ¨tode de Tauler
+	// 3) Calculem tots els moviments amb un nou mètode de Tauler
 	//    que ja no requereix passar-li *this
 	Moviment movs[MAX_MOVS_FITXA];
 	int      nMovs = calcularMovimentsValidsDeFitxa(fitxa, movs);
 
-	// 4) Extraiem la Ãºltima posiciÃ³ de cada moviment
+	// 4) Extraiem la última posició de cada moviment
 	for (int i = 0; i < nMovs; ++i)
 	{
 		int len = movs[i].getNombre();
@@ -213,7 +213,7 @@ void Tauler::getPosicionsPossibles4(const Posicio& origen, int& nPos, Posicio po
 	{
 		fitxa.netejaMoviments();
 		fitxa.calcularMovimentsValids(*this);
-	
+
 		for (int i = 0; i < fitxa.getMoviments().getNPosicionsValides(); ++i)
 		{
 			for (int k = 0; k < fitxa.getMoviment(i).getNombre();)
@@ -223,7 +223,7 @@ void Tauler::getPosicionsPossibles4(const Posicio& origen, int& nPos, Posicio po
 			}
 			//Moviments mov = fitxa.getMoviment();
 			//int numPosMoviment = mov.getNombre();
-	
+
 			//if (numPosMoviment > 0)
 			//{
 			//	posicions[nPos] = mov.getPosicio(numPosMoviment - 1);
@@ -318,7 +318,7 @@ void Tauler::actualitzaMovimentsValids()
 		{
 			if (m_tauler[i][j].getTipus() != TIPUS_EMPTY)
 				m_tauler[i][j].netejaMoviments();
-				m_tauler[i][j].calcularMovimentsValids(*this);
+			m_tauler[i][j].calcularMovimentsValids(*this);
 		}
 	}
 }
@@ -339,10 +339,10 @@ bool Tauler::mouFitxa2(const Posicio& origen, const Posicio& desti)
 			int min = 0;
 			for (int k = 0; k < m_tauler[origenX][origenY].getMovimentsPossibles().getPosicioIndex(i); k++)
 			{
-					
+
 			}
 			m_tauler[origenX][origenY].getMovimentsPossibles().g
-			trobat = true;
+				trobat = true;
 			m_tauler[origenX - 1][origenY - 1].setPosicioBuida(origen);
 			//tenemos q buscar el numero maximo que se tendria q comer
 			//si no lo come bufamos la ficha
@@ -443,7 +443,7 @@ Posicio Tauler::saltsFitxesEsquerra(int x, int y)
 
 }
 
-TipusFitxa Tauler::getTipusFitxa(int x, int y)
+TipusFitxa Tauler::getTipusFitxa(int x, int y)const
 {
 	int i = 0;
 	int j = 0;
@@ -473,30 +473,12 @@ TipusFitxa Tauler::getTipusFitxa(int x, int y)
 	return res;
 }
 
-ColorFitxa Tauler::getColorFitxa(int x, int y)
+ColorFitxa Tauler::getColorFitxa(int x, int y) const
 {
-	int i = 0;
-	int j = 0;
 	ColorFitxa res;
 	bool trobat = false;
-	while (i < 8 && !trobat)
-	{
-		while (j < 8 && !trobat)
-		{
-			if (m_tauler[i][j].getX() == x && m_tauler[i][j].getY() == y)
-			{
-				trobat = true;
-				if (m_tauler[i][j].getColor() == COLOR_BLANC)
-					res = COLOR_BLANC;
-				else
-				{
-					res = COLOR_NEGRE;
+	res = m_tauler[x][y].getColor();
 
-				}
-			}
-		}
-	}
-	return res;
 }
 
 void Tauler::setPosBuida(const Posicio& pos)
@@ -505,4 +487,3 @@ void Tauler::setPosBuida(const Posicio& pos)
 	int y = pos.getY();
 	m_tauler[x - 1][y - 1].setTipus(TIPUS_EMPTY);
 }
-

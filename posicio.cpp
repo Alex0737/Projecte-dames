@@ -27,4 +27,3 @@ void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posici
 	fitxer.close();
 }
 
-
