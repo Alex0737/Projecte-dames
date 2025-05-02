@@ -124,8 +124,7 @@ string Tauler::toString() const
 	for (int i = 0; i < 8; i++)
 	{
 		int t = 8 - i;
-		s += t;
-		s += ": ";
+		s += to_string(t) + ": ";
 		for (int j = 0; j < 8; j++)
 		{
 			if (m_tauler[i][j].getColor() == COLOR_BLANC && m_tauler[i][j].getTipus() == TIPUS_DAMA)
@@ -136,7 +135,7 @@ string Tauler::toString() const
 			{
 				if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
 				{
-					s += "_";
+					s += "*";
 				}
 				else
 				{
@@ -163,9 +162,9 @@ string Tauler::toString() const
 			}
 			s += " ";
 		}
-		s += "/n";
+		s += "\n";
 	}
-	s += " a b c d e f g h";
+	s += "   a b c d e f g h";
 	return s;
 }
 
@@ -388,7 +387,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 								nouMov.incrementarMenjades();
 								if (getTipusFitxa(x, y) == TIPUS_DAMA)
 								{
-									nouMov.incremetarMenjadesDames();
+									nouMov.incrementarMenjadesDames();
 								}
 								nouMov.setMenjat();
 								pendents[final++] = nouMov;

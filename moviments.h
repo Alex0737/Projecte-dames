@@ -9,7 +9,7 @@ class Moviments
 {
 public:
     Moviments() : m_nPosicionsValides(0), m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false), m_posicions{}, m_posicionsMenjades{}, m_menjadesPerPosicio{} {}
-
+    Moviments(const Posicio& posInicial);
     void setMenjat() { m_menjat = true; };
 
 
@@ -24,7 +24,7 @@ public:
     Posicio getPosicioIndex(int i) const;
 
     void incrementarMenjades() { m_menjadesMaximes++; }
-    void incremetarMenjadesDames() { m_menjadesDames++; }
+    void incrementarMenjadesDames() { m_menjadesDames++; }
     int getMenjades() const { return m_menjadesMaximes; }
 
 

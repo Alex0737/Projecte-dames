@@ -16,7 +16,7 @@ class Posicio
 {
 public:
 	Posicio() { m_x = 0; m_y = 0; }
-	Posicio(const string& pos) { m_y = (pos[1] - '1'); m_x = (pos[0] - 'a'); }
+	Posicio(const string& pos);
 	Posicio(int x, int y) { m_x = x; m_y = y; }
 
 	int getX() const { return m_x; }

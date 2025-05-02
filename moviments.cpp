@@ -1,5 +1,14 @@
 #include "moviments.h"
 
+Moviments::Moviments(const Posicio& posInicial) 
+{
+    m_nPosicionsValides = 1;
+    m_posicions[0] = posInicial;
+    m_menjadesMaximes = 0;
+    m_menjadesDames = 0;
+    m_menjat = false;
+}
+
 void Moviments::afegirPosicio(const Posicio& p)
 {
     if (m_nPosicionsValides < POSICIONS_MAXIMES)

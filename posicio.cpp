@@ -1,5 +1,10 @@
 #include "posicio.h"
 
+Posicio::Posicio(const string& pos) 
+{
+	m_x = (N_FILES - 1) - (pos[1] - '1');
+	m_y = pos[0] - 'a';
+}
 
 string Posicio::toString() const
 {
@@ -35,4 +40,3 @@ ostream& operator<<(ostream& out, const Posicio& pos)
 	out << pos.toString();
 	return out;
 }
-
