@@ -1,36 +1,33 @@
-#include <string>
-#include <fstream>
-#include <iostream>
-#include "Fitxa.h"
-using namespace std;
+#ifndef POSICIO_HPP
+#define POSICIO_HPP
 
-int const DIMENSIO = 2;
+#include <string>
+#include <iostream>
+#include "tauler.h"
+
+class Fitxa;
 
 class Posicio
 {
 public:
-	Posicio() { m_x = 0; m_y = 0; }
-	Posicio(const string& pos) { m_x = (N_FILES - 1) - (pos[1] - '1'); m_y = pos[0] - 'a'; }
-	Posicio(int x, int y) { m_x = x, m_y = y; }
+    Posicio() : m_x(0), m_y(0) {}
+    Posicio(const std::string& pos);
+    Posicio(int x, int y) : m_x(x), m_y(y) {}
 
-	int getX() const { return m_x; }
-	int getY() const { return m_y; }
+    int getX() const { return m_x; }
+    int getY() const { return m_y; }
 
-	bool estaDesti(const Fitxa& f)const;
-
-	void setPosicio(int x, int y) { m_x = x; m_y = y; }
-	void setX(int x) { m_x = x; }
-	void setY(int y) { m_y = y; }
-
-	string toString() const;
-
-	bool estaDins(const Posicio p[], int nPosicions) const;
-
-	bool operator==(const Posicio& posicio) const;
-
+    bool estaDesti(const Fitxa& f) const;
+    void setPosicio(int x, int y) { m_x = x; m_y = y; }
+    std::string toString() const;
+    bool estaDins(const Posicio p[], int nPosicions) const;
+    bool operator==(const Posicio& pos) const;
 
 private:
-	int m_x;
-	int m_y;
+    int m_x;
+    int m_y;
 };
-ostream& operator<<(ostream& out, const Posicio& pos);
+
+std::ostream& operator<<(std::ostream& out, const Posicio& pos);
+
+#endif

@@ -8,15 +8,30 @@ void Moviments::afegirPosicio(const Posicio& p)
         m_nPosicionsValides++;
     }
 }
+
 void Moviments::neteja()
 {
     m_nPosicionsValides = 0;
 
 }
 
+int Moviments::getDamesMenjades() const 
+{
+    return m_menjadesDames;
+}
+
+Posicio Moviments::getFitxaMatada(int j) const {
+    return m_posicionsMenjades[j];
+}
+
 Posicio Moviments::getPosicioIndex(int n) const
 {
     return m_posicions[n];
+}
+
+int Moviments::getNombre() const 
+{
+    return m_nPosicionsValides;
 }
 
 void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
@@ -29,7 +44,7 @@ void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
     m_menjadesMaximes = menjades;
 }
 
-Posicio Moviments::getUltimaPosicio()
+Posicio Moviments::getUltimaPosicio() const
 {
     return m_posicions[m_nPosicionsValides - 1];
 }
@@ -54,11 +69,6 @@ bool Moviments::estaDesti(const Posicio& p)const
     }
 
     return trobat;
-}
-
-Posicio Moviments::getFitxaMatada(int j) const
-{
-    return m_posicionsMenjades[j];
 }
 
 bool Moviments::estaFinal(const Posicio& p) const
@@ -95,4 +105,5 @@ bool Moviments::operator==(const Moviments& m) const
         else
             j++;
     }
+    return res;
 }

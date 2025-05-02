@@ -147,17 +147,18 @@ void Fitxa::setPosicioBuida()
 
 bool Fitxa::operator==(const Fitxa& f) const
 {
-    return (m_posicio == f.m_posicio && m_color == f.m_color && m_tipus == f.m_tipus);
+    return ( m_posicio == f.getPosicio() && m_color == f.getColor() && m_tipus == f.getTipus());
 }
+
 void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)
 {
     int x = pos.getX();
     int y = pos.getY();
+    m_posicio = pos;
     m_color = c;
     m_tipus = t;
 
 }
-
 
 int Fitxa::getMaxMenjades() const
 {

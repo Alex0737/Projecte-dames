@@ -1,4 +1,6 @@
-#include "posicio.hpp"
+#include "posicio.h"
+#include "Fitxa.h"
+#include "moviments.h"
 
 string Posicio::toString() const
 {
@@ -12,7 +14,7 @@ bool Posicio::estaDins(const Posicio p[], int nPosicions) const
 {
 	int i = 0;
 	bool trobat = false;
-	while (i < nPosicions && trobat)
+	while (i < nPosicions && !trobat)
 	{
 		if (p[i].getX() == m_x && p[i].getY() == m_y)
 		{
@@ -33,13 +35,6 @@ ostream& operator<<(ostream& out, const Posicio& pos)
 {
 	out << pos.toString();
 	return out;
-}
-
-void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
-{
-	ofstream fitxer(nomFitxer);
-	fitxer << tipusFitxa << ' ' << posicio.toString();
-	fitxer.close();
 }
 
 bool Posicio::estaDesti(const Fitxa& f)const

@@ -1,4 +1,4 @@
-#include "tauler.hpp"
+#include "tauler.h"
 
 void Tauler::netejaTauler()
 {
