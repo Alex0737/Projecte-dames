@@ -2,9 +2,13 @@
 #define FITXA_H
 
 #include "moviments.h"
+#include "tauler.h"
 #include "posicio.h"
 
 int const MAX_MOVS_FITXA = 64;
+
+// En Fitxa.h (antes de la clase Fitxa):
+class Moviments;  // Declaración adelantada
 
 typedef enum
 {
@@ -23,9 +27,7 @@ class Fitxa
 {
 public:
     Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
-    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) :
-        m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {
-    };
+    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {};
 
     int getX() const { return m_posicio.getX(); }
     int getY() const { return m_posicio.getY(); }
@@ -45,6 +47,7 @@ public:
     bool estaDesti(const Posicio& p) const;
 
     void afegirMoviment(const Moviments& m);
+
     void convertirDama();
     void netejaMoviments();
 
@@ -53,7 +56,9 @@ public:
     void calcularMovimentsValids(const Tauler& tauler);
 
     int getDamesMaximes() const;
+
     bool calBufar(const Posicio& p, int i) const;
+
     int getIndexMoviment(const Posicio& p) const;
 
 private:
