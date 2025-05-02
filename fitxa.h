@@ -2,13 +2,9 @@
 #define FITXA_H
 
 #include "moviments.h"
-#include "tauler.h"
 #include "posicio.h"
 
 int const MAX_MOVS_FITXA = 64;
-
-// En Fitxa.h (antes de la clase Fitxa):
-class Moviments;  // Declaración adelantada
 
 typedef enum
 {
@@ -46,6 +42,7 @@ public:
 
     bool estaDesti(const Posicio& p) const;
 
+
     void afegirMoviment(const Moviments& m);
 
     void convertirDama();
@@ -53,9 +50,10 @@ public:
 
     bool operator==(const Fitxa& f) const;
 
-    void calcularMovimentsValids(const Tauler& tauler);
 
     int getDamesMaximes() const;
+
+
 
     bool calBufar(const Posicio& p, int i) const;
 

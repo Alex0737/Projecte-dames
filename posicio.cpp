@@ -36,23 +36,3 @@ ostream& operator<<(ostream& out, const Posicio& pos)
 	return out;
 }
 
-bool Posicio::estaDesti(const Fitxa& f)const
-{
-	int i = 0;
-	int j = 0;
-	bool trobat = false;
-	while (j < f.getNumMoviments() && !trobat)
-	{
-		while (i < f.getMoviment(j).getNombre() && !trobat)
-		{
-			if (m_x == f.getMoviment(j).getPosicioIndex(i).getX() && m_y == f.getMoviment(j).getPosicioIndex(i).getY())
-			{
-				trobat = true;
-			}
-			else
-				i++;
-		}
-		j++;
-	}
-	return trobat;
-}

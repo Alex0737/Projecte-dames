@@ -15,7 +15,7 @@ void Moviments::neteja()
 
 }
 
-int Moviments::getDamesMenjades() const 
+int Moviments::getDamesMenjades() const
 {
     return m_menjadesDames;
 }
@@ -29,7 +29,7 @@ Posicio Moviments::getPosicioIndex(int n) const
     return m_posicions[n];
 }
 
-int Moviments::getNombre() const 
+int Moviments::getNombre() const
 {
     return m_nPosicionsValides;
 }

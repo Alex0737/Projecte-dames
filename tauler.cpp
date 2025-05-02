@@ -1,4 +1,4 @@
-#include "tauler.h"
+#include "tauler.hpp"
 
 void Tauler::netejaTauler()
 {
@@ -187,6 +187,9 @@ TipusFitxa Tauler::toTipus(char s)const
 	case 'R':
 		t = TIPUS_DAMA;
 		break;
+	default:
+		t = TIPUS_EMPTY;
+		break;
 	}
 	return t;
 }
@@ -209,6 +212,9 @@ ColorFitxa toColor(char s)
 	case 'R':
 		c = COLOR_NEGRE;
 		break;
+	default:
+		c = COLOR_BLANC;
+		break;
 	}
 	return c;
 }
@@ -221,7 +227,7 @@ void Tauler::actualitzaMovimentsValids()
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
 			m_tauler[i][j].netejaMoviments();
-			m_tauler[i][j].calcularMovimentsValids(*this);
+			calcularMovimentsValids(m_tauler[i][j]);
 		}
 	}
 }
