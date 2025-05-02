@@ -1,6 +1,5 @@
 #include "posicio.h"
-#include "Fitxa.h"
-#include "moviments.h"
+
 
 string Posicio::toString() const
 {

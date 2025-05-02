@@ -147,7 +147,7 @@ void Fitxa::setPosicioBuida()
 
 bool Fitxa::operator==(const Fitxa& f) const
 {
-    return ( m_posicio == f.getPosicio() && m_color == f.getColor() && m_tipus == f.getTipus());
+    return (m_posicio == f.getPosicio() && m_color == f.getColor() && m_tipus == f.getTipus());
 }
 
 void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)

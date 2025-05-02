@@ -22,7 +22,7 @@ public:
 
     int getNombre() const;
     Posicio getPosicioIndex(int i) const;
-        
+
     void incrementarMenjades() { m_menjadesMaximes++; }
     void incremetarMenjadesDames() { m_menjadesDames++; }
     int getMenjades() const { return m_menjadesMaximes; }
