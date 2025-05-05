@@ -80,11 +80,11 @@ bool Fitxa::calBufar(const Posicio& p, int i) const
 
 bool Fitxa::estaDesti(const Posicio& p)const
 {
-    int i = 0;
     int j = 0;
     bool trobat = false;
-    while (j < m_nMoviments && trobat)
+    while (j < m_nMoviments && !trobat)
     {
+        int i = 0;
         while (i < getMoviment(j).getNombre() && !trobat)
         {
             if (p == getMoviment(j).getPosicioIndex(i))
@@ -98,15 +98,14 @@ bool Fitxa::estaDesti(const Posicio& p)const
     }
     return trobat;
 }
-
 int Fitxa::getIndexMoviment(const Posicio& p)const
 {
-    int i = 0;
     int res = -1;
     int j = 0;
     bool trobat = false;
-    while (j < m_nMoviments && trobat)
+    while (j < m_nMoviments && !trobat)
     {
+        int i = 0;
         while (i < getMoviment(j).getNombre() && !trobat)
         {
             if (p == getMoviment(j).getPosicioIndex(i))
@@ -117,8 +116,7 @@ int Fitxa::getIndexMoviment(const Posicio& p)const
             else
                 i++;
         }
-        if (!trobat)
-            j++;
+        j++;
     }
     return res;
 }

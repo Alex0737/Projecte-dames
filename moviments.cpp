@@ -1,6 +1,6 @@
 #include "moviments.h"
 
-Moviments::Moviments(const Posicio& posInicial) 
+Moviments::Moviments(const Posicio& posInicial)
 {
     m_nPosicionsValides = 1;
     m_posicions[0] = posInicial;
@@ -35,7 +35,10 @@ Posicio Moviments::getFitxaMatada(int j) const {
 
 Posicio Moviments::getPosicioIndex(int n) const
 {
-    return m_posicions[n];
+    if (n >= 0 && n < m_nPosicionsValides)
+        return m_posicions[n];
+    else
+        return Posicio(-1, -1);
 }
 
 int Moviments::getNombre() const

@@ -26,7 +26,7 @@ public:
 	bool dinsTauler(int x, int y) const;
 
 
-	void calcularMovimentsValids(const Fitxa& fitxa);
+	void calcularMovimentsValids(const Fitxa& fitxa) const;
 
 
 	TipusFitxa getTipusFitxa(int x, int y) const;

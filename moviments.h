@@ -1,7 +1,7 @@
 #ifndef MOVIMENTS_H
 #define MOVIMENTS_H
 
-const int POSICIONS_MAXIMES = 64;
+const int POSICIONS_MAXIMES = 10;
 
 #include "posicio.h"
 

@@ -1,6 +1,6 @@
 #include "posicio.h"
 
-Posicio::Posicio(const string& pos) 
+Posicio::Posicio(const string& pos)
 {
 	m_x = (N_FILES - 1) - (pos[1] - '1');
 	m_y = pos[0] - 'a';

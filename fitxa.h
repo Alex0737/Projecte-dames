@@ -17,12 +17,13 @@ typedef enum
 {
     COLOR_NEGRE,
     COLOR_BLANC,
+    COLOR_EMPTY
 } ColorFitxa;
 
 class Fitxa
 {
 public:
-    Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
+    Fitxa() : m_posicio(), m_color(COLOR_EMPTY), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
     Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {};
 
     int getX() const { return m_posicio.getX(); }
@@ -50,10 +51,7 @@ public:
 
     bool operator==(const Fitxa& f) const;
 
-
     int getDamesMaximes() const;
-
-
 
     bool calBufar(const Posicio& p, int i) const;
 
