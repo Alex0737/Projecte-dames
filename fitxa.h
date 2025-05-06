@@ -43,6 +43,8 @@ public:
 
     bool estaDesti(const Posicio& p) const;
 
+    void setMoviment(const Moviments& m);
+
 
     void afegirMoviment(const Moviments& m);
 

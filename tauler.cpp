@@ -380,3 +380,189 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa) const
 		}
 	}
 }
+
+
+
+void Tauler::calcularMovimentsValids(const Fitxa& fitxa) const
+{
+	int x = fitxa.getX();
+	int y = fitxa.getY();
+	bool acabat = false;
+	Fitxa f = m_tauler[x][y];
+	Moviments pendents[MAX_MOVS_FITXA];
+	int nPendents = 0;
+
+	bool dama = false;
+	if (m_tauler[x][y].getTipus() == TIPUS_DAMA)
+	{
+		dama = true;
+	}
+
+	int direccions[4][2];
+	int nDireccions = 0;
+
+	if (f.getTipus() == TIPUS_NORMAL)
+	{
+		nDireccions = 2;
+		if (f.getColor() == COLOR_BLANC)
+		{
+			direccions[0][0] = -1;
+			direccions[0][1] = -1;
+			direccions[1][0] = -1;
+			direccions[1][1] = 1;
+		}
+		else
+		{
+			direccions[0][0] = 1;
+			direccions[0][1] = -1;
+			direccions[1][0] = 1;
+			direccions[1][1] = 1;
+		}
+	}
+	else
+	{
+		if (f.getTipus() == TIPUS_DAMA)
+		{
+			nDireccions = 4;
+			direccions[0][0] = 1;
+			direccions[0][1] = 1;
+			direccions[1][0] = 1;
+			direccions[1][1] = -1;
+			direccions[2][0] = -1;
+			direccions[2][1] = 1;
+			direccions[3][0] = -1;
+			direccions[3][1] = -1;
+		}
+	}
+	
+	for (int i = 0; i < nDireccions; i++)
+	{
+		if (!dama)
+		{
+			if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getTipus() == TIPUS_EMPTY)
+			{
+				Posicio p(x + direccions[0 + i][0], y + direccions[0 + i][0]);
+				m_tauler[x][y].afegirMoviment(Moviments(p, false, false));
+			}
+			else
+			{
+				if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() == !m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() && m_tauler[x + 2 * direccions[0 + i][0]][y + 2 * direccions[0 + i][0] + 1].getTipus() == TIPUS_EMPTY)
+				{
+					Posicio p(x + 2 * direccions[0 + i][0], y + 2 * direccions[0 + i][0]);
+					if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getTipus() == TIPUS_DAMA)
+					{
+						pendents[nPendents++] = Moviments(p, true, true);
+					}
+					else
+						pendents[nPendents++] = Moviments(p, true, false);
+				}
+			}
+
+			do
+			{
+				Moviments actual = pendents[nPendents--];
+				Posicio p = actual.getUltimaPosicio();
+				int xActual = p.getX();
+				int yActual = p.getY();
+				for (int i = 0; i < nDireccions; i++)
+				{
+					Posicio p(xActual + 2 * direccions[0 + i][0], yActual + 2 * direccions[0 + i][0]);
+					int k = 0;
+					bool trobat = false;
+					if (actual.getUltimaPosicio() != p)
+					{
+						//mirar si es el paso anterior
+						if (m_tauler[xActual + direccions[0 + i][0]][yActual + direccions[0 + i][0]].getColor() == !m_tauler[xActual + direccions[0 + i][0]][yActual + direccions[0 + i][0]].getColor() && m_tauler[xActual + 2 * direccions[0 + i][0]][yActual + 2 * direccions[0 + i][0] + 1].getTipus() == TIPUS_EMPTY)
+						{
+							if (m_tauler[xActual + direccions[0 + i][0]][yActual + direccions[0 + i][0]].getTipus() == TIPUS_DAMA)
+							{
+								pendents[nPendents++] = Moviments(p, true, true);
+							}
+							else
+								pendents[nPendents++] = Moviments(p, true, false);
+						}
+						else
+						{
+							m_tauler[x][y].setMoviment(actual);
+							nPendents--;
+						}
+					}
+				}
+			} while (nPendents > 0);
+		}
+		else
+		{
+			bool menjat = false;
+			bool acabat = true;
+			int l = 0;
+			while (l < MAX_ITERACIONS && dinsTauler(x + (i + 1) * direccions[0 + i][0], y + (i + 1)* direccions[0 + i][0]) && !menjat)
+			{
+				if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getTipus() == TIPUS_EMPTY)
+				{
+					Posicio p(x + direccions[0 + i][0], y + direccions[0 + i][0]);
+					m_tauler[x][y].afegirMoviment(Moviments(p, false, false)); //ver porque falla
+				}
+				else
+				{
+					if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() == !m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() && m_tauler[x + 2 * direccions[0 + i][0]][y + 2 * direccions[0 + i][0] + 1].getTipus() == TIPUS_EMPTY)
+					{
+						menjat = true;
+						Posicio p(x + 2 * direccions[0 + i][0], y + 2 * direccions[0 + i][0]);
+						if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getTipus() == TIPUS_DAMA)
+						{
+							pendents[nPendents++] = Moviments(p, true, true);
+						}
+						else
+							pendents[nPendents++] = Moviments(p, true, false);
+					}
+				}
+				l++;
+			}
+
+			do
+			{
+				bool acabat = false;
+				Moviments actual = pendents[nPendents--];
+				Posicio p = actual.getUltimaPosicio();
+				int xActual = p.getX();
+				int yActual = p.getY();
+				for (int i = 0; i < nDireccions; i++)
+				{
+					Posicio p(xActual + 2 * direccions[0 + i][0], yActual + 2 * direccions[0 + i][0]);
+					int k = 0;
+					bool trobat = false;
+					if (actual.getUltimaPosicio() != p)
+					{
+						//mirar si es el paso anterior
+						int l = 0;
+
+						while (acabat && l < MAX_ITERACIONS && dinsTauler())
+						{
+							if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() == !m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getColor() && m_tauler[x + 2 * direccions[0 + i][0]][y + 2 * direccions[0 + i][0] + 1].getTipus() == TIPUS_EMPTY)
+							{
+								menjat = true;
+								Posicio p(x + 2 * direccions[0 + i][0], y + 2 * direccions[0 + i][0]);
+								if (m_tauler[x + direccions[0 + i][0]][y + direccions[0 + i][0]].getTipus() == TIPUS_DAMA)
+								{
+									pendents[nPendents++] = Moviments(p, true, true);
+								}
+								else
+									pendents[nPendents++] = Moviments(p, true, false);
+
+								acabat = true;
+							}
+							else
+								l++;
+						}
+
+						if (!acabat)
+							m_tauler[x][y].setMoviment(actual);
+						
+						
+					}
+				}
+			} while (nPendents > 0);
+		}
+	}
+}
+

@@ -1,3 +1,4 @@
+
 #ifndef MOVIMENTS_H
 #define MOVIMENTS_H
 
@@ -9,12 +10,13 @@ class Moviments
 {
 public:
     Moviments() : m_nPosicionsValides(0), m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false), m_posicions{}, m_posicionsMenjades{}, m_menjadesPerPosicio{} {}
-    Moviments(const Posicio& posInicial);
+    Moviments(const Posicio& posInicial, bool menjat, bool dama);
     void setMenjat() { m_menjat = true; };
 
 
     bool getMenjat() const { return m_menjat; }
     void afegirPosicio(const Posicio& pos);
+
 
     void afegirMoviment(Posicio p[], int m_nPosicionsValides, int menjades);
 
@@ -45,7 +47,6 @@ private:
     int m_nPosicionsValides;
     Posicio m_posicionsMenjades[POSICIONS_MAXIMES];
     int m_menjadesMaximes;
-    int m_menjadesPerPosicio[POSICIONS_MAXIMES];
     int m_menjadesDames;
     bool m_menjat;
 };

@@ -9,6 +9,7 @@
 using namespace std;
 
 static const int N_COLUMNES = 8;
+const int MAX_ITERACIONS = 7;
 
 class Tauler
 {

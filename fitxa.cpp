@@ -6,6 +6,11 @@ void Fitxa::afegirMoviment(const Moviments& m)
     m_nMoviments++;
 }
 
+void Fitxa::setMoviment(const Moviments& m)
+{
+    m_moviments[m_nMoviments++] = m;
+}
+
 void Fitxa::convertirDama()
 {
     m_tipus = TIPUS_DAMA;
