@@ -17,7 +17,7 @@ typedef enum
 {
     COLOR_NEGRE,
     COLOR_BLANC,
-    COLOR_EMPTY
+    COLOR_EMPTY //hem afegit color empty per a quan no hi hagi ninguna fitxa
 } ColorFitxa;
 
 class Fitxa
@@ -63,7 +63,7 @@ private:
     Posicio    m_posicio;
     ColorFitxa m_color;
     TipusFitxa m_tipus;
-    Moviments  m_moviments[MAX_MOVS_FITXA];
+    Moviments  m_moviments[MAX_MOVS_FITXA]; //array de moviments posibles
     int        m_nMoviments;
 };
 

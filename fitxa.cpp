@@ -83,6 +83,7 @@ bool Fitxa::calBufar(const Posicio& p, int i) const
     return res;
 }
 
+//comproba si una posicio es un destí correcte
 bool Fitxa::estaDesti(const Posicio& p)const
 {
     int j = 0;
@@ -103,6 +104,8 @@ bool Fitxa::estaDesti(const Posicio& p)const
     }
     return trobat;
 }
+
+// retorna el index del moviment en la que es troba la posició pasada per parametre
 int Fitxa::getIndexMoviment(const Posicio& p)const
 {
     int res = -1;

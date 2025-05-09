@@ -16,9 +16,7 @@ Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama)
     m_menjat = menjat;
 }
 
-
-
-
+//afegeix una posicio al moviment
 void Moviments::afegirPosicio(const Posicio& p)
 {
     if (m_nPosicionsValides < POSICIONS_MAXIMES)
@@ -39,7 +37,8 @@ int Moviments::getDamesMenjades() const
     return m_menjadesDames;
 }
 
-Posicio Moviments::getFitxaMatada(int j) const {
+Posicio Moviments::getFitxaMatada(int j) const 
+{
     return m_posicionsMenjades[j];
 }
 
@@ -76,6 +75,7 @@ bool Moviments::esUltimaPosicio(const Posicio& p) const
     return(p == m_posicions[m_nPosicionsValides - 1]);
 }
 
+//mira si una posicio esta en el moviment
 bool Moviments::estaDesti(const Posicio& p)const
 {
     int i = 0;
@@ -93,11 +93,8 @@ bool Moviments::estaDesti(const Posicio& p)const
     return trobat;
 }
 
-bool Moviments::estaFinal(const Posicio& p) const
-{
-    return (m_posicions[m_nPosicionsValides - 1] == p);
-}
 
+//compara si dos moviments son iguals
 bool Moviments::operator==(const Moviments& m) const
 {
     bool res = true;
@@ -128,4 +125,9 @@ bool Moviments::operator==(const Moviments& m) const
             j++;
     }
     return res;
+}
+
+void Moviments::afegirMort(const Posicio& p)
+{
+    m_posicionsMenjades[m_menjadesMaximes++] = p;
 }
