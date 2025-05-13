@@ -37,7 +37,7 @@ int Moviments::getDamesMenjades() const
     return m_menjadesDames;
 }
 
-Posicio Moviments::getFitxaMatada(int j) const 
+Posicio Moviments::getFitxaMatada(int j) const
 {
     return m_posicionsMenjades[j];
 }

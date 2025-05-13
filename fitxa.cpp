@@ -75,7 +75,7 @@ bool Fitxa::calBufar(const Posicio& p, int i) const
     bool res = false;
     int x = p.getX();
     int y = p.getY();
-    if (!getMoviment(i).estaFinal(p) || getMaxMenjades() < getMoviment(i).getMenjades() || (getMaxMenjades() == getMoviment(i).getMenjades() && getMoviment(i).getDamesMenjades() < getDamesMaximes()))
+    if (!getMoviment(i).esUltimaPosicio(p) || getMaxMenjades() < getMoviment(i).getMenjades() || (getMaxMenjades() == getMoviment(i).getMenjades() && getMoviment(i).getDamesMenjades() < getDamesMaximes()))
     {
         res = true;
     }

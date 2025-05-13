@@ -9,7 +9,7 @@ const int POSICIONS_MAXIMES = 10;
 class Moviments
 {
 public:
-    Moviments() : m_nPosicionsValides(0), m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false), m_posicions{}, m_posicionsMenjades{}, m_menjadesPerPosicio{} {}
+    Moviments() : m_nPosicionsValides(0), m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false), m_posicions{}, m_posicionsMenjades{}{}
     Moviments(const Posicio& posInicial, bool menjat, bool dama);
 
     void setMenjat() { m_menjat = true; };

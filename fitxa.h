@@ -40,10 +40,10 @@ public:
     void setPosicio(const Posicio& p) { m_posicio = p; }
     void setPosicioBuida();
     void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
+    void setMoviment(const Moviments& m);
 
     bool estaDesti(const Posicio& p) const;
 
-    void setMoviment(const Moviments& m);
 
 
     void afegirMoviment(const Moviments& m);

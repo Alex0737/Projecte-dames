@@ -10,8 +10,6 @@ using namespace std;
 int const N_FILES = 8;
 int const DIMENSIO = 2;
 
-class Fitxa;
-
 class Posicio
 {
 public:

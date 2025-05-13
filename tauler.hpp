@@ -14,7 +14,7 @@ const int MAX_ITERACIONS = 7;
 class Tauler
 {
 public:
-	Tauler() { netejaTauler(); }
+	Tauler();
 	void netejaTauler();
 	void inicialitza(const string& nomFitxer);
 	void actualitzaMovimentsValids();
@@ -27,7 +27,7 @@ public:
 	bool dinsTauler(int x, int y) const;
 
 
-	void calcularMovimentsValids(const Fitxa& fitxa) const;
+	void calcularMovimentsValids(const Fitxa& fitxa);
 
 
 	TipusFitxa getTipusFitxa(int x, int y) const;
