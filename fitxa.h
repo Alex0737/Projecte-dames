@@ -17,14 +17,13 @@ typedef enum
 {
     COLOR_NEGRE,
     COLOR_BLANC,
-    COLOR_EMPTY //hem afegit color empty per a quan no hi hagi ninguna fitxa
 } ColorFitxa;
 
 class Fitxa
 {
 public:
-    Fitxa() : m_posicio(), m_color(COLOR_EMPTY), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
-    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {};
+    Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
+    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {}
 
     int getX() const { return m_posicio.getX(); }
     int getY() const { return m_posicio.getY(); }
@@ -60,9 +59,9 @@ public:
     int getIndexMoviment(const Posicio& p) const;
 
 private:
-    Posicio    m_posicio;
-    ColorFitxa m_color;
     TipusFitxa m_tipus;
+    ColorFitxa m_color;
+    Posicio    m_posicio;
     Moviments  m_moviments[MAX_MOVS_FITXA]; //array de moviments posibles
     int        m_nMoviments;
 };

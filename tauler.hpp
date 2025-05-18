@@ -8,19 +8,20 @@
 #include "posicio.h"
 using namespace std;
 
-static const int N_COLUMNES = 8;
+const int N_COLUMNES = 8;
 const int MAX_ITERACIONS = 7;
 
 class Tauler
 {
 public:
 	Tauler();
-	void netejaTauler();
 	void inicialitza(const string& nomFitxer);
 	void actualitzaMovimentsValids();
 	void getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
 	bool mouFitxa(const Posicio& origen, const Posicio& desti);
 	string toString() const;
+
+	void netejaTauler();
 	Fitxa creaFitxa(char tipusChar, const Posicio& pos);
 
 

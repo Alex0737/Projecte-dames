@@ -36,12 +36,9 @@ bool Fitxa::operator==(const Fitxa& f) const
 
 void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)
 {
-    int x = pos.getX();
-    int y = pos.getY();
     m_posicio = pos;
     m_color = c;
     m_tipus = t;
-
 }
 
 int Fitxa::getMaxMenjades() const
