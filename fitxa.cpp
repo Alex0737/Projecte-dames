@@ -69,15 +69,13 @@ int Fitxa::getDamesMaximes() const
 
 bool Fitxa::calBufar(const Posicio& p, int i) const
 {
-    bool res = false;
-    int x = p.getX();
-    int y = p.getY();
-    if (!getMoviment(i).esUltimaPosicio(p) || getMaxMenjades() < getMoviment(i).getMenjades() || (getMaxMenjades() == getMoviment(i).getMenjades() && getMoviment(i).getDamesMenjades() < getDamesMaximes()))
+    bool esBufa = false;
+    if (getMaxMenjades() > 0 && getMoviment(i).getMenjades() < getMaxMenjades()) 
     {
-        res = true;
+        esBufa = true;
     }
 
-    return res;
+    return esBufa;
 }
 
 //comproba si una posicio es un destí correcte

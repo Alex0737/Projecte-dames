@@ -33,13 +33,12 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 	int xD = desti.getX();
 	int yD = desti.getY();
 
-	if (dinsTauler(xO, yO) && dinsTauler(xD, yD) && m_tauler[xD][yD].estaDesti(desti))
+	if (dinsTauler(xO, yO) && dinsTauler(xD, yD) && m_tauler[xO][yO].estaDesti(desti))
 	{
 		int i = m_tauler[xO][yO].getIndexMoviment(desti);
 		if (i != -1)
 		{
-			//elimina fitxes menjades
-			for (int j = 0; j < m_tauler[xO][yO].getMoviment(i).getMenjades() - 1; j++)
+			for (int j = 0; j < m_tauler[xO][yO].getMoviment(i).getMenjades(); j++)
 			{
 				Posicio p = m_tauler[xO][yO].getMoviment(i).getFitxaMatada(j);
 				int x = p.getX();
@@ -49,7 +48,6 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 			}
 			m_tauler[xD][yD] = m_tauler[xO][yO];
 			m_tauler[xO][yO].setPosicioBuida();
-			//finalment comproba si cal bufar
 			if (m_tauler[xD][yD].calBufar(desti, i))
 				m_tauler[xD][yD].setPosicioBuida();
 			resultat = true;
@@ -57,7 +55,6 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 	}
 	return resultat;
 }
-
 //afegeix totes les posicions posibles de la fitxa origen a l'array
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
@@ -412,7 +409,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 					int yActual = y + l * direccions[i][1];
 					if (m_tauler[xActual][yActual].getTipus() == TIPUS_EMPTY)
 					{
-						Posicio p(x + (l) * direccions[i][0], y + (l) * direccions[i][1]);
+						Posicio p(x + (l)*direccions[i][0], y + (l)*direccions[i][1]);
 						m_tauler[x][y].afegirMoviment(Moviments(p, false, false));
 						l++;
 					}
