@@ -1,3 +1,4 @@
+
 #include "fitxa.h"
 
 void Fitxa::afegirMoviment(const Moviments& m)
@@ -69,13 +70,10 @@ int Fitxa::getDamesMaximes() const
 
 bool Fitxa::calBufar(const Posicio& p, int i) const
 {
-    bool esBufa = false;
-    if (getMaxMenjades() > 0 && getMoviment(i).getMenjades() < getMaxMenjades()) 
-    {
-        esBufa = true;
-    }
-
-    return esBufa;
+    // Solo bufar si hay una jugada de captura mejor
+    int maxMenjades = getMaxMenjades();
+    int menjaAquestMov = getMoviment(i).getMenjades();
+    return (maxMenjades > 0 && menjaAquestMov < maxMenjades);
 }
 
 //comproba si una posicio es un destí correcte

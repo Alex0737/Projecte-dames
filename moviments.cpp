@@ -131,3 +131,20 @@ void Moviments::afegirMort(const Posicio& p)
 {
     m_posicionsMenjades[m_menjadesMaximes++] = p;
 }
+
+Moviments& Moviments::operator=(const Moviments& m)
+{
+    if (this != &m)
+    {
+        m_nPosicionsValides = m.m_nPosicionsValides;
+        m_menjadesMaximes = m.m_menjadesMaximes;
+        m_menjadesDames = m.m_menjadesDames;
+        m_menjat = m.m_menjat;
+        for (int i = 0; i < POSICIONS_MAXIMES; i++)
+        {
+            m_posicions[i] = m.m_posicions[i];
+            m_posicionsMenjades[i] = m.m_posicionsMenjades[i];
+        }
+    }
+    return *this;
+}

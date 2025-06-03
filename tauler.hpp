@@ -36,6 +36,8 @@ public:
 
 	TipusFitxa toTipus(char s)const;
 
+	int getMaxMenjadesJugador(ColorFitxa color) const;
+
 
 	void setPosBuida(const Posicio& pos);
 	Fitxa getFitxa(int x, int y) const { return m_tauler[x][y]; }

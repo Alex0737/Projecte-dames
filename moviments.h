@@ -28,6 +28,7 @@ public:
 
     bool esUltimaPosicio(const Posicio& p) const;
     Posicio getUltimaPosicio() const;
+    Moviments& operator=(const Moviments& m);
 
     bool estaDesti(const Posicio& p)const;
 
