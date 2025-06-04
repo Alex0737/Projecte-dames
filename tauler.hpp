@@ -35,8 +35,9 @@ public:
 	ColorFitxa getColorFitxa(int x, int y) const;
 
 	TipusFitxa toTipus(char s)const;
-
+	int getMaxDamesJugador(ColorFitxa color) const;
 	int getMaxMenjadesJugador(ColorFitxa color) const;
+	Posicio getFitxaBufar(ColorFitxa color) const;
 
 
 	void setPosBuida(const Posicio& pos);

@@ -6,9 +6,10 @@ Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama)
     m_posicions[0] = posInicial;
     if (menjat)
     {
-        m_menjadesMaximes = 1;
+        m_menjadesMaximes = 0;
 
     }
+    m_menjadesMaximes = 0;
     if (dama)
     {
         m_menjadesDames = 1;

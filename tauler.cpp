@@ -25,52 +25,8 @@ void Tauler::netejaTauler()
 }
 
 // la fitxa que es troba en origen a desti eliminant les fitxes menjades
-bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
-{
-	bool resultat = false;
-	int xO = origen.getX();
-	int yO = origen.getY();
-	int xD = desti.getX();
-	int yD = desti.getY();
 
-	if (dinsTauler(xO, yO) && dinsTauler(xD, yD) && m_tauler[xO][yO].estaDesti(desti))
-	{
-		int i = m_tauler[xO][yO].getIndexMoviment(desti);
-		if (i != -1)
-		{
-			// 1. Elimina las fichas comidas
-			for (int j = 0; j < m_tauler[xO][yO].getMoviment(i).getMenjades(); j++)
-			{
-				Posicio p = m_tauler[xO][yO].getMoviment(i).getFitxaMatada(j);
-				int x = p.getX();
-				int y = p.getY();
-				if (dinsTauler(x, y))
-					m_tauler[x][y].setPosicioBuida();
-			}
-			// 2. Mueve la ficha a la posición destino
-			m_tauler[xD][yD] = m_tauler[xO][yO];
-			m_tauler[xO][yO].setPosicioBuida();
-			// 3. Si toca, convierte en dama
-			if (m_tauler[xD][yD].getTipus() == TIPUS_NORMAL)
-			{
-				if ((m_tauler[xD][yD].getColor() == COLOR_BLANC && xD == 0) ||
-					(m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1))
-				{
-					m_tauler[xD][yD].convertirDama();
-				}
-			}
 
-			// 4. Vacía la posición original
-
-			// 5. Si hay que bufar la ficha (no ha hecho la captura máxima)
-			if (m_tauler[xD][yD].calBufar(desti, i))
-				m_tauler[xD][yD].setPosicioBuida();
-
-			resultat = true;
-		}
-	}
-	return resultat;
-}
 //afegeix totes les posicions posibles de la fitxa origen a l'array
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
@@ -337,32 +293,21 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 			direccions[1][0] = 1; direccions[1][1] = 1;
 		}
 
-		// --- MOVIMIENTOS SIMPLES ---
-		for (int i = 0; i < nDireccions; i++)
-		{
-			int nx = x + direccions[i][0];
-			int ny = y + direccions[i][1];
-			if (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
-			{
-				Posicio p(nx, ny);
-				m_tauler[x][y].afegirMoviment(Moviments(p, false, false));
-			}
-		}
-
-		// --- MOVIMIENTOS DE CAPTURA ---
+		// --- PENDIENTES PARA MULTI-JUMP ---
 		struct Pendent {
 			Moviments mov;
 		};
 		Pendent pendents[100];
 		int nPendents = 0;
 
-		// Capturas iniciales
+		// --- CAPTURAS INICIALES ---
 		for (int i = 0; i < nDireccions; i++)
 		{
 			int nx = x + direccions[i][0];
 			int ny = y + direccions[i][1];
 			int nx2 = x + 2 * direccions[i][0];
 			int ny2 = y + 2 * direccions[i][1];
+	
 			if (
 				dinsTauler(nx, ny) &&
 				dinsTauler(nx2, ny2) &&
@@ -370,13 +315,15 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 				m_tauler[nx][ny].getColor() != f.getColor() &&
 				m_tauler[nx2][ny2].getTipus() == TIPUS_EMPTY)
 			{
-				Moviments mov(Posicio(nx2, ny2), true, false);
+				Moviments mov(Posicio(nx2, ny2), false, false);
 				mov.afegirMort(Posicio(nx, ny));
 				pendents[nPendents++].mov = mov;
+				m_tauler[x][y].setMoviment(mov);
 			}
+			
 		}
 
-		// Cadenas de saltos (multi-jump)
+		// --- MULTI-JUMP ---
 		int idx = 0;
 		while (idx < nPendents)
 		{
@@ -392,34 +339,46 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 				int ny = uy + direccions[i][1];
 				int nx2 = ux + 2 * direccions[i][0];
 				int ny2 = uy + 2 * direccions[i][1];
-				// Si salto es posible y la ficha a saltar no está ya comida
+				// NO volver a comer la misma ficha
 				bool yaComida = false;
 				for (int j = 0; j < actual.getMenjades(); j++)
-				{
 					if (Posicio(nx, ny) == actual.getFitxaMatada(j))
 						yaComida = true;
-				}
+
 				if (
 					dinsTauler(nx, ny) &&
 					dinsTauler(nx2, ny2) &&
 					m_tauler[nx][ny].getTipus() != TIPUS_EMPTY &&
-					m_tauler[nx][ny].getColor() != f.getColor() &&
+					m_tauler[nx][ny].getColor() != m_tauler[x][y].getColor() &&
 					m_tauler[nx2][ny2].getTipus() == TIPUS_EMPTY &&
 					!yaComida)
 				{
 					Moviments nouMov = actual;
 					nouMov.afegirPosicio(Posicio(nx2, ny2));
 					nouMov.afegirMort(Posicio(nx, ny));
-					if (nPendents < MAX_PENDENTS)
-						pendents[nPendents++].mov = nouMov;
+					pendents[nPendents++].mov = nouMov;
 					found = true;
+					f.setMoviment(nouMov);
 				}
+
 			}
-			// Si no hay más saltos posibles, guarda como movimiento válido
+			// Ahora SIEMPRE guardamos todos los caminos (no solo los máximos)
 			if (!found)
 				m_tauler[x][y].afegirMoviment(actual);
 
 			idx++;
+		}
+
+		// SIEMPRE añade también los movimientos simples
+		for (int i = 0; i < nDireccions; i++)
+		{
+			int nx = x + direccions[i][0];
+			int ny = y + direccions[i][1];
+			if (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+			{
+				Posicio p(nx, ny);
+				m_tauler[x][y].afegirMoviment(Moviments(p, false, false));
+			}
 		}
 	}
 	else if (f.getTipus() == TIPUS_DAMA)
@@ -550,6 +509,78 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 	}
 }
 
+
+bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
+{
+	bool resultat = false;
+	int xO = origen.getX();
+	int yO = origen.getY();
+	int xD = desti.getX();
+	int yD = desti.getY();
+
+	if (dinsTauler(xO, yO) && dinsTauler(xD, yD) && m_tauler[xO][yO].estaDesti(desti))
+	{
+		int i = m_tauler[xO][yO].getIndexMoviment(desti);
+		if (i != -1)
+		{
+			int k = 0;
+			bool trobat = false;
+			while (k < m_tauler[xO][yO].getNumMoviments() && !trobat)
+			{
+				if (m_tauler[xO][yO].getMoviment(k).getUltimaPosicio() == desti)
+				{
+					trobat = true;
+				}
+				else
+					k++;
+			}
+			// 1. Elimina las fichas comidas
+			for (int j = 0; j < m_tauler[xO][yO].getMoviment(k).getMenjades(); j++)
+			{
+				Posicio p = m_tauler[xO][yO].getMoviment(k).getFitxaMatada(j);
+				int x = p.getX();
+				int y = p.getY();
+				if (dinsTauler(x, y))
+					m_tauler[x][y].setPosicioBuida();
+			}
+			// 2. Mueve la ficha a la posición destino
+			bool calBufar = false;
+			if (m_tauler[xO][yO].getMoviment(k).getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor()) || !(m_tauler[xO][yO].getMoviment(k).getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))&& m_tauler[xO][yO].getMoviment(k).getDamesMenjades()== getMaxDamesJugador(m_tauler[xO][yO].getColor()))
+			{
+				calBufar = true;
+			}
+			m_tauler[xD][yD] = m_tauler[xO][yO];
+			m_tauler[xO][yO].setPosicioBuida();
+			// 3. Si toca, convierte en dama
+			if (m_tauler[xD][yD].getTipus() == TIPUS_NORMAL)
+			{
+				if ((m_tauler[xD][yD].getColor() == COLOR_BLANC && xD == 0) ||
+					(m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1))
+				{
+					m_tauler[xD][yD].convertirDama();
+				}
+			}
+			if (calBufar)
+			{
+				Posicio pBufar = getFitxaBufar(m_tauler[xD][yD].getColor());
+				// Solo bufar si realmente hay una ficha con capturas posibles
+				if (m_tauler[pBufar.getX()][pBufar.getY()].getTipus() != TIPUS_EMPTY)
+					m_tauler[pBufar.getX()][pBufar.getY()].setPosicioBuida();
+			}
+			// 4. Vacía la posición original
+
+			// 5. Si hay que bufar la ficha (no ha hecho la captura máxima)
+
+
+			resultat = true;
+		}
+	}
+	actualitzaMovimentsValids();
+
+	return resultat;
+
+}
+
 int Tauler::getMaxMenjadesJugador(ColorFitxa color) const
 {
     int max = 0;
@@ -560,10 +591,66 @@ int Tauler::getMaxMenjadesJugador(ColorFitxa color) const
             if (m_tauler[i][j].getColor() == color && m_tauler[i][j].getTipus() != TIPUS_EMPTY)
             {
                 int fitxaMax = m_tauler[i][j].getMaxMenjades();
+				
                 if (fitxaMax > max)
-                    max = fitxaMax;
+				{
+					max = fitxaMax;
+				}
             }
         }
     }
     return max;
+}
+
+int Tauler::getMaxDamesJugador(ColorFitxa color) const
+{
+	int max = 0;
+	for (int i = 0; i < N_FILES; i++)
+	{
+		for (int j = 0; j < N_COLUMNES; j++)
+		{
+			if (m_tauler[i][j].getColor() == color && m_tauler[i][j].getTipus() != TIPUS_EMPTY)
+			{
+				int fitxaMax = m_tauler[i][j].getDamesMaximes();
+				if (fitxaMax > max)
+				{
+					max = fitxaMax;
+				}
+			}
+		}
+	}
+	return max;
+}
+
+Posicio Tauler::getFitxaBufar(ColorFitxa color) const
+{
+	int maxMenjades = 0;
+	Posicio pBufar(-1, -1);
+
+	for (int i = 0; i < N_FILES; i++)
+	{
+		for (int j = 0; j < N_COLUMNES; j++)
+		{
+			const Fitxa& f = m_tauler[i][j];
+			if (f.getColor() == color && f.getTipus() != TIPUS_EMPTY)
+			{
+				int fitxaMax = f.getMaxMenjades();
+				if (fitxaMax > maxMenjades)
+				{
+					maxMenjades = fitxaMax;
+					pBufar.setX(i);
+					pBufar.setY(j);
+				}
+				else if (fitxaMax == maxMenjades && maxMenjades > 0)
+				{
+					if (i < pBufar.getX() || (i == pBufar.getX() && j < pBufar.getY()))
+					{
+						pBufar.setX(i);
+						pBufar.setY(j);
+					}
+				}
+			}
+		}
+	}
+	return pBufar;
 }
