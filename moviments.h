@@ -1,21 +1,19 @@
-
 #ifndef MOVIMENTS_H
 #define MOVIMENTS_H
 
-const int POSICIONS_MAXIMES = 10;
-
 #include "posicio.h"
+#include <vector>
 
 class Moviments
 {
 public:
-    Moviments() : m_nPosicionsValides(0), m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false), m_posicions{}, m_posicionsMenjades{} {}
+    Moviments() : m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(false) {}
     Moviments(const Posicio& posInicial, bool menjat, bool dama);
 
-    void setMenjat() { m_menjat = true; };
+    void setMenjat() { m_menjat = true; }
 
     bool getMenjat() const { return m_menjat; }
-    int getNombre() const;
+    int getNombre() const { return m_posicions.size(); }
     Posicio getPosicioIndex(int i) const;
 
     void incrementarMenjades() { m_menjadesMaximes++; }
@@ -23,7 +21,7 @@ public:
     int getMenjades() const { return m_menjadesMaximes; }
 
     void afegirPosicio(const Posicio& pos);
-    void afegirMoviment(Posicio p[], int m_nPosicionsValides, int menjades);
+    void afegirMoviment(const std::vector<Posicio>& p, int menjades);
     void neteja();
 
     bool esUltimaPosicio(const Posicio& p) const;
@@ -39,9 +37,8 @@ public:
     Posicio getFitxaMatada(int j) const;
 
 private:
-    Posicio m_posicions[POSICIONS_MAXIMES]; //array de pos valides
-    int m_nPosicionsValides;
-    Posicio m_posicionsMenjades[POSICIONS_MAXIMES];
+    std::vector<Posicio> m_posicions;
+    std::vector<Posicio> m_posicionsMenjades;
     int m_menjadesMaximes; // numero maxim de menjades que es pot fer en un moviment
     int m_menjadesDames;
     bool m_menjat;

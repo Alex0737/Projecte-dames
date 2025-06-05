@@ -1,36 +1,24 @@
 #include "moviments.h"
 
-Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama)
+Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama) : m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(menjat)
 {
-    m_nPosicionsValides = 1;
-    m_posicions[0] = posInicial;
-    if (menjat)
-    {
-        m_menjadesMaximes = 0;
-
-    }
-    m_menjadesMaximes = 0;
+    m_posicions.push_back(posInicial);
     if (dama)
-    {
         m_menjadesDames = 1;
-    }
-    m_menjat = menjat;
 }
 
-//afegeix una posicio al moviment
 void Moviments::afegirPosicio(const Posicio& p)
 {
-    if (m_nPosicionsValides < POSICIONS_MAXIMES)
-    {
-        m_posicions[m_nPosicionsValides] = p;
-        m_nPosicionsValides++;
-    }
+    m_posicions.push_back(p);
 }
 
 void Moviments::neteja()
 {
-    m_nPosicionsValides = 0;
-
+    m_posicions.clear();
+    m_posicionsMenjades.clear();
+    m_menjadesMaximes = 0;
+    m_menjadesDames = 0;
+    m_menjat = false;
 }
 
 int Moviments::getDamesMenjades() const
@@ -40,112 +28,70 @@ int Moviments::getDamesMenjades() const
 
 Posicio Moviments::getFitxaMatada(int j) const
 {
-    return m_posicionsMenjades[j];
+    if (j >= 0 && j < m_posicionsMenjades.size())
+        return m_posicionsMenjades[j];
+    else
+        return Posicio(-1, -1);
 }
 
 Posicio Moviments::getPosicioIndex(int n) const
 {
-    if (n >= 0 && n < m_nPosicionsValides)
+    if (n >= 0 && n < m_posicions.size())
         return m_posicions[n];
     else
         return Posicio(-1, -1);
 }
 
-int Moviments::getNombre() const
+void Moviments::afegirMoviment(const std::vector<Posicio>& p, int menjades)
 {
-    return m_nPosicionsValides;
-}
-
-void Moviments::afegirMoviment(Posicio p[], int nPosicions, int menjades)
-{
-    m_nPosicionsValides = nPosicions;
-    for (int i = 0; i < nPosicions; i++)
-    {
-        m_posicions[i] = p[i];
-    }
+    m_posicions = p;
     m_menjadesMaximes = menjades;
 }
 
 Posicio Moviments::getUltimaPosicio() const
 {
-    return m_posicions[m_nPosicionsValides - 1];
+    return m_posicions.empty() ? Posicio(-1, -1) : m_posicions.back();
 }
 
 bool Moviments::esUltimaPosicio(const Posicio& p) const
 {
-    return(p == m_posicions[m_nPosicionsValides - 1]);
+    return (!m_posicions.empty() && p == m_posicions.back());
 }
 
-//mira si una posicio esta en el moviment
-bool Moviments::estaDesti(const Posicio& p)const
+bool Moviments::estaDesti(const Posicio& p) const
 {
-    int i = 0;
-    bool trobat = false;
-    while (i < m_nPosicionsValides && !trobat)
+    for (const auto& pos : m_posicions)
     {
-        if (p == m_posicions[i])
-        {
-            trobat = true;
-        }
-        else
-            i++;
+        if (p == pos)
+            return true;
     }
-
-    return trobat;
+    return false;
 }
 
-
-//compara si dos moviments son iguals
 bool Moviments::operator==(const Moviments& m) const
 {
-    bool res = true;
-    if (!(m_nPosicionsValides == m.m_nPosicionsValides && m_menjadesMaximes == m.m_menjadesMaximes && m_menjadesDames == m.m_menjadesDames && m_menjat == m.m_menjat))
-    {
-        res = false;
-    }
-    int i = 0;
-    int j = 0;
-    bool trobat = false;
-    while (i < m_nPosicionsValides && res)
-    {
-        if (!(m_posicions[i] == m.m_posicions[i]))
-        {
-            res = false;
-
-        }
-        else
-            i++;
-    }
-    while (j < m_nPosicionsValides && res)
-    {
-        if (!(m_posicionsMenjades[j] == m.m_posicionsMenjades[j]))
-        {
-            res = false;
-        }
-        else
-            j++;
-    }
-    return res;
+    return (m_posicions == m.m_posicions) &&
+        (m_menjadesMaximes == m.m_menjadesMaximes) &&
+        (m_menjadesDames == m.m_menjadesDames) &&
+        (m_menjat == m.m_menjat) &&
+        (m_posicionsMenjades == m.m_posicionsMenjades);
 }
 
 void Moviments::afegirMort(const Posicio& p)
 {
-    m_posicionsMenjades[m_menjadesMaximes++] = p;
+    m_posicionsMenjades.push_back(p);
+    m_menjadesMaximes = m_posicionsMenjades.size();
 }
 
 Moviments& Moviments::operator=(const Moviments& m)
 {
     if (this != &m)
     {
-        m_nPosicionsValides = m.m_nPosicionsValides;
+        m_posicions = m.m_posicions;
+        m_posicionsMenjades = m.m_posicionsMenjades;
         m_menjadesMaximes = m.m_menjadesMaximes;
         m_menjadesDames = m.m_menjadesDames;
         m_menjat = m.m_menjat;
-        for (int i = 0; i < POSICIONS_MAXIMES; i++)
-        {
-            m_posicions[i] = m.m_posicions[i];
-            m_posicionsMenjades[i] = m.m_posicionsMenjades[i];
-        }
     }
     return *this;
 }

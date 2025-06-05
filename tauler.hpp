@@ -11,6 +11,12 @@ using namespace std;
 const int N_COLUMNES = 8;
 const int MAX_ITERACIONS = 7;
 
+struct PendentDama 
+{
+	Moviments mov;
+	std::vector<Posicio> comidas;
+};
+
 class Tauler
 {
 public:
@@ -44,7 +50,7 @@ public:
 	Fitxa getFitxa(int x, int y) const { return m_tauler[x][y]; }
 
 private:
-	Fitxa m_tauler[N_FILES][N_COLUMNES];
+	std::vector<std::vector<Fitxa>> m_tauler;
 };
 
 #endif

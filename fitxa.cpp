@@ -1,15 +1,13 @@
-
 #include "fitxa.h"
 
 void Fitxa::afegirMoviment(const Moviments& m)
 {
-    m_moviments[m_nMoviments] = m;
-    m_nMoviments++;
+    m_moviments.push_back(m);
 }
 
 void Fitxa::setMoviment(const Moviments& m)
 {
-    m_moviments[m_nMoviments++] = m;
+    m_moviments.push_back(m);
 }
 
 void Fitxa::convertirDama()
@@ -19,10 +17,7 @@ void Fitxa::convertirDama()
 
 void Fitxa::netejaMoviments()
 {
-    for (int i = 0; i < m_nMoviments; i++)
-    {
-        m_moviments[i].neteja();
-    }
+    m_moviments.clear();
 }
 
 void Fitxa::setPosicioBuida()
@@ -45,12 +40,10 @@ void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)
 int Fitxa::getMaxMenjades() const
 {
     int max = 0;
-    for (int i = 0; i < m_nMoviments; i++)
+    for (const auto& mov : m_moviments)
     {
-        if (m_moviments[i].getMenjades() > max)
-        {
-            max = m_moviments[i].getMenjades();
-        }
+        if (mov.getMenjades() > max)
+            max = mov.getMenjades();
     }
     return max;
 }
@@ -58,58 +51,48 @@ int Fitxa::getMaxMenjades() const
 int Fitxa::getDamesMaximes() const
 {
     int max = 0;
-    for (int i = 0; i < m_nMoviments; i++)
+    for (const auto& mov : m_moviments)
     {
-        if (m_moviments[i].getMenjades() > max)
-        {
-            max = m_moviments[i].getDamesMenjades();
-        }
+        if (mov.getDamesMenjades() > max)
+            max = mov.getDamesMenjades();
     }
     return max;
 }
 
 bool Fitxa::calBufar(const Posicio& p, int i) const
 {
-    // Solo bufar si hay una jugada de captura mejor
     int maxMenjades = getMaxMenjades();
     int menjaAquestMov = getMoviment(i).getMenjades();
     return (maxMenjades > 0 && menjaAquestMov < maxMenjades);
 }
 
-//comproba si una posicio es un destí correcte
 bool Fitxa::estaDesti(const Posicio& p)const
 {
-    int j = 0;
     bool trobat = false;
-    while (j < m_nMoviments && !trobat)
+    for (const auto& mov : m_moviments)
     {
         int i = 0;
-        while (i < getMoviment(j).getNombre() && !trobat)
+        while (i < mov.getNombre() && !trobat)
         {
-            if (p == getMoviment(j).getPosicioIndex(i))
-            {
+            if (p == mov.getPosicioIndex(i))
                 trobat = true;
-            }
             else
                 i++;
         }
-        j++;
     }
     return trobat;
 }
 
-// retorna el index del moviment en la que es troba la posició pasada per parametre
 int Fitxa::getIndexMoviment(const Posicio& p)const
 {
     int res = -1;
-    int j = 0;
-    bool trobat = false;
-    while (j < m_nMoviments && !trobat)
+    for (size_t j = 0; j < m_moviments.size(); ++j)
     {
         int i = 0;
-        while (i < getMoviment(j).getNombre() && !trobat)
+        bool trobat = false;
+        while (i < m_moviments[j].getNombre() && !trobat)
         {
-            if (p == getMoviment(j).getPosicioIndex(i))
+            if (p == m_moviments[j].getPosicioIndex(i))
             {
                 trobat = true;
                 res = j;
@@ -117,7 +100,6 @@ int Fitxa::getIndexMoviment(const Posicio& p)const
             else
                 i++;
         }
-        j++;
     }
     return res;
 }

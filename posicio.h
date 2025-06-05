@@ -35,6 +35,5 @@ private:
 	int m_x;
 	int m_y;
 };
-//ostream& operator<<(ostream& out, const Posicio& pos);
 
 #endif

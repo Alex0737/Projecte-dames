@@ -38,7 +38,6 @@ bool Posicio::operator==(const Posicio& pos) const
 
 ostream& operator<<(ostream& out, const Posicio& pos)
 {
- 	out << pos.toString();
+	out << pos.toString();
 	return out;
 }
-

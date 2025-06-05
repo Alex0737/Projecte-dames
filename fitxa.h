@@ -3,8 +3,7 @@
 
 #include "moviments.h"
 #include "posicio.h"
-
-int const MAX_MOVS_FITXA = 64;
+#include <vector>
 
 typedef enum
 {
@@ -22,15 +21,17 @@ typedef enum
 class Fitxa
 {
 public:
-    Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY), m_nMoviments(0) {};
-    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos) : m_tipus(tipus), m_color(color), m_posicio(pos), m_nMoviments(0) {}
+    Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY) {}
+    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos)
+        : m_tipus(tipus), m_color(color), m_posicio(pos) {
+    }
 
     int getX() const { return m_posicio.getX(); }
     int getY() const { return m_posicio.getY(); }
     ColorFitxa getColor() const { return m_color; }
     TipusFitxa getTipus() const { return m_tipus; }
     Posicio getPosicio() const { return m_posicio; }
-    int getNumMoviments() const { return m_nMoviments; }
+    int getNumMoviments() const { return m_moviments.size(); }
     Moviments getMoviment(int i) const { return m_moviments[i]; }
     int getMaxMenjades() const;
 
@@ -42,9 +43,6 @@ public:
     void setMoviment(const Moviments& m);
 
     bool estaDesti(const Posicio& p) const;
-
-
-
     void afegirMoviment(const Moviments& m);
 
     void convertirDama();
@@ -53,17 +51,14 @@ public:
     bool operator==(const Fitxa& f) const;
 
     int getDamesMaximes() const;
-
     bool calBufar(const Posicio& p, int i) const;
-
     int getIndexMoviment(const Posicio& p) const;
 
 private:
     TipusFitxa m_tipus;
     ColorFitxa m_color;
     Posicio    m_posicio;
-    Moviments  m_moviments[MAX_MOVS_FITXA]; //array de moviments posibles
-    int        m_nMoviments;
+    std::vector<Moviments> m_moviments; // Ahora vector dinámico
 };
 
 #endif
