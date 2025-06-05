@@ -8,19 +8,21 @@
 using namespace std;
 
 
-class Joc 
+class Joc
 {
 
 public:
-    Joc() {};
-    
+	Joc() {};
+
 	void inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments);
 	void actualitza(int mousePosX, int mousePosY, bool mouseStatus);  //se puede cambiar esto
 	void finalitza();
 	Posicio converteixAPosicio(int mouseX, int mouseY);
 
-    
+
 private:
+	string m_nomArxiu;
+	ColorFitxa m_guanyador;
 	Tauler m_tauler;
 	vector<CuaMoviments> m_cua;
 	ModeJoc m_mode;

@@ -34,6 +34,8 @@ public:
     int getNumMoviments() const { return m_moviments.size(); }
     Moviments getMoviment(int i) const { return m_moviments[i]; }
     int getMaxMenjades() const;
+    int getNPosicions();
+
 
     void setColor(ColorFitxa c) { m_color = c; }
     void setTipus(TipusFitxa t) { m_tipus = t; }
@@ -53,6 +55,8 @@ public:
     int getDamesMaximes() const;
     bool calBufar(const Posicio& p, int i) const;
     int getIndexMoviment(const Posicio& p) const;
+
+    void visualitza(int x, int y);
 
 private:
     TipusFitxa m_tipus;

@@ -12,6 +12,87 @@
 
 
 
+bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus) 
+{
+	//TODO 1: Interactuar amb la crida per dibuixar gràfics (sprites).
+	// 	      Dibuixar a pantalla el fons i el gràfic amb el tauler buit.
+	//------------------------------------------------------------------
+
+	//TODO 1.1 Afegir l'include de GraphicManager --> #include "GraphicManager.h"
+	//TODO 1.2 Fer la crida de dibuixar un sprite --> GraphicManager::getInstance()->drawSprite(image, posX, posY);
+	//	    Per començar podem cridar el drawSprite amb els params --> 
+	//          (GRAFIC_FONS,0,0) i 
+	//          (GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER)
+
+	int fila = 2;
+	int columna = 3;
+	GraphicManager::getInstance()->drawSprite(GRAFIC_FONS, 0, 0);
+	GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER);
+	if ((mouseStatus) && (mousePosX >= (POS_X_TAULER + CASELLA_INICIAL_X)) &&
+		(mousePosY >= POS_Y_TAULER + CASELLA_INICIAL_Y) &&
+		(mousePosX <= (POS_X_TAULER + CASELLA_INICIAL_X + AMPLADA_CASELLA * NUM_COLS_TAULER)) &&
+		(mousePosY <= (POS_Y_TAULER + CASELLA_INICIAL_Y + ALCADA_CASELLA * NUM_FILES_TAULER)))
+	{
+		int posX = POS_X_TAULER + CASELLA_INICIAL_X + ((columna - 1) * AMPLADA_CASELLA);
+		int posY = POS_Y_TAULER + CASELLA_INICIAL_Y + ((fila - 1) * ALCADA_CASELLA);
+		GraphicManager::getInstance()->drawSprite(GRAFIC_FITXA_BLANCA, posX, posY);
+	}
+
+
+	//TODO 1.3: Dibuixar a pantalla el gràfic amb el tauler i una fitxa blanca a la posició (fila, columna ) del tauler
+	int posTextX = POS_X_TAULER;
+	int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * NUM_FILES_TAULER) + 120;
+	std::string msg = "PosX: " + to_string(mousePosX) + ", PosY: " + to_string(mousePosY);
+	GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, msg);
+
+	//TODO 2: Interactuar amb el ratolí.
+	//------------------------------------------------------------------
+	//TODO 2.1: Dibuixar la fitxa blanca al tauler només si estem pressionant el botó del ratolí
+
+
+
+    //TODO 2.2: Dibuixar la fitxa blanca al tauler només si estem pressionant el botó del ratolí i el ratolí
+    // està dins del límits del tauler
+
+ 
+
+    //TODO 2.3: Dibuixar la fitxa blanca al tauler només si estem pressionant el botó del ratolí i el ratolí
+    // està dins del límits del tauler. Dibuixa la fitxa a la casella on està el ratolí
+
+
+
+    //TODO 2.4: Dibuixar la fitxa blanca a la casella on cliquem al ratolí. La fitxa s'ha de mantenir dibuixada
+    // a la casella quan deixem de clicar amb el ratolí. Quan cliquem a una altra casella, la fitxa canvia de posició
+    // a la nova casella
+
+        
+        
+    // TODO 3: Imprimir text per pantalla
+    //------------------------------------------
+    // TODO 3.1: Mostrar la posició actual del ratolí a sota del tauler
+
+
+
+	return false;
+}
+
+
+
+
+//
+//  CurrentGame.cpp
+//  LearnChess
+//
+//  Created by Enric Vergara on 21/2/22.
+//
+
+#include "joc.hpp"
+#include <iostream>
+#include <fstream>
+#include "GraphicManager.h"
+
+
+
 #include "GraphicManager.h"
 #include "Joc.hpp" // O el header donde tienes la clase Joc
 
@@ -139,68 +220,118 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
 void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments)
 {
-	m_tauler.inicialitza(nomFitxerTauler);
-	if (mode == MODE_JOC_REPLAY)
-	{
-		ifstream fitxer(nomFitxerMoviments);
+    m_nomArxiu = nomFitxerMoviments;
+    m_tauler.inicialitza(nomFitxerTauler);
+    if (mode == MODE_JOC_REPLAY)
+    {
+        ifstream fitxer(nomFitxerMoviments);
 
-		if (fitxer.is_open())
-		{
-			string p1;
-			string p2;
+        if (fitxer.is_open())
+        {
+            string p1;
+            string p2;
 
-			while (fitxer >> p1)
-			{
-				fitxer >> p2;
-				Posicio PosicioI(p1);
-				Posicio PosicioF(p2);
-				Fitxa f = m_tauler.getFitxa(PosicioI.getX(), PosicioF.getY());
-				CuaMoviments cM(f, PosicioI, PosicioF);
-				m_cua.push_back(cM);
-			}
-			fitxer.close();
-		}
-	}
+            while (fitxer >> p1)
+            {
+                fitxer >> p2;
+                Posicio PosicioI(p1);
+                Posicio PosicioF(p2);
+                Fitxa f = m_tauler.getFitxa(PosicioI.getX(), PosicioF.getY());
+                CuaMoviments cM(f, PosicioI, PosicioF);
+                m_cua.push_back(cM);
+            }
+            fitxer.close();
+        }
+    }
 
 
-	//if (mode == MODE_JOC_NORMAL)
-	//{
-	//}
-	//else 
-	//{
-	//	if 
-	//	{
-	//		m_tauler.inicialitza(nomFitxerTauler);
-	//	}
-	//	else
-	//	{
+    //if (mode == MODE_JOC_NORMAL)
+    //{
+    //}
+    //else 
+    //{
+    //	if 
+    //	{
+    //		m_tauler.inicialitza(nomFitxerTauler);
+    //	}
+    //	else
+    //	{
 
-	//	}
-	//}
+    //	}
+    //}
 
 }
 Posicio Joc::converteixAPosicio(int mouseX, int mouseY) {
-	Posicio posicio;
-	int casellaX = mouseY / 80; // fila
-	int casellaY = mouseX / 80; // columna
-	if (casellaX >= 0 && casellaX < 8 && casellaY >= 0 && casellaY < 8)
-	{
-		posicio.setX(casellaX);
-		posicio.setY(casellaY);
+    Posicio posicio;
+    int casellaX = mouseY / 80; // fila
+    int casellaY = mouseX / 80; // columna
+    if (casellaX >= 0 && casellaX < 8 && casellaY >= 0 && casellaY < 8)
+    {
+        posicio.setX(casellaX);
+        posicio.setY(casellaY);
 
-	}
+    }
 
-	else
-	{
-		posicio.setX(-1);
-		posicio.setY(-1);
-	}
-	return posicio;
+    else
+    {
+        posicio.setX(-1);
+        posicio.setY(-1);
+    }
+    return posicio;
 }
 
 
 void Joc::finalitza()
 {
-
+    if(m_mode == MODE_JOC_NORMAL)
+    {
+        
+    }
 }
 
+return Joc::haAcabat()
+{
+    bool acabat = true;
+    int i = 0;
+    int j = 0;
+    int nBlancs = 0;
+    int nNegres = 0;
+    bool blanc = false;
+    bool negres = false;
+    while(!blanc && !negre && i < N_COLUMNES)
+    {
+        while(!blanc && !negre && i < N_FILES)
+        {
+            if(m_tauler.getFitxa(i,j).getTipus() != TIPUS_EMPTY)
+            {    
+                if(m_tauler.getFitxa(i,j).getColor() == COLOR_BLANC)
+                {
+                    nBlanc++;
+                    if(m_tauler.getFitxa(i,j).getNPosicions() > 0)
+                        blanc = true
+
+                }
+                if(m_tauler.getFitxa(i,j).getColor() == COLOR_NEGRE)
+                {
+                    nNegre++;
+                    if(m_tauler.getFitxa(i,j).getNPosicions() > 0)
+                        negre = true
+
+                }
+            }
+           
+        }
+    }
+    if(nNegres == 0)
+    {
+        m_guanyador = COLOR_BLANC;
+        negre = true;
+    }
+    if(nBlancs == 0)
+    {
+        blanc = true;
+        m_guanyador = COLOR_NEGRE;
+    }
+
+    return (negre && blanc);
+}

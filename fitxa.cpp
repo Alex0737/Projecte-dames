@@ -103,3 +103,25 @@ int Fitxa::getIndexMoviment(const Posicio& p)const
     }
     return res;
 }
+
+void Fitxa::visualitza(int x, int y) {
+    IMAGE_NAME img;
+    if (m_color == COLOR_BLANC)
+        img = (m_tipus == TIPUS_DAMA) ? GRAFIC_DAMA_BLANCA : GRAFIC_FITXA_BLANCA;
+    else
+        img = (m_tipus == TIPUS_DAMA) ? GRAFIC_DAMA_NEGRA : GRAFIC_FITXA_NEGRA;
+    GraphicManager::getInstance()->drawSprite(img, x, y);
+}
+
+
+int fitxa::getNPosicions()
+{
+    int posicions = ;
+    for(int i = 0; i < m_moviments.size(); i++)
+    {
+        posicions += m_moviments[i].getNombre();
+    }
+
+    return posicions;
+}
+
