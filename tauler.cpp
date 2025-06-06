@@ -482,14 +482,14 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
                 && m_tauler[xO][yO].getMoviment(k).getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
             {
                 calBufar = true;
-            }
+            } 
             m_tauler[xD][yD] = m_tauler[xO][yO];
             m_tauler[xD][yD].setPosicio(Posicio(xD, yD));
             m_tauler[xO][yO].setPosicioBuida();
             if (m_tauler[xD][yD].getTipus() == TIPUS_NORMAL)
             {
                 if ((m_tauler[xD][yD].getColor() == COLOR_BLANC && xD == 0) ||
-                    (m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1))
+                    (m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1) && m_tauler[xD][yD].getTipus() != TIPUS_DAMA)
                 {
                     m_tauler[xD][yD].convertirDama();
                 }

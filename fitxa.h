@@ -17,6 +17,7 @@ typedef enum
 {
     COLOR_NEGRE,
     COLOR_BLANC,
+    COLOR_BUIT,
 } ColorFitxa;
 
 class Fitxa

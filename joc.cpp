@@ -91,17 +91,38 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     // 3. Dibuja posiciones válidas (casillas verdes) si hay ficha seleccionada
     if (m_fitxaSeleccionada)
     {
-        for (const Posicio& p : m_posicionsValides)
+        for (int i = 0; i < m_posicionsValides.size(); i++)
         {
+            Posicio p = m_posicionsValides[i];
             int posX = POS_X_TAULER + p.getY() * AMPLADA_CASELLA;
             int posY = POS_Y_TAULER + p.getX() * ALCADA_CASELLA;
             GraphicManager::getInstance()->drawSprite(GRAFIC_POSICIO_VALIDA, posX, posY);
         }
     }
 
+    if (m_finalPartida)
+    {
+        std::string textoGanador;
+        if (m_guanyador == COLOR_BLANC)
+            textoGanador = "¡GANA EL JUGADOR BLANCO!";
+        else if (m_guanyador == COLOR_NEGRE)
+            textoGanador = "¡GANA EL JUGADOR NEGRO!";
+        else
+            textoGanador = "¡EMPATE!";
+
+        int posTextX = POS_X_TAULER;
+        int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 100;
+        GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, textoGanador);
+        cout << "ha guanyat " << m_guanyador;
+        // Opcional: return true si quieres acabar el programa aquí
+        // return true;
+    }
+
+
     // 4. Gestión de clicks de ratón:
     // Solo ejecuta la selección cuando el usuario SUELTA el botón del ratón (no mientras lo mantiene pulsado)
-    static bool lastMouseStatus = false;
+    bool moureFitxa = false;
+    static bool lastMouseStatus = false;   //NO SE COMO QUITARLO, HAY Q MIRAR
     if (!mouseStatus && lastMouseStatus) // Se ha soltado el botón
     {
         int col = (mousePosX - POS_X_TAULER) / AMPLADA_CASELLA;
@@ -111,12 +132,12 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
         {
             Posicio destino(fila, col);
             bool esValida = false;
-            for (const Posicio& p : m_posicionsValides)
+            for (int i = 0; i < m_posicionsValides.size(); i++)
             {
-                if (p == destino)
+                Posicio pos = m_posicionsValides[i];
+                if (pos == destino)
                 {
                     esValida = true;
-                    break;
                 }
             }
 
@@ -128,7 +149,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 // 2. Guarda el movimiento
                 Moviments mov(m_posFitxaSeleccionada, false, false);
                 mov.afegirPosicio(destino);
-
+                m_cua.afegirMoviment(mov);
 
                 // 3. Deselecciona ficha
                 m_fitxaSeleccionada = false;
@@ -140,11 +161,11 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 // 5. Actualiza movimientos válidos
                 m_tauler.actualitzaMovimentsValids();
 
-                return false; // Fin del turno, salimos
+                moureFitxa = true;
             }
         }
 
-        if (fila >= 0 && fila < N_FILES && col >= 0 && col < N_COLUMNES)
+        if (!moureFitxa && fila >= 0 && fila < N_FILES && col >= 0 && col < N_COLUMNES)
         {
             Fitxa f = m_tauler.getFitxa(fila, col);
 
@@ -168,6 +189,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
             }
 
         }
+
     }
     lastMouseStatus = mouseStatus; // Recuerda el estado para la próxima iteración
 
@@ -448,21 +470,27 @@ bool Joc::haAcabat()
 
                 }
             }
+            j++;
 
         }
+        i++;
     }
-    if (nNegres == 0)
+    if (nNegres == 0 || !negres)
     {
         m_guanyador = COLOR_BLANC;
-        negres = true;
     }
-    if (nBlancs == 0)
+    else
     {
-        blanc = true;
-        m_guanyador = COLOR_NEGRE;
+        if (nBlancs == 0 || !blanc)
+        {
+            m_guanyador = COLOR_NEGRE;
+        }
+        else
+        {
+            m_guanyador = COLOR_BUIT;
+        }
     }
-
-    return (negres && blanc);
+    return (nNegres == 0 || !negres || nBlancs == 0 || !blanc);
 }
 
 //MOSTRAR SI ESTÀ ENCIMA EL RATON
