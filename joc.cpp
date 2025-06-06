@@ -22,7 +22,7 @@ void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string&
     m_nPosicionsValides = 0;
     m_mode = mode;
     m_tauler.inicialitza(nomFitxerTauler);
-    m_jugadorTorn = 0;
+    m_jugadorTorn = COLOR_BLANC;
     m_finalPartida = false;
     m_fitxaSeleccionada = false;
     if (mode == MODE_JOC_REPLAY)
@@ -63,51 +63,63 @@ Posicio Joc::converteixAPosicio(int mouseX, int mouseY) {
 
 bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 {
-    m_tauler.inicialitza("tauler_inicial.txt");
-    // 1. Dibuja el fondo
+    if (m_jugadorTorn == COLOR_BLANC)
+    {
+        m_jugadorTorn = COLOR_NEGRE;
+    }
+    else
+    {
+        m_jugadorTorn = COLOR_BLANC;
+    }
+    if (!iniciat)
+    {
+        m_tauler.inicialitza("tauler_inicial.txt");
+        iniciat = true;
+        // 1. Dibuja el fondo
+    }
+    
     GraphicManager::getInstance()->drawSprite(GRAFIC_FONS, 0, 0);
 
     // 2. Dibuja el tablero
-    GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER);
+    GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER - 52, POS_Y_TAULER - 66);
 
     // 3. Dibuja todas las fichas en su posición (sin interacción, solo tablero inicial)
 
-    for (int fila = 0; fila < N_FILES; ++fila) {
-        for (int col = 0; col < N_COLUMNES; ++col) {
+    for (int fila = 0; fila < N_FILES; ++fila)
+    {
+        for (int col = 0; col < N_COLUMNES; ++col) 
+        {
             Fitxa f = m_tauler.getFitxa(fila, col);
             if (f.getTipus() != TIPUS_EMPTY)
             {
-                int posX = POS_X_TAULER + 52 + col * AMPLADA_CASELLA;
-                int posY = POS_Y_TAULER + 66 + fila * ALCADA_CASELLA;
+
+                int posX = POS_X_TAULER + col * AMPLADA_CASELLA;
+                int posY = POS_Y_TAULER + fila * ALCADA_CASELLA;
                 f.visualitza(posX, posY);
 
             }
         }
     }
-    if (!mouseStatus) // Cuando se suelta el ratón
-    {
+
+    if (mouseStatus) {
         int col = (mousePosX - POS_X_TAULER) / AMPLADA_CASELLA;
         int fila = (mousePosY - POS_Y_TAULER) / ALCADA_CASELLA;
 
         if (fila >= 0 && fila < N_FILES && col >= 0 && col < N_COLUMNES) {
             Fitxa f = m_tauler.getFitxa(fila, col);
-            if (f.getTipus() != TIPUS_EMPTY) {
-                // Guardar la posición seleccionada
+            if (f.getTipus() != TIPUS_EMPTY && f.getColor() == m_jugadorTorn) {
                 m_fitxaSeleccionada = true;
                 m_posFitxaSeleccionada = Posicio(fila, col);
-
-                // --- ¡Aquí llenas el vector! ---
-                m_posicionsValides.clear();
-                Posicio posicionsPossibles[20];
-                m_tauler.getPosicionsPossibles(Posicio(fila, col), m_nPosicionsValides, posicionsPossibles);
-
-                for (int i = 0; i < m_nPosicionsValides; ++i) {
-                    m_posicionsValides.push_back(posicionsPossibles[i]);
-                }
             }
+            std::cout << m_posFitxaSeleccionada.getX() << m_posFitxaSeleccionada.getY();
+
         }
     }
 
+    if (m_fitxaSeleccionada)
+    {
+
+    }
 
     // 4. Puedes mostrar la posición del ratón debajo del tablero (opcional)
     int posTextX = POS_X_TAULER;
@@ -116,6 +128,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, msg);
 
     // 5. No hace nada más, solo muestra el tablero y las fichas iniciales
+
     return false;
 }
 

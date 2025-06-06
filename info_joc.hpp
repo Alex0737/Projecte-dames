@@ -2,8 +2,8 @@
 #define INFO_JOC_H
 
 // Posició del tauler a la pantalla
-const int POS_X_TAULER = 75+ 52;
-const int POS_Y_TAULER = 10+ 66;
+const int POS_X_TAULER = 75;
+const int POS_Y_TAULER = 66;
 
 // Posició de la primera casella del tauler respecte a la cantonada superior esquerra del gràfic del tauler
 const int CASELLA_INICIAL_X = 52;

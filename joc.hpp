@@ -12,7 +12,7 @@ class Joc
 {
 
 public:
-	Joc() {};
+	Joc() { iniciat = false; m_jugadorTorn = COLOR_BLANC; };
 
 	void inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments);
 	bool actualitza(int mousePosX, int mousePosY, bool mouseStatus);
@@ -22,16 +22,14 @@ public:
 
 
 private:
-	std::vector<Posicio> m_posicionsValides; // almacena las posiciones posibles
-	int m_nPosicionsValides = 0;
-
+	bool iniciat;
 	string m_nomArxiuMoviments;
 	string m_nomArxiuTauler;
 	ColorFitxa m_guanyador;
 	Tauler m_tauler;
 	CuaMoviments m_cua;
 	ModeJoc m_mode;
-	int m_jugadorTorn;
+	ColorFitxa m_jugadorTorn;
 	bool m_finalPartida;
 	bool m_fitxaSeleccionada;
 	Posicio m_posFitxaSeleccionada;
