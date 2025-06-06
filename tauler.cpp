@@ -484,6 +484,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
                 calBufar = true;
             }
             m_tauler[xD][yD] = m_tauler[xO][yO];
+            m_tauler[xD][yD].setPosicio(Posicio(xD, yD));
             m_tauler[xO][yO].setPosicioBuida();
             if (m_tauler[xD][yD].getTipus() == TIPUS_NORMAL)
             {

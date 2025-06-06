@@ -28,7 +28,7 @@ void CuaMoviments::guardarMoviments(const string& nomFitxer)
 				fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio() << endl;
 			}
 			copia.pop();
-	
+
 		}
 		fitxer.close();
 	}
@@ -48,8 +48,13 @@ void CuaMoviments::carregaMoviments(const string& nomFitxer)
 			m.afegirPosicio(Posicio(origen));
 			m.afegirPosicio(Posicio(desti));
 			m_cua.push(m);
-		
+
 		}
 		fitxer.close();
 	}
+}
+
+void CuaMoviments::afegirMoviment(const Moviments& m)
+{
+	m_cua.push(m);
 }

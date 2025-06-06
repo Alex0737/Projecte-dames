@@ -104,7 +104,7 @@ int Fitxa::getIndexMoviment(const Posicio& p)const
     return res;
 }
 
-void Fitxa::visualitza(int x, int y) 
+void Fitxa::visualitza(int x, int y)
 {
     IMAGE_NAME spriteID = GRAFIC_FONS;
     if (!(m_tipus == TIPUS_EMPTY))
