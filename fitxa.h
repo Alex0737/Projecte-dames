@@ -4,6 +4,7 @@
 #include "moviments.h"
 #include "posicio.h"
 #include <vector>
+#include "GraphicManager.h"
 
 typedef enum
 {
@@ -22,9 +23,7 @@ class Fitxa
 {
 public:
     Fitxa() : m_posicio(), m_color(COLOR_BLANC), m_tipus(TIPUS_EMPTY) {}
-    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos)
-        : m_tipus(tipus), m_color(color), m_posicio(pos) {
-    }
+    Fitxa(TipusFitxa tipus, ColorFitxa color, const Posicio& pos): m_tipus(tipus), m_color(color), m_posicio(pos) {}
 
     int getX() const { return m_posicio.getX(); }
     int getY() const { return m_posicio.getY(); }

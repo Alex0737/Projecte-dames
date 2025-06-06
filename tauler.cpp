@@ -2,6 +2,10 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "GraphicManager.h"
+#include "info_joc.hpp"
+const int MIDA_CASELLA = 80;
+
 
 Tauler::Tauler()
 {
@@ -109,13 +113,15 @@ void Tauler::inicialitza(const std::string& nomFitxer)
             Posicio pos(posicioStr);
             int fila = pos.getX();
             int col = pos.getY();
-
             Fitxa novaFitxa = creaFitxa(tipus, pos);
 
             m_tauler[fila][col] = novaFitxa;
+
         }
         fitxer.close();
+
     }
+
 }
 
 std::string Tauler::toString() const
@@ -573,4 +579,14 @@ Posicio Tauler::getFitxaBufar(ColorFitxa color) const
         }
     }
     return pBufar;
+}
+
+void Tauler::visualitza() {
+    for (int x = 0; x < N_FILES; ++x) {
+        for (int y = 0; y < N_COLUMNES; ++y) {
+            Fitxa* f = &m_tauler[x][y];
+            if (f != nullptr && f->getTipus() != TIPUS_EMPTY)
+                f->visualitza(POS_X_TAULER + x * MIDA_CASELLA, POS_Y_TAULER + y * MIDA_CASELLA);
+        }
+    }
 }

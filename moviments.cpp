@@ -1,3 +1,4 @@
+
 #include "moviments.h"
 
 Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama) : m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(menjat)

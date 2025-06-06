@@ -15,21 +15,27 @@ public:
 	Joc() {};
 
 	void inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments);
-	void actualitza(int mousePosX, int mousePosY, bool mouseStatus);  //se puede cambiar esto
+	bool actualitza(int mousePosX, int mousePosY, bool mouseStatus);
 	void finalitza();
 	Posicio converteixAPosicio(int mouseX, int mouseY);
+	bool haAcabat();
 
 
 private:
-	string m_nomArxiu;
+	std::vector<Posicio> m_posicionsValides; // almacena las posiciones posibles
+	int m_nPosicionsValides = 0;
+
+	string m_nomArxiuMoviments;
+	string m_nomArxiuTauler;
 	ColorFitxa m_guanyador;
 	Tauler m_tauler;
-	vector<CuaMoviments> m_cua;
+	CuaMoviments m_cua;
 	ModeJoc m_mode;
 	int m_jugadorTorn;
 	bool m_finalPartida;
 	bool m_fitxaSeleccionada;
 	Posicio m_posFitxaSeleccionada;
+	int m_nPosicionsValides;
 };
 
 #endif 

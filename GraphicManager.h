@@ -17,7 +17,7 @@
 using namespace std;
 
 
-typedef enum 
+typedef enum
 {
     GRAFIC_FONS = 0,
     GRAFIC_TAULER,
@@ -29,12 +29,12 @@ typedef enum
     GRAFIC_NUM_MAX
 } IMAGE_NAME;
 
-typedef enum 
+typedef enum
 {
     FONT_WHITE_30 = 0,
     FONT_RED_30,
     FONT_GREEN_30,
-    
+
     FONT_NUM_MAX
 } FONT_NAME;
 
@@ -42,21 +42,21 @@ typedef enum
 class GraphicManager
 {
 public:
-    
-    void            drawSprite  (IMAGE_NAME name, float posX, float posY);
+
+    void            drawSprite(IMAGE_NAME name, float posX, float posY);
     //size: [0-1]
-    NFont::Rectf    drawFont    (FONT_NAME name, float posX,
-                                 float posY, float size,
-                                 const string& msg);
-    
-    
-    static GraphicManager *getInstance()
+    NFont::Rectf    drawFont(FONT_NAME name, float posX,
+        float posY, float size,
+        const string& msg);
+
+
+    static GraphicManager* getInstance()
     {
         if (instance == NULL)
-          instance = new GraphicManager();
+            instance = new GraphicManager();
         return instance;
     }
-    
+
 
 protected:
     GraphicManager();
@@ -65,16 +65,16 @@ protected:
     GraphicManager& operator=(GraphicManager const&);
 
 private:
-    static GraphicManager *instance;
-    
+    static GraphicManager* instance;
+
     Sprite  m_aSprites[GRAFIC_NUM_MAX];
     NFont   m_oFontWhite_30;
     NFont   m_oFontRed_30;
     NFont   m_oFontGreen_30;
-    
+
 private:
-    string getImagePath (IMAGE_NAME);
-    string getFontPath  (FONT_NAME);
+    string getImagePath(IMAGE_NAME);
+    string getFontPath(FONT_NAME);
 };
 
 

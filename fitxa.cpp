@@ -104,24 +104,47 @@ int Fitxa::getIndexMoviment(const Posicio& p)const
     return res;
 }
 
-void Fitxa::visualitza(int x, int y) {
-    IMAGE_NAME img;
-    if (m_color == COLOR_BLANC)
-        img = (m_tipus == TIPUS_DAMA) ? GRAFIC_DAMA_BLANCA : GRAFIC_FITXA_BLANCA;
-    else
-        img = (m_tipus == TIPUS_DAMA) ? GRAFIC_DAMA_NEGRA : GRAFIC_FITXA_NEGRA;
-    GraphicManager::getInstance()->drawSprite(img, x, y);
+void Fitxa::visualitza(int x, int y) 
+{
+    IMAGE_NAME spriteID = GRAFIC_FONS;
+    if (!(m_tipus == TIPUS_EMPTY))
+    {
+        if (m_tipus == TIPUS_NORMAL && m_color == COLOR_BLANC)
+        {
+            spriteID = GRAFIC_FITXA_BLANCA;
+        }
+        else
+        {
+            if (m_tipus == TIPUS_DAMA && m_color == COLOR_BLANC)
+            {
+                spriteID = GRAFIC_DAMA_BLANCA;
+
+            }
+            else
+            {
+                if (m_tipus == TIPUS_NORMAL && m_color == COLOR_NEGRE)
+                {
+                    spriteID = GRAFIC_FITXA_NEGRA;
+                }
+                else
+                {
+                    if (m_tipus == TIPUS_DAMA && m_color == COLOR_NEGRE)
+                        spriteID = GRAFIC_DAMA_NEGRA;
+                }
+            }
+        }
+    }
+    GraphicManager::getInstance()->drawSprite(spriteID, x, y);
+
 }
 
-
-int fitxa::getNPosicions()
+int Fitxa::getNPosicions()
 {
-    int posicions = ;
-    for(int i = 0; i < m_moviments.size(); i++)
+    int posicions = 0;
+    for (int i = 0; i < m_moviments.size(); i++)
     {
         posicions += m_moviments[i].getNombre();
     }
 
     return posicions;
 }
-

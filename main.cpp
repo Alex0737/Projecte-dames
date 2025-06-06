@@ -32,6 +32,7 @@
 
 int main(int argc, const char* argv[])
 {
+
     //Instruccions necesaries per poder incloure la llibreria i que trobi el main
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
@@ -63,4 +64,3 @@ int main(int argc, const char* argv[])
     SDL_Quit();
     return 0;
 }
-

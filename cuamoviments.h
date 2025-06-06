@@ -1,13 +1,17 @@
-
+#include <queue>
 #include "tauler.hpp"
+#include <fstream>
+#include <string>
 
 class CuaMoviments
 {
 private:
-	Fitxa m_fitxa;
-	Posicio m_posicioInicial;
-	Posicio m_posicioFinal;
+	queue<Moviments> m_cua;
 public:
-	CuaMoviments(Fitxa f, Posicio p1, Posicio p2) { m_fitxa = f; m_posicioInicial = p1;  m_posicioFinal = p2; }
-
+	CuaMoviments() {};
+	CuaMoviments(Fitxa f, Posicio p1, Posicio p2) { }
+	Moviments treuPrimerMoviment();
+	bool buida();
+	void carregaMoviments(const string& nomFitxer);
+	void guardarMoviments(const string& nom);
 };

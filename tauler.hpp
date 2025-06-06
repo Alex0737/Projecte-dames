@@ -11,7 +11,7 @@ using namespace std;
 const int N_COLUMNES = 8;
 const int MAX_ITERACIONS = 7;
 
-struct PendentDama 
+struct PendentDama
 {
 	Moviments mov;
 	std::vector<Posicio> comidas;
@@ -44,6 +44,7 @@ public:
 	int getMaxDamesJugador(ColorFitxa color) const;
 	int getMaxMenjadesJugador(ColorFitxa color) const;
 	Posicio getFitxaBufar(ColorFitxa color) const;
+	void visualitza();
 
 
 	void setPosBuida(const Posicio& pos);
