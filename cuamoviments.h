@@ -15,5 +15,6 @@ public:
 	void carregaMoviments(const string& nomFitxer);
 	void guardarMoviments(const string& nom);
 	void afegirMoviment(const Moviments& m);
+	Moviments treuPrimer() { return m_cua.front(); }
 
 };

@@ -33,6 +33,30 @@
 int main(int argc, const char* argv[])
 {
 
+    Joc joc;
+
+    int mode;
+    do
+    {
+        std::cout << "quin mode vols jugar:" << endl;
+        std::cout << "  1. Mode normal" << endl;
+        std::cout << "  2. Mode replay" << endl;
+
+        
+        cin >> mode;
+        if (mode == 1)
+        {
+            joc.setMode(MODE_JOC_NORMAL);
+        }
+        else
+        {
+            if (mode == 2)
+            {
+                joc.setMode(MODE_JOC_REPLAY);
+            }
+        }
+    } while (mode != 1 && mode != 2);
+
     //Instruccions necesaries per poder incloure la llibreria i que trobi el main
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
@@ -41,11 +65,10 @@ int main(int argc, const char* argv[])
     Screen pantalla(TAMANY_PANTALLA_X, TAMANY_PANTALLA_Y);
     //Mostrem la finestra grafica
     pantalla.show();
-
-    Joc joc;
-
+    bool primera = false;
     do
     {
+
         // Captura tots els events de ratolí i teclat de l'ultim cicle
         pantalla.processEvents();
 
@@ -57,9 +80,25 @@ int main(int argc, const char* argv[])
         // Actualitza la pantalla
         pantalla.update();
 
-    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE) && !joc.getFinalPartida());
     // Sortim del bucle si pressionem ESC
 
+    joc.guardaPartida("moviments.txt");
+
+    do
+    {
+
+        if (!joc.getFinalPartida() && !primera)
+        {
+            cout << endl;
+            cout << "guanyador: " << joc.getColorGuanyador() << endl;
+            cout << "presiona esc per finalitzar tancar la finestra" << endl;
+
+        }
+        primera = true;
+
+    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+    
     //Instruccio necesaria per alliberar els recursos de la llibreria 
     SDL_Quit();
     return 0;
