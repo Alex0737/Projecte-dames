@@ -482,7 +482,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
                 && m_tauler[xO][yO].getMoviment(k).getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
             {
                 calBufar = true;
-            } 
+            }
             m_tauler[xD][yD] = m_tauler[xO][yO];
             m_tauler[xD][yD].setPosicio(Posicio(xD, yD));
             m_tauler[xO][yO].setPosicioBuida();

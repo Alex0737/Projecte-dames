@@ -42,7 +42,7 @@ int main(int argc, const char* argv[])
         std::cout << "  1. Mode normal" << endl;
         std::cout << "  2. Mode replay" << endl;
 
-        
+
         cin >> mode;
         if (mode == 1)
         {
@@ -98,7 +98,7 @@ int main(int argc, const char* argv[])
         primera = true;
 
     } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
-    
+
     //Instruccio necesaria per alliberar els recursos de la llibreria 
     SDL_Quit();
     return 0;
