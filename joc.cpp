@@ -205,14 +205,14 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
             }
             else
             {
-                if (m_mode == MODE_JOC_UN && m_jugadorTorn == COLOR_NEGRE)
+                if (m_mode == MODE_JOC_UN && m_jugadorTorn == COLOR_NEGRE && !m_finalPartida)
                 {
                     bool haComido = false;
-                    int fila = 0;
-                    int col = 0;
-                    while (fila < N_FILES && !haComido)
+
+                    // 1. Buscar cualquier movimiento de comer (captura)
+                    for (int fila = 0; fila < N_FILES && !haComido; ++fila)
                     {
-                        while (col < N_COLUMNES && !haComido)
+                        for (int col = 0; col < N_COLUMNES && !haComido; ++col)
                         {
                             Fitxa f = m_tauler.getFitxa(fila, col);
                             if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
@@ -221,7 +221,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                 for (int k = 0; k < nMov; ++k)
                                 {
                                     Moviments mov = f.getMoviment(k);
-                                    if (mov.esCaptura())
+                                    if (mov.esCaptura()) // Método que indica si este movimiento es una captura/comida
                                     {
                                         Posicio destino = mov.getUltimaPosicio();
                                         m_tauler.mouFitxa(Posicio(fila, col), destino);
@@ -230,22 +230,20 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
-                                        if (haAcabat())
-                                            m_finalPartida = true;
+                                        if (haAcabat()) m_finalPartida = true;
                                         haComido = true;
                                     }
                                 }
                             }
-                            col++;
                         }
-                        fila++;
                     }
 
+                    // 2. Si NO ha comido, hace el primer movimiento normal que encuentre
                     if (!haComido)
                     {
-                        for (int fila = 0; fila < N_FILES; fila++)
+                        for (int fila = 0; fila < N_FILES; ++fila)
                         {
-                            for (int col = 0; col < N_COLUMNES; col++)
+                            for (int col = 0; col < N_COLUMNES; ++col)
                             {
                                 Fitxa f = m_tauler.getFitxa(fila, col);
                                 if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
@@ -253,7 +251,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     int nMov = f.getNPosicions();
                                     if (nMov > 0)
                                     {
-                                        Moviments mov = f.getMoviment(0);
+                                        Moviments mov = f.getMoviment(0); // Primer movimiento posible
                                         Posicio destino = mov.getUltimaPosicio();
                                         m_tauler.mouFitxa(Posicio(fila, col), destino);
 
@@ -261,13 +259,14 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
-
-                                        resultado = false;
+                                        if (haAcabat()) m_finalPartida = true;
+                                        return false; // Sólo mueve una vez por frame
                                     }
                                 }
                             }
                         }
                     }
+                    // Sale aquí tras comer o mover (por el return del bucle normal)
                 }
             }
         }
