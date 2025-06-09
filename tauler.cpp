@@ -342,110 +342,113 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
             }
         }
     }
-    else if (f.getTipus() == TIPUS_DAMA)
-{
-    nDireccions = 4;
-    direccions[0][0] = 1;  direccions[0][1] = 1;
-    direccions[1][0] = 1;  direccions[1][1] = -1;
-    direccions[2][0] = -1; direccions[2][1] = 1;
-    direccions[3][0] = -1; direccions[3][1] = -1;
-
-    for (int i = 0; i < nDireccions; i++)
+    else
     {
-        int nx = x + direccions[i][0];
-        int ny = y + direccions[i][1];
-        while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+        if (f.getTipus() == TIPUS_DAMA)
         {
-            Posicio p(nx, ny);
-            f.afegirMoviment(Moviments(p, false, false));
-            nx += direccions[i][0];
-            ny += direccions[i][1];
+            nDireccions = 4;
+            direccions[0][0] = 1;  direccions[0][1] = 1;
+            direccions[1][0] = 1;  direccions[1][1] = -1;
+            direccions[2][0] = -1; direccions[2][1] = 1;
+            direccions[3][0] = -1; direccions[3][1] = -1;
         }
-    }
 
-    std::vector<Moviments> pendentsMov;
-    std::vector<std::vector<Posicio>> pendentsComidas;
-
-    for (int dir = 0; dir < nDireccions; dir++)
-    {
-        int dx = direccions[dir][0];
-        int dy = direccions[dir][1];
-        int nx = x + dx;
-        int ny = y + dy;
-        while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+        for (int i = 0; i < nDireccions; i++)
         {
-            nx += dx;
-            ny += dy;
-        }
-        if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() && m_tauler[nx][ny].getTipus() != TIPUS_EMPTY)
-        {
-            int ex = nx + dx;
-            int ey = ny + dy;
-            while (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
+            int nx = x + direccions[i][0];
+            int ny = y + direccions[i][1];
+            while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
             {
-                Moviments mov(Posicio(ex, ey), true, true);
-                mov.afegirMort(Posicio(nx, ny));
-                std::vector<Posicio> comidas;
-                comidas.push_back(Posicio(nx, ny));
-                pendentsMov.push_back(mov);
-                pendentsComidas.push_back(comidas);
-                ex += dx;
-                ey += dy;
+                Posicio p(nx, ny);
+                f.afegirMoviment(Moviments(p, false, false));
+                nx += direccions[i][0];
+                ny += direccions[i][1];
             }
         }
-    }
 
-    int p = 0;
-    while (p < pendentsMov.size())
-    {
-        Moviments actual = pendentsMov[p];
-        std::vector<Posicio> comidas = pendentsComidas[p];
-        Posicio ultima = actual.getUltimaPosicio();
-        int ux = ultima.getX();
-        int uy = ultima.getY();
-        bool trobat = false;
+        std::vector<Moviments> pendentsMov;
+        std::vector<std::vector<Posicio>> pendentsComidas;
 
         for (int dir = 0; dir < nDireccions; dir++)
         {
             int dx = direccions[dir][0];
             int dy = direccions[dir][1];
-            int nx = ux + dx;
-            int ny = uy + dy;
+            int nx = x + dx;
+            int ny = y + dy;
             while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
             {
                 nx += dx;
                 ny += dy;
             }
-            bool yaComida = false;
-            for (const auto& c : comidas)
-                if (c == Posicio(nx, ny))
-                    yaComida = true;
-            if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() &&
-                m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
+            if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() && m_tauler[nx][ny].getTipus() != TIPUS_EMPTY)
             {
                 int ex = nx + dx;
                 int ey = ny + dy;
                 while (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
                 {
-                    Moviments mov2 = actual;
-                    mov2.afegirPosicio(Posicio(ex, ey));
-                    mov2.afegirMort(Posicio(nx, ny));
-                    std::vector<Posicio> comidas2 = comidas;
-                    comidas2.push_back(Posicio(nx, ny));
-                    pendentsMov.push_back(mov2);
-                    pendentsComidas.push_back(comidas2);
-                    trobat = true;
+                    Moviments mov(Posicio(ex, ey), true, true);
+                    mov.afegirMort(Posicio(nx, ny));
+                    std::vector<Posicio> comidas;
+                    comidas.push_back(Posicio(nx, ny));
+                    pendentsMov.push_back(mov);
+                    pendentsComidas.push_back(comidas);
                     ex += dx;
                     ey += dy;
                 }
             }
         }
-        if (!trobat)
-            f.afegirMoviment(actual);
 
-        p++;
+        int p = 0;
+        while (p < pendentsMov.size())
+        {
+            Moviments actual = pendentsMov[p];
+            std::vector<Posicio> comidas = pendentsComidas[p];
+            Posicio ultima = actual.getUltimaPosicio();
+            int ux = ultima.getX();
+            int uy = ultima.getY();
+            bool trobat = false;
+
+            for (int dir = 0; dir < nDireccions; dir++)
+            {
+                int dx = direccions[dir][0];
+                int dy = direccions[dir][1];
+                int nx = ux + dx;
+                int ny = uy + dy;
+                while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+                {
+                    nx += dx;
+                    ny += dy;
+                }
+                bool yaComida = false;
+                for (const auto& c : comidas)
+                    if (c == Posicio(nx, ny))
+                        yaComida = true;
+                if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() &&
+                    m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
+                {
+                    int ex = nx + dx;
+                    int ey = ny + dy;
+                    while (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
+                    {
+                        Moviments mov2 = actual;
+                        mov2.afegirPosicio(Posicio(ex, ey));
+                        mov2.afegirMort(Posicio(nx, ny));
+                        std::vector<Posicio> comidas2 = comidas;
+                        comidas2.push_back(Posicio(nx, ny));
+                        pendentsMov.push_back(mov2);
+                        pendentsComidas.push_back(comidas2);
+                        trobat = true;
+                        ex += dx;
+                        ey += dy;
+                    }
+                }
+            }
+            if (!trobat)
+                f.afegirMoviment(actual);
+
+            p++;
+        }
     }
-}
 }
 
 
