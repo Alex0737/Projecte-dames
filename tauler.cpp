@@ -384,7 +384,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
             {
                 int ex = nx + dx;
                 int ey = ny + dy;
-                while (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
+                if (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
                 {
                     Moviments mov(Posicio(ex, ey), true, true);
                     mov.afegirMort(Posicio(nx, ny));
@@ -392,8 +392,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     comidas.push_back(Posicio(nx, ny));
                     pendentsMov.push_back(mov);
                     pendentsComidas.push_back(comidas);
-                    ex += dx;
-                    ey += dy;
+                    // NO SIGAS AVANZANDO con ex += dx, ey += dy;
                 }
             }
         }
@@ -428,7 +427,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                 {
                     int ex = nx + dx;
                     int ey = ny + dy;
-                    while (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
+                    if (dinsTauler(ex, ey) && m_tauler[ex][ey].getTipus() == TIPUS_EMPTY)
                     {
                         Moviments mov2 = actual;
                         mov2.afegirPosicio(Posicio(ex, ey));
@@ -438,8 +437,6 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                         pendentsMov.push_back(mov2);
                         pendentsComidas.push_back(comidas2);
                         trobat = true;
-                        ex += dx;
-                        ey += dy;
                     }
                 }
             }
