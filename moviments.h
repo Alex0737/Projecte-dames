@@ -28,6 +28,8 @@ public:
     Posicio getUltimaPosicio() const;
     Moviments& operator=(const Moviments& m);
 
+    bool esCaptura() { return m_menjadesMaximes > 0; }
+
     bool estaDesti(const Posicio& p)const;
 
     bool operator==(const Moviments& m) const;

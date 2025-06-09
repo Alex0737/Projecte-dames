@@ -23,7 +23,8 @@ typedef enum
 {
     MODE_JOC_NORMAL,
     MODE_JOC_REPLAY,
-    MODE_JOC_NONE
+    MODE_JOC_NONE,
+    MODE_JOC_UN
 } ModeJoc;
 
 #endif 

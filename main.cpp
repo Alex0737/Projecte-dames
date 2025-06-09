@@ -34,6 +34,7 @@ int main(int argc, const char* argv[])
 {
 
     Joc joc;
+    bool primer = false;
 
     int mode;
     do
@@ -41,8 +42,9 @@ int main(int argc, const char* argv[])
         std::cout << "quin mode vols jugar:" << endl;
         std::cout << "  1. Mode normal" << endl;
         std::cout << "  2. Mode replay" << endl;
+        std::cout << "  3. Mode un jugador" << endl;
 
-
+        
         cin >> mode;
         if (mode == 1)
         {
@@ -54,12 +56,49 @@ int main(int argc, const char* argv[])
             {
                 joc.setMode(MODE_JOC_REPLAY);
             }
+            else
+            {
+                if (mode == 3)
+                {
+                    joc.setMode(MODE_JOC_UN);
+                }
+            }
         }
-    } while (mode != 1 && mode != 2);
+    } while (mode != 1 && mode != 2 && mode != 3);
+
+    int inici;
+    if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
+    {
+        do
+        {
+            std::cout << "Vols jugar amb tauler original o amb un tauler diferent?" << endl;
+            std::cout << "  1. Original" << endl;
+            std::cout << "  2. Diferent" << endl;
+            cin >> inici;
+        } while (inici != 1 && inici != 2);
+        if (inici == 1)
+        {
+            joc.setTaulerInici("tauler_inicial.txt");
+        }
+        else
+        {
+            if(inici == 2)
+                joc.setTaulerInici("opcional.txt");
+        }
+    }
+    else
+    {
+        if(joc.getMode() == MODE_JOC_REPLAY)
+            joc.setTaulerInici("tauler_inicial.txt");
+
+    }
+
+    joc.setTaulerMoviments("moviments.txt");
 
     //Instruccions necesaries per poder incloure la llibreria i que trobi el main
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
+   
 
     //Inicialitza un objecte de la classe Screen que s'utilitza per gestionar la finestra grafica
     Screen pantalla(TAMANY_PANTALLA_X, TAMANY_PANTALLA_Y);
@@ -79,26 +118,44 @@ int main(int argc, const char* argv[])
 
         // Actualitza la pantalla
         pantalla.update();
-
-    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE) && !joc.getFinalPartida());
-    // Sortim del bucle si pressionem ESC
-
-    joc.guardaPartida("moviments.txt");
-
-    do
-    {
-
-        if (!joc.getFinalPartida() && !primera)
+        if (joc.getFinalPartida() && !primer)
         {
-            cout << endl;
-            cout << "guanyador: " << joc.getColorGuanyador() << endl;
+            primer = true;
+            cout << "Ha acabat la partida" << endl;
+            if (joc.getColorGuanyador() == COLOR_BLANC)
+                cout << "guanyador: " << "Color Blanc" << endl;
+            else
+            {
+                if (joc.getColorGuanyador() == COLOR_NEGRE)
+                    cout << "guanyador: " << "Color Negre" << endl;
+                else
+                {
+                    cout << "no hi ha guanyador" << endl;
+                }
+            }
             cout << "presiona esc per finalitzar tancar la finestra" << endl;
 
         }
-        primera = true;
 
     } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+    // Sortim del bucle si pressionem ESC
 
+
+    int decisio;
+    if(joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
+    {
+        do
+        {
+            std::cout << "Vols guardar la partida en un arxiu de text?" << endl;
+            std::cout << "  1. Si" << endl;
+            std::cout << "  2. No" << endl;
+            cin >> decisio;
+        } while (mode != 1 && mode != 2);
+        if (decisio == 1)
+        {
+            joc.guardaPartida("moviments.txt");
+        }
+    }
     //Instruccio necesaria per alliberar els recursos de la llibreria 
     SDL_Quit();
     return 0;
