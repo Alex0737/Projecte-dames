@@ -44,7 +44,7 @@ int main(int argc, const char* argv[])
         std::cout << "  2. Mode replay" << endl;
         std::cout << "  3. Mode un jugador" << endl;
 
-        
+
         cin >> mode;
         if (mode == 1)
         {
@@ -82,13 +82,13 @@ int main(int argc, const char* argv[])
         }
         else
         {
-            if(inici == 2)
+            if (inici == 2)
                 joc.setTaulerInici("opcional.txt");
         }
     }
     else
     {
-        if(joc.getMode() == MODE_JOC_REPLAY)
+        if (joc.getMode() == MODE_JOC_REPLAY)
             joc.setTaulerInici("tauler_inicial.txt");
 
     }
@@ -98,7 +98,7 @@ int main(int argc, const char* argv[])
     //Instruccions necesaries per poder incloure la llibreria i que trobi el main
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
-   
+
 
     //Inicialitza un objecte de la classe Screen que s'utilitza per gestionar la finestra grafica
     Screen pantalla(TAMANY_PANTALLA_X, TAMANY_PANTALLA_Y);
@@ -142,7 +142,7 @@ int main(int argc, const char* argv[])
 
 
     int decisio;
-    if(joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
+    if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
     {
         do
         {
@@ -150,7 +150,7 @@ int main(int argc, const char* argv[])
             std::cout << "  1. Si" << endl;
             std::cout << "  2. No" << endl;
             cin >> decisio;
-        } while (mode != 1 && mode != 2);
+        } while (decisio != 1 && decisio != 2);
         if (decisio == 1)
         {
             joc.guardaPartida("moviments.txt");

@@ -357,14 +357,22 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
         {
             int nx = x + direccions[i][0];
             int ny = y + direccions[i][1];
-            while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+            bool seguir = true;
+            while (dinsTauler(nx, ny) && seguir)
             {
-                Posicio p(nx, ny);
-                f.afegirMoviment(Moviments(p, false, false));
-                nx += direccions[i][0];
-                ny += direccions[i][1];
+                if (m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
+                {
+                    f.afegirMoviment(Moviments(Posicio(nx, ny), false, false));
+                    nx += direccions[i][0];
+                    ny += direccions[i][1];
+                }
+                else
+                {
+                    seguir = false;
+                }
             }
         }
+
 
         std::vector<Moviments> pendentsMov;
         std::vector<std::vector<Posicio>> pendentsComidas;
@@ -448,7 +456,6 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
     }
 }
 
-
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
     bool resultat = false;
@@ -459,54 +466,62 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
     if (dinsTauler(xO, yO) && dinsTauler(xD, yD) && m_tauler[xO][yO].estaDesti(desti))
     {
-        int i = m_tauler[xO][yO].getIndexMoviment(desti);
-        if (i != -1)
+        int nMov = m_tauler[xO][yO].getNumMoviments();
+        int i = 0;
+        bool trobat = false;
+        while (i < nMov && !trobat)
         {
-            int k = 0;
-            bool trobat = false;
-            while (k < m_tauler[xO][yO].getNumMoviments() && !trobat)
+            if (m_tauler[xO][yO].getMoviment(i).getUltimaPosicio() == desti)
+                trobat = true;
+            else
+                i++;
+        }
+        if (trobat)
+        {
+            const Moviments& mov = m_tauler[xO][yO].getMoviment(i);
+            for (int j = 0; j < mov.getMenjades(); j++)
             {
-                if (m_tauler[xO][yO].getMoviment(k).getUltimaPosicio() == desti)
-                    trobat = true;
-                else
-                    k++;
-            }
-            for (int j = 0; j < m_tauler[xO][yO].getMoviment(k).getMenjades(); j++)
-            {
-                Posicio p = m_tauler[xO][yO].getMoviment(k).getFitxaMatada(j);
+                Posicio p = mov.getFitxaMatada(j);
                 int x = p.getX();
                 int y = p.getY();
                 if (dinsTauler(x, y))
                     m_tauler[x][y].setPosicioBuida();
             }
+
             bool calBufar = false;
-            if (m_tauler[xO][yO].getMoviment(k).getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor())
-                || !(m_tauler[xO][yO].getMoviment(k).getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
-                && m_tauler[xO][yO].getMoviment(k).getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
+            if (mov.getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor())
+                || !(mov.getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
+                && mov.getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
             {
                 calBufar = true;
-            } 
+            }
+
             m_tauler[xD][yD] = m_tauler[xO][yO];
             m_tauler[xD][yD].setPosicio(Posicio(xD, yD));
             m_tauler[xO][yO].setPosicioBuida();
+
             if (m_tauler[xD][yD].getTipus() == TIPUS_NORMAL)
             {
-                if ((m_tauler[xD][yD].getColor() == COLOR_BLANC && xD == 0) ||
-                    (m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1) && m_tauler[xD][yD].getTipus() != TIPUS_DAMA)
+                if ((m_tauler[xD][yD].getColor() == COLOR_BLANC && xD == 0)
+                    || (m_tauler[xD][yD].getColor() == COLOR_NEGRE && xD == N_FILES - 1))
                 {
                     m_tauler[xD][yD].convertirDama();
                 }
             }
+
             if (calBufar)
             {
                 Posicio pBufar = getFitxaBufar(m_tauler[xD][yD].getColor());
-                if (m_tauler[pBufar.getX()][pBufar.getY()].getTipus() != TIPUS_EMPTY)
-                    m_tauler[pBufar.getX()][pBufar.getY()].setPosicioBuida();
+                int bx = pBufar.getX();
+                int by = pBufar.getY();
+                if (dinsTauler(bx, by) && m_tauler[bx][by].getTipus() != TIPUS_EMPTY)
+                    m_tauler[bx][by].setPosicioBuida();
             }
 
             resultat = true;
         }
     }
+
     actualitzaMovimentsValids();
     return resultat;
 }
@@ -585,11 +600,11 @@ Posicio Tauler::getFitxaBufar(ColorFitxa color) const
     return pBufar;
 }
 
-void Tauler::visualitza() 
+void Tauler::visualitza()
 {
-    for (int x = 0; x < N_FILES; ++x) 
+    for (int x = 0; x < N_FILES; ++x)
     {
-        for (int y = 0; y < N_COLUMNES; ++y) 
+        for (int y = 0; y < N_COLUMNES; ++y)
         {
             Fitxa* f = &m_tauler[x][y];
             if (f != nullptr && f->getTipus() != TIPUS_EMPTY)
