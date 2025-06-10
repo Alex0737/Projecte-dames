@@ -32,7 +32,7 @@ public:
     TipusFitxa getTipus() const { return m_tipus; }
     Posicio getPosicio() const { return m_posicio; }
     int getNumMoviments() const { return m_moviments.size(); }
-    Moviments getMoviment(int i) const { return m_moviments[i]; }
+    Moviments getMoviment(int i) const;
     int getMaxMenjades() const;
     int getNPosicions();
 

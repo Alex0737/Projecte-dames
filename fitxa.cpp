@@ -20,6 +20,15 @@ void Fitxa::netejaMoviments()
     m_moviments.clear();
 }
 
+Moviments Fitxa::getMoviment(int i) const 
+{
+    if (i < 0 || i >= m_moviments.size()) 
+    {
+        return Moviments();
+    }
+    return m_moviments[i];
+}
+
 void Fitxa::setPosicioBuida()
 {
     m_tipus = TIPUS_EMPTY;

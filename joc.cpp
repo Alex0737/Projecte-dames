@@ -37,12 +37,11 @@ void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string&
             CuaMoviments m_cua();
         }
     }
-
-
 }
 
 
-Posicio Joc::converteixAPosicio(int mouseX, int mouseY) {
+Posicio Joc::converteixAPosicio(int mouseX, int mouseY) 
+{
     Posicio posicio;
     int casellaX = (mouseY - POS_X_TAULER) / 80;
     int casellaY = (mouseX - POS_Y_TAULER) / 80;
@@ -62,7 +61,7 @@ Posicio Joc::converteixAPosicio(int mouseX, int mouseY) {
 
 bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 {
-    bool resultado = false; // Valor por defecto
+    bool resultado = false;
     if (haAcabat())
     {
         m_finalPartida = true;
@@ -209,10 +208,9 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 {
                     bool haComido = false;
 
-                    // 1. Buscar cualquier movimiento de comer (captura)
-                    for (int fila = 0; fila < N_FILES && !haComido; ++fila)
+                    for (int fila = 0; fila < N_FILES && !haComido; fila++)
                     {
-                        for (int col = 0; col < N_COLUMNES && !haComido; ++col)
+                        for (int col = 0; col < N_COLUMNES && !haComido; col++)
                         {
                             Fitxa f = m_tauler.getFitxa(fila, col);
                             if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
@@ -221,12 +219,12 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                 for (int k = 0; k < nMov; ++k)
                                 {
                                     Moviments mov = f.getMoviment(k);
-                                    if (mov.esCaptura()) // Método que indica si este movimiento es una captura/comida
+                                    if (mov.esCaptura())
                                     {
+                                        m_cua.afegirMoviment(mov);
+
                                         Posicio destino = mov.getUltimaPosicio();
                                         m_tauler.mouFitxa(Posicio(fila, col), destino);
-
-                                        m_cua.afegirMoviment(mov);
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
@@ -251,7 +249,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     int nMov = f.getNPosicions();
                                     if (nMov > 0)
                                     {
-                                        Moviments mov = f.getMoviment(0); // Primer movimiento posible
+                                        Moviments mov = f.getMoviment(0);
                                         Posicio destino = mov.getUltimaPosicio();
                                         m_tauler.mouFitxa(Posicio(fila, col), destino);
 
@@ -259,14 +257,14 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
-                                        if (haAcabat()) m_finalPartida = true;
-                                        return false; // Sólo mueve una vez por frame
+                                        if (haAcabat()) 
+                                            m_finalPartida = true;
+                                        return false;
                                     }
                                 }
                             }
                         }
                     }
-                    // Sale aquí tras comer o mover (por el return del bucle normal)
                 }
             }
         }
@@ -319,8 +317,6 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     {
         modeJocStr = "Mode joc: Un jugador";
     }
-
-
 
     int posModeY = posTurnoY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posModeY, 0.8, modeJocStr);

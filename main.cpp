@@ -133,6 +133,9 @@ int main(int argc, const char* argv[])
                     cout << "no hi ha guanyador" << endl;
                 }
             }
+            if (joc.getMode() == MODE_JOC_UN || joc.getMode() == MODE_JOC_REPLAY)
+                std::cout << "No es pot guardar la partida en aquest mode :(" << endl;
+            
             cout << "presiona esc per finalitzar tancar la finestra" << endl;
 
         }
@@ -142,7 +145,7 @@ int main(int argc, const char* argv[])
 
 
     int decisio;
-    if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
+    if (joc.getMode() == MODE_JOC_NORMAL)
     {
         do
         {

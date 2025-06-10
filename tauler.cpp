@@ -40,23 +40,20 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
         Moviments mov = f.getMoviment(i);
         for (int j = 0; j < mov.getNombre(); j++)
         {
-            if (nPosicions < 10)
+            Posicio pos = mov.getPosicioIndex(j);
+            if (pos.getX() != -1 && pos.getY() != -1)
             {
-                Posicio pos = mov.getPosicioIndex(j);
-                if (pos.getX() != -1 && pos.getY() != -1)
+                int k = 0;
+                bool trobat = false;
+                while (k < nPosicions && !trobat)
                 {
-                    int k = 0;
-                    bool trobat = false;
-                    while (k < nPosicions && !trobat)
-                    {
-                        if (posicionsPossibles[k] == pos)
-                            trobat = true;
-                        else
-                            k++;
-                    }
-                    if (!trobat)
-                        posicionsPossibles[nPosicions++] = pos;
-                }
+                    if (posicionsPossibles[k] == pos)
+                        trobat = true;
+                    else
+                        k++;  
+                }  
+                if (!trobat)
+                    posicionsPossibles[nPosicions++] = pos;
             }
         }
     }
