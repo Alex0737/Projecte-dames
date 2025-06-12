@@ -62,10 +62,7 @@ Posicio Joc::converteixAPosicio(int mouseX, int mouseY)
 bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 {
     bool resultado = false;
-    if (haAcabat())
-    {
-        m_finalPartida = true;
-    }
+
     if (!iniciat)
     {
         inicialitza(m_mode, m_nomArxiuTauler, m_nomArxiuMoviments);
@@ -231,7 +228,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
-                                        if (haAcabat()) 
+                                        if (haAcabat())
                                             m_finalPartida = true;
                                         haComido = true;
                                     }
@@ -327,6 +324,10 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     int posModeY = posTurnoY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posModeY, 0.8, modeJocStr);
 
+    if (!m_finalPartida && haAcabat())
+    {
+        m_finalPartida = true;
+    }
 
     return resultado;
 }
