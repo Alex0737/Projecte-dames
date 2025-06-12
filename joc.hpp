@@ -49,7 +49,6 @@ private:
 
 	bool m_ultimEstatRatoli = false;
 
-	queue<Moviments> possiblesIA;
 };
 
 #endif 

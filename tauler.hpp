@@ -16,6 +16,7 @@ class Tauler
 {
 public:
 	Tauler();
+	~Tauler();
 	void inicialitza(const string& nomFitxer);
 	void actualitzaMovimentsValids();
 	void getPosicionsPossibles(const Posicio& origen, vector<Posicio>& posicionsPossibles);
@@ -46,7 +47,7 @@ public:
 	Fitxa getFitxa(int x, int y) const { return m_tauler[x][y]; }
 
 private:
-	std::vector<std::vector<Fitxa>> m_tauler;
+	Fitxa** m_tauler;
 };
 
 #endif

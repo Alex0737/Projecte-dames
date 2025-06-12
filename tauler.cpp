@@ -9,14 +9,20 @@ const int MIDA_CASELLA = 80;
 
 Tauler::Tauler()
 {
-    m_tauler = std::vector<std::vector<Fitxa>>(N_FILES, std::vector<Fitxa>(N_COLUMNES));
-    for (int i = 0; i < N_FILES; i++)
+    m_tauler = new Fitxa * [N_FILES];
+    for (int i = 0; i < N_FILES; ++i)
     {
-        for (int j = 0; j < N_COLUMNES; j++)
-        {
+        m_tauler[i] = new Fitxa[N_COLUMNES];
+        for (int j = 0; j < N_COLUMNES; ++j)
             m_tauler[i][j] = Fitxa(TIPUS_EMPTY, COLOR_BLANC, Posicio(i, j));
-        }
     }
+}
+
+Tauler::~Tauler()
+{
+    for (int i = 0; i < N_FILES; ++i)
+        delete[] m_tauler[i];
+    delete[] m_tauler;
 }
 
 void Tauler::netejaTauler()
@@ -396,7 +402,6 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     comidas.push_back(Posicio(nx, ny));
                     pendentsMov.push_back(mov);
                     pendentsComidas.push_back(comidas);
-                    // NO SIGAS AVANZANDO con ex += dx, ey += dy;
                 }
             }
         }
