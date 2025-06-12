@@ -30,7 +30,7 @@ int main(int argc, const char* argv[])
     bool primer = false;
 
     int mode;
-    do 
+    do
     {
         std::cout << "quin mode vols jugar:" << std::endl;
         std::cout << "  1. Mode normal" << std::endl;
@@ -43,9 +43,9 @@ int main(int argc, const char* argv[])
     } while (mode != 1 && mode != 2 && mode != 3);
 
     int inici;
-    if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN) 
+    if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
     {
-        do 
+        do
         {
             std::cout << "Vols jugar amb tauler original o amb un tauler diferent?" << std::endl;
             std::cout << "  1. Original" << std::endl;
@@ -53,16 +53,16 @@ int main(int argc, const char* argv[])
             std::cin >> inici;
         } while (inici != 1 && inici != 2);
 
-        if (inici == 1) 
+        if (inici == 1)
         {
             joc.setTaulerInici("tauler_inicial.txt");
         }
-        else 
+        else
         {
             joc.setTaulerInici("opcional.txt");
         }
     }
-    else 
+    else
     {
         joc.setTaulerInici("tauler_inicial.txt");
     }
@@ -81,12 +81,12 @@ int main(int argc, const char* argv[])
     {
         pantalla.processEvents();
 
-        if (Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) 
+        if (Keyboard_GetKeyTrg(KEYBOARD_ESCAPE))
         {
             continua = false;
         }
 
-        if(continua)
+        if (continua)
         {
             bool mouseStatus = Mouse_getBtnLeft();
             int  mousePosX = Mouse_getX();
@@ -94,7 +94,7 @@ int main(int argc, const char* argv[])
 
             bool final = joc.actualitza(mousePosX, mousePosY, mouseStatus);
 
-            if (joc.getFinalPartida() && !primer) 
+            if (joc.getFinalPartida() && !primer)
             {
                 primer = true;
                 std::cout << "Ha acabat la partida" << std::endl;
@@ -110,16 +110,16 @@ int main(int argc, const char* argv[])
 
             if (preguntar && joc.getMode() != MODE_JOC_REPLAY && inici == 1)
             {
-                float px = 50.0f, py = 600.0f;
+                float px = 50.0f, py = 630.0f;
                 GraphicManager::getInstance()
-                    ->drawFont(FONT_WHITE_30, px, py, 0.8f,"Vols guardar partida? (1: Si / 2: No)");
+                    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (1: Si / 2: No)");
 
-                if (Keyboard_GetKeyTrg('1')) 
+                if (Keyboard_GetKeyTrg('1'))
                 {
                     guardar = true;
                     continua = false;
                 }
-                else if (Keyboard_GetKeyTrg('2')) 
+                else if (Keyboard_GetKeyTrg('2'))
                 {
                     guardar = false;
                     continua = false;
@@ -130,7 +130,7 @@ int main(int argc, const char* argv[])
         }
     }
 
-    if (guardar && (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)) 
+    if (guardar && (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN))
     {
         joc.guardaPartida("moviments.txt");
     }

@@ -1,3 +1,4 @@
+
 //
 //  CurrentGame.cpp
 //  LearnChess
@@ -161,14 +162,15 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                         m_posFitxaSeleccionada = Posicio(fila, col);
 
                         m_posicionsValides.clear();
-                        Posicio posicionsPossibles[20];
-                        m_tauler.getPosicionsPossibles(m_posFitxaSeleccionada, m_nPosicionsValides, posicionsPossibles);
+                        std::vector<Posicio> posicionsPossibles;
+                        m_tauler.getPosicionsPossibles(m_posFitxaSeleccionada, posicionsPossibles);
 
-                        std::cout << "Moviments validos per (" << fila << "," << col << "): " << m_nPosicionsValides << std::endl;
-                        for (int i = 0; i < m_nPosicionsValides; ++i)
+                        std::cout << "Moviments validos per (" << fila << "," << col << "): "
+                            << posicionsPossibles.size() << std::endl;
+                        for (size_t i = 0; i < posicionsPossibles.size(); ++i)
                         {
                             m_posicionsValides.push_back(posicionsPossibles[i]);
-                            std::cout << "  (" << posicionsPossibles[i].getX() << "," << posicionsPossibles[i].getY() << ")" << std::endl;
+                            std::cout << "  (" << posicionsPossibles[i].getX() << "," << posicionsPossibles[i].getY() << ")" << endl;
                         }
                     }
 
@@ -291,8 +293,6 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     int posTextX = POS_X_TAULER;
     int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 120;
-    std::string msg = "PosX: " + to_string(mousePosX) + ", PosY: " + to_string(mousePosY);
-    GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, msg);
 
     std::string turnoJugador;
     if (m_jugadorTorn == COLOR_BLANC)

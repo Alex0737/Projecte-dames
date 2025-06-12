@@ -31,10 +31,11 @@ void Tauler::netejaTauler()
     }
 }
 
-void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
+void Tauler::getPosicionsPossibles(const Posicio& origen, std::vector<Posicio>& posicionsPossibles)
 {
-    nPosicions = 0;
+    posicionsPossibles.clear();
     Fitxa f = m_tauler[origen.getX()][origen.getY()];
+
     for (int i = 0; i < f.getNumMoviments(); i++)
     {
         Moviments mov = f.getMoviment(i);
@@ -43,22 +44,20 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
             Posicio pos = mov.getPosicioIndex(j);
             if (pos.getX() != -1 && pos.getY() != -1)
             {
-                int k = 0;
+
                 bool trobat = false;
-                while (k < nPosicions && !trobat)
+
+                for (int k = 0; k < posicionsPossibles.size() && !trobat; k++)
                 {
                     if (posicionsPossibles[k] == pos)
                         trobat = true;
-                    else
-                        k++;
                 }
                 if (!trobat)
-                    posicionsPossibles[nPosicions++] = pos;
+                    posicionsPossibles.push_back(pos);
             }
         }
     }
 }
-
 Fitxa Tauler::creaFitxa(char tipusChar, const Posicio& pos)
 {
     TipusFitxa tipus;
