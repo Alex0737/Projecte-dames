@@ -20,9 +20,9 @@ void Fitxa::netejaMoviments()
     m_moviments.clear();
 }
 
-Moviments Fitxa::getMoviment(int i) const 
+Moviments Fitxa::getMoviment(int i) const
 {
-    if (i < 0 || i >= m_moviments.size()) 
+    if (i < 0 || i >= m_moviments.size())
     {
         return Moviments();
     }

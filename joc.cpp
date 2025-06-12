@@ -40,7 +40,7 @@ void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string&
 }
 
 
-Posicio Joc::converteixAPosicio(int mouseX, int mouseY) 
+Posicio Joc::converteixAPosicio(int mouseX, int mouseY)
 {
     Posicio posicio;
     int casellaX = (mouseY - POS_X_TAULER) / 80;
@@ -216,19 +216,23 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                             if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
                             {
                                 int nMov = f.getNPosicions();
-                                for (int k = 0; k < nMov; ++k)
+                                for (int k = 0; k < nMov; k++)
                                 {
                                     Moviments mov = f.getMoviment(k);
                                     if (mov.esCaptura())
                                     {
-                                        m_cua.afegirMoviment(mov);
+                                        m_tauler.mouFitxa(Posicio(fila, col), mov.getUltimaPosicio());
 
+                                        Posicio origen(fila, col);
                                         Posicio destino = mov.getUltimaPosicio();
-                                        m_tauler.mouFitxa(Posicio(fila, col), destino);
+                                        Moviments movGuardar(origen, false, false);
+                                        movGuardar.afegirPosicio(destino);
+                                        m_cua.afegirMoviment(movGuardar);
 
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
-                                        if (haAcabat()) m_finalPartida = true;
+                                        if (haAcabat()) 
+                                            m_finalPartida = true;
                                         haComido = true;
                                     }
                                 }
@@ -250,14 +254,16 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     if (nMov > 0)
                                     {
                                         Moviments mov = f.getMoviment(0);
-                                        Posicio destino = mov.getUltimaPosicio();
-                                        m_tauler.mouFitxa(Posicio(fila, col), destino);
-
-                                        m_cua.afegirMoviment(mov);
+                                        m_tauler.mouFitxa(Posicio(fila, col), mov.getUltimaPosicio());
 
                                         m_jugadorTorn = COLOR_BLANC;
+                                        Posicio origen(fila, col);
+                                        Posicio destino = mov.getUltimaPosicio();
+                                        Moviments movGuardar(origen, false, false);
+                                        movGuardar.afegirPosicio(destino);
+                                        m_cua.afegirMoviment(movGuardar);
                                         m_tauler.actualitzaMovimentsValids();
-                                        if (haAcabat()) 
+                                        if (haAcabat())
                                             m_finalPartida = true;
                                         return false;
                                     }
@@ -292,14 +298,14 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, msg);
 
     std::string turnoJugador;
-    if (m_jugadorTorn == COLOR_BLANC) 
+    if (m_jugadorTorn == COLOR_BLANC)
     {
         turnoJugador = "Jugador actual: Blanques";
     }
-    else 
+    else
     {
         turnoJugador = "Jugador actual: Negres";
-    }    
+    }
     int posTurnoY = posTextY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTurnoY, 0.8, turnoJugador);
 
@@ -403,4 +409,3 @@ void Joc::guardaPartida(const string& nomFitxer)
         fitxer.close();
     }
 }
-

@@ -50,8 +50,8 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
                     if (posicionsPossibles[k] == pos)
                         trobat = true;
                     else
-                        k++;  
-                }  
+                        k++;
+                }
                 if (!trobat)
                     posicionsPossibles[nPosicions++] = pos;
             }

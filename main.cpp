@@ -99,7 +99,7 @@ int main(int argc, const char* argv[])
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
 
-
+    bool guardar = true;
     //Inicialitza un objecte de la classe Screen que s'utilitza per gestionar la finestra grafica
     Screen pantalla(TAMANY_PANTALLA_X, TAMANY_PANTALLA_Y);
     //Mostrem la finestra grafica
@@ -133,9 +133,12 @@ int main(int argc, const char* argv[])
                     cout << "no hi ha guanyador" << endl;
                 }
             }
-            if (joc.getMode() == MODE_JOC_UN || joc.getMode() == MODE_JOC_REPLAY)
+            if (joc.getMode() == MODE_JOC_REPLAY|| (joc.getMode() == MODE_JOC_NORMAL && inici == 2)|| joc.getMode() == MODE_JOC_UN && inici == 2)
+            {
+                guardar = false;
                 std::cout << "No es pot guardar la partida en aquest mode :(" << endl;
-            
+            }
+
             cout << "presiona esc per finalitzar tancar la finestra" << endl;
 
         }
@@ -145,7 +148,7 @@ int main(int argc, const char* argv[])
 
 
     int decisio;
-    if (joc.getMode() == MODE_JOC_NORMAL)
+    if ((joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN) && guardar)
     {
         do
         {
