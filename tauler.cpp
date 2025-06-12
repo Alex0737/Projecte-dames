@@ -1,4 +1,3 @@
-
 #include "tauler.hpp"
 #include <fstream>
 #include <string>
