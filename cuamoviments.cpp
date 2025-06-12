@@ -1,17 +1,37 @@
 #include "cuamoviments.h"
 #include <string>
 
+CuaMoviments::~CuaMoviments()
+{
+	while (m_primer != nullptr)
+	{
+		NodeMoviments* aux = m_primer;
+		m_primer = m_primer->getNext();
+		delete aux;
+	}
+	m_darrer = nullptr;
+}
 
 Moviments CuaMoviments::treuPrimerMoviment()
 {
-	Moviments m = m_cua.front();
-	m_cua.pop();
-	return m;
+	Moviments mov = Moviments();
+	if (m_primer == nullptr)
+	{
+		NodeMoviments* aux = m_primer;
+		Moviments mov = aux->getValor();
+		m_primer = m_primer->getNext();
+		if (m_primer == nullptr)
+			m_darrer = nullptr;
+		delete aux;
+	}
+
+	return mov;
+
 }
 
-bool CuaMoviments::buida()
+bool CuaMoviments::buida() const
 {
-	return(m_cua.empty());
+	return(m_primer == nullptr);
 }
 
 void CuaMoviments::guardarMoviments(const string& nomFitxer)
@@ -19,27 +39,34 @@ void CuaMoviments::guardarMoviments(const string& nomFitxer)
 	ofstream fitxer(nomFitxer);
 	if (fitxer.is_open())
 	{
-		std::queue<Moviments> copia = m_cua;
-		while (!copia.empty())
+		NodeMoviments* aux = m_primer;
+		while (aux != nullptr)
 		{
-			Moviments m = copia.front();
+			const Moviments& m = aux->getValor();
 			if (m.getNombre() >= 2)
 			{
 				fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio() << endl;
 			}
-			copia.pop();
+			aux = aux->getNext();
 
 		}
 		fitxer.close();
 	}
 }
+
 void CuaMoviments::carregaMoviments(const string& nomFitxer)
 {
 	ifstream fitxer(nomFitxer);
 
 	if (fitxer.is_open())
 	{
-		m_cua = queue<Moviments>();
+		if (!buida())
+		{
+			while (!buida())
+			{
+				treuPrimerMoviment();
+			}
+		}
 		string origen, desti;
 
 		while (fitxer >> origen >> desti)
@@ -47,7 +74,7 @@ void CuaMoviments::carregaMoviments(const string& nomFitxer)
 			Moviments m;
 			m.afegirPosicio(Posicio(origen));
 			m.afegirPosicio(Posicio(desti));
-			m_cua.push(m);
+			afegirMoviment(m);
 
 		}
 		fitxer.close();
@@ -56,5 +83,13 @@ void CuaMoviments::carregaMoviments(const string& nomFitxer)
 
 void CuaMoviments::afegirMoviment(const Moviments& m)
 {
-	m_cua.push(m);
+	NodeMoviments* nou = new NodeMoviments(m);
+	if (m_darrer != nullptr)
+	{
+		m_darrer->setNext(nou);
+	}
+	else
+		m_primer = nou;
+
+	m_darrer = nou;
 }

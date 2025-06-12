@@ -64,6 +64,7 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, std::vector<Posicio>& 
         }
     }
 }
+
 Fitxa Tauler::creaFitxa(char tipusChar, const Posicio& pos)
 {
     TipusFitxa tipus;
@@ -289,6 +290,8 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
             {
                 Moviments mov(Posicio(nx2, ny2), false, false);
                 mov.afegirMort(Posicio(nx, ny));
+                if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                    mov.incrementaDamesMatades();
                 pendents.push_back(mov);
                 f.setMoviment(mov);
             }
@@ -322,6 +325,9 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     Moviments nouMov = actual;
                     nouMov.afegirPosicio(Posicio(nx2, ny2));
                     nouMov.afegirMort(Posicio(nx, ny));
+                    if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                        nouMov.incrementaDamesMatades();
+
                     pendents.push_back(nouMov);
                     trobat = true;
                     f.setMoviment(nouMov);
@@ -398,6 +404,8 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                 {
                     Moviments mov(Posicio(ex, ey), true, true);
                     mov.afegirMort(Posicio(nx, ny));
+                    if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                        mov.incrementaDamesMatades();
                     std::vector<Posicio> comidas;
                     comidas.push_back(Posicio(nx, ny));
                     pendentsMov.push_back(mov);
@@ -415,6 +423,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
             int ux = ultima.getX();
             int uy = ultima.getY();
             bool trobat = false;
+            f.afegirMoviment(actual);
 
             for (int dir = 0; dir < nDireccions; dir++)
             {
@@ -428,11 +437,16 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     ny += dy;
                 }
                 bool yaComida = false;
-                for (const auto& c : comidas)
+                for (int i = 0; i < comidas.size(); i++)
+                {
+                    Posicio c = comidas[i];
                     if (c == Posicio(nx, ny))
+                    {
                         yaComida = true;
-                if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() &&
-                    m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
+                    }
+                }
+               
+                if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() && m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
                 {
                     int ex = nx + dx;
                     int ey = ny + dy;
@@ -441,6 +455,8 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                         Moviments mov2 = actual;
                         mov2.afegirPosicio(Posicio(ex, ey));
                         mov2.afegirMort(Posicio(nx, ny));
+                        if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                            mov2.incrementaDamesMatades();
                         std::vector<Posicio> comidas2 = comidas;
                         comidas2.push_back(Posicio(nx, ny));
                         pendentsMov.push_back(mov2);
@@ -490,9 +506,8 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
             }
 
             bool calBufar = false;
-            if (mov.getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor())
-                || !(mov.getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
-                && mov.getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
+            if (mov.getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor()) || ((mov.getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
+                    && mov.getDamesMenjades() < getMaxDamesJugador(m_tauler[xO][yO].getColor())))
             {
                 calBufar = true;
             }

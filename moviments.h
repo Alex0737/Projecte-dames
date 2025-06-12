@@ -38,6 +38,8 @@ public:
     int getDamesMenjades() const;
     Posicio getFitxaMatada(int j) const;
 
+    void incrementaDamesMatades() { m_menjadesDames++; }
+
 private:
     std::vector<Posicio> m_posicions;
     std::vector<Posicio> m_posicionsMenjades;
