@@ -14,7 +14,7 @@
 
 
 #include "GraphicManager.h"
-#include "Joc.hpp" // O el header donde tienes la clase Joc
+#include "Joc.hpp"
 
 
 
@@ -331,6 +331,9 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     return resultado;
 }
+
+
+
 
 
 

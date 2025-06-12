@@ -25,7 +25,7 @@ private:
 public:
 	CuaMoviments() {};
 	CuaMoviments(Fitxa f, Posicio p1, Posicio p2) {}
-	
+
 	~CuaMoviments();
 
 	Moviments treuPrimerMoviment();

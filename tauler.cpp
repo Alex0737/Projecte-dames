@@ -445,7 +445,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                         yaComida = true;
                     }
                 }
-               
+
                 if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() && m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
                 {
                     int ex = nx + dx;
@@ -507,7 +507,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
             bool calBufar = false;
             if (mov.getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor()) || ((mov.getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
-                    && mov.getDamesMenjades() < getMaxDamesJugador(m_tauler[xO][yO].getColor())))
+                && mov.getDamesMenjades() < getMaxDamesJugador(m_tauler[xO][yO].getColor())))
             {
                 calBufar = true;
             }

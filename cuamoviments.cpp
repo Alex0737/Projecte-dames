@@ -14,19 +14,17 @@ CuaMoviments::~CuaMoviments()
 
 Moviments CuaMoviments::treuPrimerMoviment()
 {
-	Moviments mov = Moviments();
-	if (m_primer == nullptr)
+	Moviments mov;
+	if (m_primer != nullptr)
 	{
 		NodeMoviments* aux = m_primer;
-		Moviments mov = aux->getValor();
+		mov = aux->getValor();
 		m_primer = m_primer->getNext();
 		if (m_primer == nullptr)
 			m_darrer = nullptr;
 		delete aux;
 	}
-
 	return mov;
-
 }
 
 bool CuaMoviments::buida() const
@@ -42,10 +40,10 @@ void CuaMoviments::guardarMoviments(const string& nomFitxer)
 		NodeMoviments* aux = m_primer;
 		while (aux != nullptr)
 		{
-			const Moviments& m = aux->getValor();
+			Moviments m = aux->getValor();
 			if (m.getNombre() >= 2)
 			{
-				fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio() << endl;
+				fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio().toString() << endl;
 			}
 			aux = aux->getNext();
 
@@ -60,12 +58,9 @@ void CuaMoviments::carregaMoviments(const string& nomFitxer)
 
 	if (fitxer.is_open())
 	{
-		if (!buida())
+		while (!buida())
 		{
-			while (!buida())
-			{
-				treuPrimerMoviment();
-			}
+			treuPrimerMoviment();
 		}
 		string origen, desti;
 
