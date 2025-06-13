@@ -1,4 +1,3 @@
-
 #include "fitxa.h"
 
 void Fitxa::afegirMoviment(const Moviments& m)

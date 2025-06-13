@@ -110,40 +110,20 @@ int main(int argc, const char* argv[])
 
             if (preguntar && joc.getMode() != MODE_JOC_REPLAY && inici == 1)
             {
-                cout << "Vols guardar partida? (1: Si / 2: No)" << endl;
-                int decisio;
-                cin >> decisio;
-                if (decisio == 1)
+                float px = 50.0f, py = 630.0f;
+                GraphicManager::getInstance()
+                    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (1: Si / 2: No)");
+
+                if (Keyboard_GetKeyTrg('1'))
                 {
                     guardar = true;
                     continua = false;
                 }
-                else
+                else if (Keyboard_GetKeyTrg('2'))
                 {
-                    if (decisio == 2)
-                    {
-                        guardar = false;
-                        continua = false;
-                    }
+                    guardar = false;
+                    continua = false;
                 }
-
-                //float px = 50.0f, py = 630.0f;
-                //GraphicManager::getInstance()
-                //    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (1: Si / 2: No)");
-
-                //if (Keyboard_GetKeyTrg('1'))
-                //{
-                //    guardar = true;
-                //    continua = false;
-                //}
-                //else 
-                //{
-                //  if (Keyboard_GetKeyTrg('2'))
-                //  {
-                //      guardar = false;
-                //      continua = false;
-                //  }
-                //}
             }
 
             pantalla.update();

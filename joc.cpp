@@ -13,10 +13,6 @@
 
 
 
-#include "GraphicManager.h"
-#include "Joc.hpp"
-
-
 
 void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments)
 {
@@ -331,9 +327,6 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     return resultado;
 }
-
-
-
 
 
 

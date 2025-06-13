@@ -62,7 +62,7 @@ private:
     TipusFitxa m_tipus;
     ColorFitxa m_color;
     Posicio    m_posicio;
-    std::vector<Moviments> m_moviments; // Ahora vector dinámico
+    std::vector<Moviments> m_moviments;
 };
 
 #endif

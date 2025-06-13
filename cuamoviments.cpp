@@ -1,90 +1,98 @@
 #include "cuamoviments.h"
 #include <string>
 
-CuaMoviments::~CuaMoviments()
+CuaMoviments::CuaMoviments() : primer(nullptr), ultim(nullptr) {}
+
+CuaMoviments::~CuaMoviments() 
 {
-	while (m_primer != nullptr)
-	{
-		NodeMoviments* aux = m_primer;
-		m_primer = m_primer->getNext();
-		delete aux;
-	}
-	m_darrer = nullptr;
+    while (primer != nullptr) 
+    {
+        NodeMoviment* tmp = primer;
+        primer = primer->seguent;
+        delete tmp;
+    }
+    ultim = nullptr;
+}
+
+bool CuaMoviments::buida() 
+{
+    return primer == nullptr;
+}
+
+void CuaMoviments::afegirMoviment(const Moviments& m) 
+{
+    NodeMoviment* nou = new NodeMoviment(m);
+    if (ultim == nullptr) 
+    {
+        primer = ultim = nou;
+    }
+    else 
+    {
+        ultim->seguent = nou;
+        ultim = nou;
+    }
 }
 
 Moviments CuaMoviments::treuPrimerMoviment()
 {
-	Moviments mov;
-	if (m_primer != nullptr)
-	{
-		NodeMoviments* aux = m_primer;
-		mov = aux->getValor();
-		m_primer = m_primer->getNext();
-		if (m_primer == nullptr)
-			m_darrer = nullptr;
-		delete aux;
-	}
-	return mov;
+    Moviments m;
+
+    if (primer != nullptr)
+    {
+        m = primer->moviment;
+        NodeMoviment* tmp = primer;
+        primer = primer->seguent;
+
+        if (primer == nullptr)
+            ultim = nullptr;
+        delete tmp;
+    }
+    return m;
 }
 
-bool CuaMoviments::buida() const
+
+Moviments CuaMoviments::treuPrimer() 
 {
-	return(m_primer == nullptr);
+    if (primer == nullptr)
+        return Moviments();
+    return primer->moviment;
 }
 
-void CuaMoviments::guardarMoviments(const string& nomFitxer)
+void CuaMoviments::guardarMoviments(const std::string& nomFitxer) 
 {
-	ofstream fitxer(nomFitxer);
-	if (fitxer.is_open())
-	{
-		NodeMoviments* aux = m_primer;
-		while (aux != nullptr)
-		{
-			Moviments m = aux->getValor();
-			if (m.getNombre() >= 2)
-			{
-				fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio().toString() << endl;
-			}
-			aux = aux->getNext();
-
-		}
-		fitxer.close();
-	}
+    std::ofstream fitxer(nomFitxer);
+    if (fitxer.is_open()) 
+    {
+        NodeMoviment* actual = primer;
+        while (actual != nullptr) 
+        {
+            const Moviments& m = actual->moviment;
+            if (m.getNombre() >= 2) 
+            {
+                fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio() << std::endl;
+            }
+            actual = actual->seguent;
+        }
+        fitxer.close();
+    }
 }
 
-void CuaMoviments::carregaMoviments(const string& nomFitxer)
+void CuaMoviments::carregaMoviments(const std::string& nomFitxer) 
 {
-	ifstream fitxer(nomFitxer);
-
-	if (fitxer.is_open())
-	{
-		while (!buida())
-		{
-			treuPrimerMoviment();
-		}
-		string origen, desti;
-
-		while (fitxer >> origen >> desti)
-		{
-			Moviments m;
-			m.afegirPosicio(Posicio(origen));
-			m.afegirPosicio(Posicio(desti));
-			afegirMoviment(m);
-
-		}
-		fitxer.close();
-	}
-}
-
-void CuaMoviments::afegirMoviment(const Moviments& m)
-{
-	NodeMoviments* nou = new NodeMoviments(m);
-	if (m_darrer != nullptr)
-	{
-		m_darrer->setNext(nou);
-	}
-	else
-		m_primer = nou;
-
-	m_darrer = nou;
+    std::ifstream fitxer(nomFitxer);
+    if (fitxer.is_open()) {
+        while (!buida()) 
+        {
+            treuPrimerMoviment();
+        }
+        std::string origen, desti;
+        while (fitxer >> origen >> desti) 
+        {
+            Moviments m;
+            m.afegirPosicio(Posicio(origen));
+            m.afegirPosicio(Posicio(desti));
+            afegirMoviment(m);
+        }
+        fitxer.close();
+    }
 }

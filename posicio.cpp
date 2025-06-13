@@ -2,7 +2,7 @@
 //constructor a partir d'un string per ex "c3"
 Posicio::Posicio(const string& pos)
 {
-	m_x = N_FILES - (pos[1] - '0');
+	m_x = (N_FILES - 1) - (pos[1] - '1');
 	m_y = pos[0] - 'a';
 }
 
