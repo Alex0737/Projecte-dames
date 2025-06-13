@@ -163,7 +163,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                         std::cout << "Moviments validos per (" << fila << "," << col << "): "
                             << posicionsPossibles.size() << std::endl;
-                        for (size_t i = 0; i < posicionsPossibles.size(); ++i)
+                        for (int i = 0; i < posicionsPossibles.size(); ++i)
                         {
                             m_posicionsValides.push_back(posicionsPossibles[i]);
                             std::cout << "  (" << posicionsPossibles[i].getX() << "," << posicionsPossibles[i].getY() << ")" << endl;
