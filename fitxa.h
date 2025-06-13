@@ -34,7 +34,7 @@ public:
     int getNumMoviments() const { return m_moviments.size(); }
     Moviments getMoviment(int i) const;
     int getMaxMenjades() const;
-    int getNPosicions();
+    int getNPosicions() const;
 
 
     void setColor(ColorFitxa c) { m_color = c; }
