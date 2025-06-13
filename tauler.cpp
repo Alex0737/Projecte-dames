@@ -1,15 +1,15 @@
-﻿#include "tauler.hpp"
-#include <fstream>
-#include <string>
+﻿#include <string>
 #include <sstream>
 #include "GraphicManager.h"
+#include "tauler.hpp"
+#include <fstream>
 #include "info_joc.hpp"
 const int MIDA_CASELLA = 80;
 
 
 Tauler::Tauler()
 {
-    m_tauler = new Fitxa *[N_FILES];
+    m_tauler = new Fitxa * [N_FILES];
     for (int i = 0; i < N_FILES; i++)
     {
         m_tauler[i] = new Fitxa[N_COLUMNES];
@@ -478,7 +478,7 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
 
             p++;
         }
-        
+
     }
 }
 
@@ -504,19 +504,19 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
         }
         if (trobat)
         {
-            
+
             Moviments mov = m_tauler[xO][yO].getMoviment(i);
 
             int maxMenjades = getMaxMenjadesJugador(m_tauler[xO][yO].getColor());
             int maxDamesMenjades = 0;
 
-            if (mov.getMenjades() == maxMenjades && maxMenjades > 0) 
+            if (mov.getMenjades() == maxMenjades && maxMenjades > 0)
             {
                 maxDamesMenjades = getMaxDamesJugador(m_tauler[xO][yO].getColor());
             }
 
             bool calBufar = false;
-            if (maxMenjades > 0) 
+            if (maxMenjades > 0)
             {
                 if (mov.getMenjades() < maxMenjades) {
                     calBufar = true;
@@ -535,7 +535,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
                     m_tauler[x][y].setPosicioBuida();
             }
 
-            
+
 
             m_tauler[xD][yD] = m_tauler[xO][yO];
             m_tauler[xD][yD].setPosicio(Posicio(xD, yD));

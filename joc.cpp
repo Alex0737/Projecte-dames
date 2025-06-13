@@ -300,6 +300,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
         int posTextX = POS_X_TAULER;
         int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 100;
         GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, textoGanador);
+        resultado = true;
     }
     if (m_finalPartida && m_noGuanyador)
     {
