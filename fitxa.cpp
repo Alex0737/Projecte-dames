@@ -147,7 +147,7 @@ void Fitxa::visualitza(int x, int y)
 
 }
 
-int Fitxa::getNPosicions()
+int Fitxa::getNPosicions() const
 {
     int posicions = 0;
     for (int i = 0; i < m_moviments.size(); i++)
