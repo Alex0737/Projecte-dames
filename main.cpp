@@ -68,6 +68,10 @@ int main(int argc, const char* argv[])
     }
     joc.setTaulerMoviments("moviments.txt");
 
+
+    cout << endl;
+    cout << endl;
+
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
     Screen pantalla(TAMANY_PANTALLA_X, TAMANY_PANTALLA_Y);
@@ -84,7 +88,9 @@ int main(int argc, const char* argv[])
         if (Keyboard_GetKeyTrg(KEYBOARD_ESCAPE))
         {
             continua = false;
+
         }
+
 
         if (continua)
         {
@@ -96,26 +102,29 @@ int main(int argc, const char* argv[])
 
             if (joc.getFinalPartida() && !primer)
             {
-                primer = true;
                 std::cout << "Ha acabat la partida" << std::endl;
-                if (joc.getColorGuanyador() == COLOR_BLANC)
-                    std::cout << "guanyador: Color Blanc" << std::endl;
+                primer = true;
+                if (joc.getNoGuan()) 
+                {
+                    std::cout << "No hi ha mes moviments al fitxer" << std::endl;
+                }
                 else 
                 {
-                    if (joc.getColorGuanyador() == COLOR_NEGRE)
+                    if (joc.getColorGuanyador() == COLOR_BLANC)
+                        std::cout << "guanyador: Color Blanc" << std::endl;
+                    else if (joc.getColorGuanyador() == COLOR_NEGRE)
                         std::cout << "guanyador: Color Negre" << std::endl;
                     else
                         std::cout << "no hi ha guanyador" << std::endl;
                 }
-
                 preguntar = true;
             }
 
-            if (preguntar && joc.getMode() != MODE_JOC_REPLAY && inici == 1)
+
+            if ((preguntar) && joc.getMode() != MODE_JOC_REPLAY && inici == 1)
             {
                 float px = 50.0f, py = 630.0f;
-                GraphicManager::getInstance()
-                    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (Si: 1 / No: 2 o Esc)");
+                GraphicManager::getInstance()->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (Si: 1 / No: 2 o Esc)");
 
                 if (Keyboard_GetKeyTrg('1'))
                 {

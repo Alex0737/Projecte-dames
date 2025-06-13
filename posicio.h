@@ -29,11 +29,13 @@ public:
 	bool estaDins(const Posicio p[], int nPosicions) const;
 
 	bool operator==(const Posicio& posicio) const;
-	friend ostream& operator<<(std::ostream& os, const Posicio& pos);
 
 private:
 	int m_x;
 	int m_y;
 };
+
+ostream& operator<<(std::ostream& os, const Posicio& pos);
+
 
 #endif

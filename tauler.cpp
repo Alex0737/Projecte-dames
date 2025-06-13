@@ -10,17 +10,19 @@ const int MIDA_CASELLA = 80;
 Tauler::Tauler()
 {
     m_tauler = new Fitxa *[N_FILES];
-    for (int i = 0; i < N_FILES; ++i)
+    for (int i = 0; i < N_FILES; i++)
     {
         m_tauler[i] = new Fitxa[N_COLUMNES];
-        for (int j = 0; j < N_COLUMNES; ++j)
+        for (int j = 0; j < N_COLUMNES; j++)
+        {
             m_tauler[i][j] = Fitxa(TIPUS_EMPTY, COLOR_BLANC, Posicio(i, j));
+        }
     }
 }
 
 Tauler::~Tauler()
 {
-    for (int i = 0; i < N_FILES; ++i)
+    for (int i = 0; i < N_FILES; i++)
         delete[] m_tauler[i];
     delete[] m_tauler;
 }
@@ -99,15 +101,15 @@ bool Tauler::dinsTauler(int x, int y) const
     return (x >= 0 && x < N_FILES && y >= 0 && y < N_COLUMNES);
 }
 
-void Tauler::inicialitza(const string& nomFitxer)
+void Tauler::inicialitza(const std::string& nomFitxer)
 {
-    ifstream fitxer(nomFitxer);
+    std::ifstream fitxer(nomFitxer);
     netejaTauler();
 
     if (fitxer.is_open())
     {
         char tipus;
-        string posicioStr;
+        std::string posicioStr;
 
         while (fitxer >> tipus)
         {
@@ -596,13 +598,13 @@ int Tauler::getMaxDamesJugador(ColorFitxa color) const
     {
         for (int j = 0; j < N_COLUMNES; j++)
         {
-            const Fitxa& f = m_tauler[i][j];
+            Fitxa f = m_tauler[i][j];
             if (f.getColor() == color && f.getTipus() != TIPUS_EMPTY)
             {
                 int nMovs = f.getNumMoviments();
-                for (int k = 0; k < nMovs; ++k)
+                for (int k = 0; k < nMovs; k++)
                 {
-                    const Moviments& mov = f.getMoviment(k);
+                    Moviments mov = f.getMoviment(k);
                     if (mov.getMenjades() == maxMenjades)
                     {
                         int damesMenjades = mov.getDamesMenjades();
@@ -626,7 +628,7 @@ Posicio Tauler::getFitxaBufar(ColorFitxa color) const
     {
         for (int j = 0; j < N_COLUMNES; j++)
         {
-            const Fitxa& f = m_tauler[i][j];
+            Fitxa f = m_tauler[i][j];
             if (f.getColor() == color && f.getTipus() != TIPUS_EMPTY)
             {
                 int fitxaMax = f.getMaxMenjades();
@@ -652,9 +654,9 @@ Posicio Tauler::getFitxaBufar(ColorFitxa color) const
 
 void Tauler::visualitza()
 {
-    for (int x = 0; x < N_FILES; ++x)
+    for (int x = 0; x < N_FILES; x++)
     {
-        for (int y = 0; y < N_COLUMNES; ++y)
+        for (int y = 0; y < N_COLUMNES; y++)
         {
             Fitxa* f = &m_tauler[x][y];
             if (f != nullptr && f->getTipus() != TIPUS_EMPTY)

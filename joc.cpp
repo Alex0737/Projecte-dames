@@ -83,7 +83,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     for (int fila = 0; fila < N_FILES; fila++)
     {
-        for (int col = 0; col < N_COLUMNES; ++col)
+        for (int col = 0; col < N_COLUMNES; col++)
         {
             Fitxa f = m_tauler.getFitxa(fila, col);
             if (f.getTipus() != TIPUS_EMPTY)
@@ -137,8 +137,11 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                         m_fitxaSeleccionada = false;
                         m_posicionsValides.clear();
+                        if (m_jugadorTorn == COLOR_BLANC)
+                            m_jugadorTorn = COLOR_NEGRE;
+                        else
+                            m_jugadorTorn = COLOR_BLANC;
 
-                        m_jugadorTorn = (m_jugadorTorn == COLOR_BLANC) ? COLOR_NEGRE : COLOR_BLANC;
 
                         m_tauler.actualitzaMovimentsValids();
                         moureFitxa = true;
@@ -160,7 +163,8 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                         std::vector<Posicio> posicionsPossibles;
                         m_tauler.getPosicionsPossibles(m_posFitxaSeleccionada, posicionsPossibles);
 
-                        for (int i = 0; i < posicionsPossibles.size(); ++i)
+                        
+                        for (int i = 0; i < posicionsPossibles.size(); i++)
                             m_posicionsValides.push_back(posicionsPossibles[i]);
                     }
                 }
@@ -183,12 +187,18 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                         }
                         m_tauler.actualitzaMovimentsValids();
 
-                        if (haAcabat())
-                            m_pendentFinalPartida = true;
                     }
                     else
                     {
-                        m_finalPartida = true;
+                        if (m_cua.buida() && !haAcabat())
+                        {
+                            m_finalPartida = true;
+                            m_noGuanyador = true;
+                        }
+                        else
+                        {
+                            m_finalPartida = true;
+                        }
                     }
                 }
             }
@@ -198,9 +208,12 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 {
                     bool primer = false;
                     bool haComido = false;
-                    for (int fila = 0; fila < N_FILES && !haComido; fila++)
+                    int fila = 0;
+                    int col = 0;
+                    while(fila < N_FILES && !haComido)
                     {
-                        for (int col = 0; col < N_COLUMNES && !haComido; col++)
+                        col = 0;
+                        while (col < N_COLUMNES && !haComido)
                         {
                             Fitxa f = m_tauler.getFitxa(fila, col);
                             if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
@@ -229,16 +242,17 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     }
                                 }
                             }
+                            col++;
                         }
+                        fila++;
 
                     }
 
-
                     if (!haComido)
                     {
-                        for (int fila = 0; fila < N_FILES; ++fila)
+                        for (int fila = 0; fila < N_FILES; fila++)
                         {
-                            for (int col = 0; col < N_COLUMNES; ++col)
+                            for (int col = 0; col < N_COLUMNES; col++)
                             {
                                 Fitxa f = m_tauler.getFitxa(fila, col);
                                 if (f.getTipus() != TIPUS_EMPTY && f.getColor() == COLOR_NEGRE)
@@ -273,7 +287,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     m_ultimEstatRatoli = mouseStatus;
 
-    if (m_finalPartida)
+    if (m_finalPartida && !m_noGuanyador)
     {
         std::string textoGanador;
         if (m_guanyador == COLOR_BLANC)
@@ -287,11 +301,17 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
         int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 100;
         GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, textoGanador);
     }
+    if (m_finalPartida && m_noGuanyador)
+    {
+        int posTextX = POS_X_TAULER;
+        int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 100;
+        GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, "No hi ha mes moviments al fitxer");
+    }
 
     int posTextX = POS_X_TAULER;
     int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * N_FILES) + 120;
 
-    std::string turnoJugador;
+    string turnoJugador;
     if (m_jugadorTorn == COLOR_BLANC)
         turnoJugador = "Jugador actual: Blanques";
     else
@@ -299,7 +319,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     int posTurnoY = posTextY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTurnoY, 0.8, turnoJugador);
 
-    std::string modeJocStr;
+    string modeJocStr;
     if (m_mode == MODE_JOC_NORMAL)
         modeJocStr = "Mode joc: Normal";
     if (m_mode == MODE_JOC_REPLAY)
@@ -312,13 +332,6 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     return resultado;
 }
-
-
-
-
-
-
-
 
 void Joc::finalitza()
 {

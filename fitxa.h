@@ -34,7 +34,6 @@ public:
     int getNumMoviments() const { return m_moviments.size(); }
     Moviments getMoviment(int i) const;
     int getMaxMenjades() const;
-    int getNPosicions();
 
 
     void setColor(ColorFitxa c) { m_color = c; }
@@ -43,6 +42,7 @@ public:
     void setPosicioBuida();
     void setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t);
     void setMoviment(const Moviments& m);
+    int getNPosicions();
 
     bool estaDesti(const Posicio& p) const;     
     void afegirMoviment(const Moviments& m);

@@ -5,7 +5,9 @@ Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama) : m_menj
 {
     m_posicions.push_back(posInicial);
     if (dama)
+    {
         m_menjadesDames = 1;
+    }
 }
 
 void Moviments::afegirPosicio(const Posicio& p)
@@ -29,10 +31,12 @@ int Moviments::getDamesMenjades() const
 
 Posicio Moviments::getFitxaMatada(int j) const
 {
+    Posicio p;
     if (j >= 0 && j < m_posicionsMenjades.size())
-        return m_posicionsMenjades[j];
+        p = m_posicionsMenjades[j];
     else
-        return Posicio(-1, -1);
+        p = Posicio(-1, -1);
+    return p;
 }
 
 Posicio Moviments::getPosicioIndex(int n) const

@@ -69,13 +69,13 @@ Moviments CuaMoviments::treuPrimer()
 
 void CuaMoviments::guardarMoviments(const std::string& nomFitxer)
 {
-    std::ofstream fitxer(nomFitxer);
+    ofstream fitxer(nomFitxer);
     if (fitxer.is_open())
     {
         NodeMoviment* actual = m_primer;
         while (actual != nullptr)
         {
-            const Moviments& m = actual->getValor();
+            Moviments m = actual->getValor();
             if (m.getNombre() >= 2)
             {
                 fitxer << m.getPosicioIndex(0).toString() << " " << m.getUltimaPosicio() << std::endl;
