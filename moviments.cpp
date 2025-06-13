@@ -3,11 +3,11 @@
 
 Moviments::Moviments(const Posicio& posInicial, bool menjat, bool dama) : m_menjadesMaximes(0), m_menjadesDames(0), m_menjat(menjat)
 {
+    m_menjadesMaximes = 0;
+    m_menjadesDames = 0;
+    m_menjat = menjat;
     m_posicions.push_back(posInicial);
-    if (dama)
-    {
-        m_menjadesDames = 1;
-    }
+
 }
 
 void Moviments::afegirPosicio(const Posicio& p)
@@ -95,6 +95,8 @@ bool Moviments::operator==(const Moviments& m) const
 
 void Moviments::afegirMort(const Posicio& p)
 {
+    if (m_menjat == false)
+        m_menjat = true;
     m_posicionsMenjades.push_back(p);
     m_menjadesMaximes = m_posicionsMenjades.size();
 }
