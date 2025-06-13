@@ -1,5 +1,5 @@
 #include "posicio.h"
-//constructor a partir d'un string per ex "c3"
+
 Posicio::Posicio(const string& pos)
 {
 	m_x = (N_FILES - 1) - (pos[1] - '1');
@@ -14,7 +14,7 @@ string Posicio::toString() const
 	return pos;
 }
 
-//serveix per comprobar si la m_x i m_y estan dins de l'array de posicions
+
 bool Posicio::estaDins(const Posicio p[], int nPosicions) const
 {
 	int i = 0;

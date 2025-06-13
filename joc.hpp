@@ -13,7 +13,7 @@ class Joc
 
 public:
 	Joc() : m_tauler(), m_cua(), m_mode(MODE_JOC_NONE), m_jugadorTorn(COLOR_BLANC), m_finalPartida(false), m_fitxaSeleccionada(false), m_posFitxaSeleccionada(-1, -1), m_nPosicionsValides(0), m_nomArxiuMoviments(""),
-		iniciat(false), m_guanyador(COLOR_BLANC)
+		iniciat(false), m_pendentFinalPartida(false), m_guanyador(COLOR_BLANC), m_ultimEstatRatoli(false)
 	{
 		m_posicionsValides.clear();
 	};
@@ -23,7 +23,7 @@ public:
 	void finalitza();
 	Posicio converteixAPosicio(int mouseX, int mouseY);
 	bool haAcabat();
-	bool getFinalPartida() { return m_finalPartida; }
+	bool getFinalPartida() const { return m_finalPartida; }
 	void setMode(const ModeJoc& mode) { m_mode = mode; }
 	ColorFitxa getColorGuanyador() { return m_guanyador; }
 	void guardaPartida(const string& nomFitxer);
@@ -44,10 +44,10 @@ private:
 	ModeJoc m_mode;
 	ColorFitxa m_jugadorTorn;
 	bool m_finalPartida;
+	bool m_pendentFinalPartida;
 	bool m_fitxaSeleccionada;
 	Posicio m_posFitxaSeleccionada;
-
-	bool m_ultimEstatRatoli = false;
+	bool m_ultimEstatRatoli;
 
 };
 

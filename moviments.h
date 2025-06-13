@@ -28,7 +28,7 @@ public:
     Posicio getUltimaPosicio() const;
     Moviments& operator=(const Moviments& m);
 
-    bool esCaptura() { return m_menjadesMaximes > 0; }
+    bool esCaptura() const { return m_menjadesMaximes > 0; }
 
     bool estaDesti(const Posicio& p)const;
 
@@ -41,7 +41,7 @@ public:
 private:
     std::vector<Posicio> m_posicions;
     std::vector<Posicio> m_posicionsMenjades;
-    int m_menjadesMaximes; // numero maxim de menjades que es pot fer en un moviment
+    int m_menjadesMaximes; 
     int m_menjadesDames;
     bool m_menjat;
 };

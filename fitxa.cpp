@@ -22,11 +22,16 @@ void Fitxa::netejaMoviments()
 
 Moviments Fitxa::getMoviment(int i) const
 {
+    Moviments m;
     if (i < 0 || i >= m_moviments.size())
     {
-        return Moviments();
+        m = Moviments();
     }
-    return m_moviments[i];
+    else
+    {
+        m = m_moviments[i];
+    }
+    return m;
 }
 
 void Fitxa::setPosicioBuida()
@@ -49,8 +54,9 @@ void Fitxa::setPosNova(const Posicio& pos, ColorFitxa c, TipusFitxa t)
 int Fitxa::getMaxMenjades() const
 {
     int max = 0;
-    for (const auto& mov : m_moviments)
+    for (int i = 0; i < m_moviments.size(); i++)
     {
+        Moviments mov = m_moviments[i];
         if (mov.getMenjades() > max)
             max = mov.getMenjades();
     }
@@ -60,8 +66,9 @@ int Fitxa::getMaxMenjades() const
 int Fitxa::getDamesMaximes() const
 {
     int max = 0;
-    for (const auto& mov : m_moviments)
+    for (int i = 0; i < m_moviments.size(); i++)
     {
+        Moviments mov = m_moviments[i];
         if (mov.getDamesMenjades() > max)
             max = mov.getDamesMenjades();
     }
@@ -95,7 +102,7 @@ bool Fitxa::estaDesti(const Posicio& p)const
 int Fitxa::getIndexMoviment(const Posicio& p)const
 {
     int res = -1;
-    for (size_t j = 0; j < m_moviments.size(); ++j)
+    for (int j = 0; j < m_moviments.size(); ++j)
     {
         int i = 0;
         bool trobat = false;
@@ -147,7 +154,7 @@ void Fitxa::visualitza(int x, int y)
 
 }
 
-int Fitxa::getNPosicions() const
+int Fitxa::getNPosicions()
 {
     int posicions = 0;
     for (int i = 0; i < m_moviments.size(); i++)

@@ -13,6 +13,10 @@
 
 
 
+#include "GraphicManager.h"
+#include "Joc.hpp"
+
+
 
 void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments)
 {
@@ -60,14 +64,18 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 {
     bool resultado = false;
 
+    if (m_pendentFinalPartida)
+    {
+        m_finalPartida = true;
+        m_pendentFinalPartida = false;
+    }
+
     if (!iniciat)
     {
         inicialitza(m_mode, m_nomArxiuTauler, m_nomArxiuMoviments);
         m_tauler.actualitzaMovimentsValids();
-
         iniciat = true;
         m_finalPartida = false;
-
     }
 
     GraphicManager::getInstance()->drawSprite(GRAFIC_FONS, 0, 0);
@@ -102,7 +110,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     if (!m_finalPartida)
     {
-        if (m_mode == MODE_JOC_NORMAL || m_mode == MODE_JOC_UN && m_jugadorTorn == COLOR_BLANC)
+        if (m_mode == MODE_JOC_NORMAL || (m_mode == MODE_JOC_UN && m_jugadorTorn == COLOR_BLANC))
         {
             if (!mouseStatus && m_ultimEstatRatoli)
             {
@@ -115,11 +123,8 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                     bool esValida = false;
                     for (int i = 0; i < m_posicionsValides.size(); i++)
                     {
-                        Posicio pos = m_posicionsValides[i];
-                        if (pos == destino)
-                        {
+                        if (m_posicionsValides[i] == destino)
                             esValida = true;
-                        }
                     }
 
                     if (esValida)
@@ -133,18 +138,13 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                         m_fitxaSeleccionada = false;
                         m_posicionsValides.clear();
 
-                        if (m_jugadorTorn == COLOR_BLANC)
-                        {
-                            m_jugadorTorn = COLOR_NEGRE;
-                        }
-                        else
-                        {
-                            m_jugadorTorn = COLOR_BLANC;
-                        }
+                        m_jugadorTorn = (m_jugadorTorn == COLOR_BLANC) ? COLOR_NEGRE : COLOR_BLANC;
 
                         m_tauler.actualitzaMovimentsValids();
-
                         moureFitxa = true;
+
+                        if (haAcabat())
+                            m_pendentFinalPartida = true;
                     }
                 }
 
@@ -156,25 +156,17 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                     {
                         m_fitxaSeleccionada = true;
                         m_posFitxaSeleccionada = Posicio(fila, col);
-
                         m_posicionsValides.clear();
                         std::vector<Posicio> posicionsPossibles;
                         m_tauler.getPosicionsPossibles(m_posFitxaSeleccionada, posicionsPossibles);
 
-                        std::cout << "Moviments validos per (" << fila << "," << col << "): "
-                            << posicionsPossibles.size() << std::endl;
                         for (int i = 0; i < posicionsPossibles.size(); ++i)
-                        {
                             m_posicionsValides.push_back(posicionsPossibles[i]);
-                            std::cout << "  (" << posicionsPossibles[i].getX() << "," << posicionsPossibles[i].getY() << ")" << endl;
-                        }
                     }
-
                 }
-
             }
         }
-        else
+        else 
         {
             if (m_mode == MODE_JOC_REPLAY)
             {
@@ -189,7 +181,10 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                             Posicio desti = m.getUltimaPosicio();
                             m_tauler.mouFitxa(origen, desti);
                         }
+                        m_tauler.actualitzaMovimentsValids();
 
+                        if (haAcabat())
+                            m_pendentFinalPartida = true;
                     }
                     else
                     {
@@ -201,8 +196,8 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
             {
                 if (m_mode == MODE_JOC_UN && m_jugadorTorn == COLOR_NEGRE && !m_finalPartida)
                 {
+                    bool primer = false;
                     bool haComido = false;
-
                     for (int fila = 0; fila < N_FILES && !haComido; fila++)
                     {
                         for (int col = 0; col < N_COLUMNES && !haComido; col++)
@@ -217,25 +212,28 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     if (mov.esCaptura())
                                     {
                                         m_tauler.mouFitxa(Posicio(fila, col), mov.getUltimaPosicio());
-
                                         Posicio origen(fila, col);
                                         Posicio destino = mov.getUltimaPosicio();
                                         Moviments movGuardar(origen, false, false);
                                         movGuardar.afegirPosicio(destino);
-                                        m_cua.afegirMoviment(movGuardar);
-
+                                        if (!primer)
+                                        {
+                                            m_cua.afegirMoviment(movGuardar);
+                                            primer = true;
+                                        }
                                         m_jugadorTorn = COLOR_BLANC;
                                         m_tauler.actualitzaMovimentsValids();
                                         if (haAcabat())
-                                            m_finalPartida = true;
+                                            m_pendentFinalPartida = true;
                                         haComido = true;
                                     }
                                 }
                             }
                         }
+
                     }
 
-                    // 2. Si NO ha comido, hace el primer movimiento normal que encuentre
+
                     if (!haComido)
                     {
                         for (int fila = 0; fila < N_FILES; ++fila)
@@ -250,7 +248,6 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                     {
                                         Moviments mov = f.getMoviment(0);
                                         m_tauler.mouFitxa(Posicio(fila, col), mov.getUltimaPosicio());
-
                                         m_jugadorTorn = COLOR_BLANC;
                                         Posicio origen(fila, col);
                                         Posicio destino = mov.getUltimaPosicio();
@@ -258,8 +255,10 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                                         movGuardar.afegirPosicio(destino);
                                         m_cua.afegirMoviment(movGuardar);
                                         m_tauler.actualitzaMovimentsValids();
+
                                         if (haAcabat())
-                                            m_finalPartida = true;
+                                            m_pendentFinalPartida = true;
+
                                         return false;
                                     }
                                 }
@@ -269,7 +268,9 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 }
             }
         }
+        
     }
+
     m_ultimEstatRatoli = mouseStatus;
 
     if (m_finalPartida)
@@ -292,41 +293,29 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
     std::string turnoJugador;
     if (m_jugadorTorn == COLOR_BLANC)
-    {
         turnoJugador = "Jugador actual: Blanques";
-    }
     else
-    {
         turnoJugador = "Jugador actual: Negres";
-    }
     int posTurnoY = posTextY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTurnoY, 0.8, turnoJugador);
 
     std::string modeJocStr;
-
     if (m_mode == MODE_JOC_NORMAL)
-    {
         modeJocStr = "Mode joc: Normal";
-    }
     if (m_mode == MODE_JOC_REPLAY)
-    {
         modeJocStr = "Mode joc: Replay";
-    }
     if (m_mode == MODE_JOC_UN)
-    {
         modeJocStr = "Mode joc: Un jugador";
-    }
 
     int posModeY = posTurnoY + 30;
     GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posModeY, 0.8, modeJocStr);
 
-    if (!m_finalPartida && haAcabat())
-    {
-        m_finalPartida = true;
-    }
-
     return resultado;
 }
+
+
+
+
 
 
 
@@ -370,11 +359,11 @@ bool Joc::haAcabat()
         }
     }
 
-    if (nNegres == 0 || !negrePotMoure || nBlancs == 0 || !blancPotMoure)
+    if (nNegres == 0 || (!negrePotMoure && m_jugadorTorn == COLOR_NEGRE) || nBlancs == 0 || (!blancPotMoure && m_jugadorTorn == COLOR_BLANC))
     {
-        if (nNegres == 0 || !negrePotMoure)
+        if (nNegres == 0 || (!negrePotMoure))
             m_guanyador = COLOR_BLANC;
-        else if (nBlancs == 0 || !blancPotMoure)
+        else if (nBlancs == 0 || (!blancPotMoure))
             m_guanyador = COLOR_NEGRE;
         else
             m_guanyador = COLOR_BUIT;

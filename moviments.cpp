@@ -37,10 +37,12 @@ Posicio Moviments::getFitxaMatada(int j) const
 
 Posicio Moviments::getPosicioIndex(int n) const
 {
+    Posicio p;
     if (n >= 0 && n < m_posicions.size())
-        return m_posicions[n];
+        p = m_posicions[n];
     else
-        return Posicio(-1, -1);
+        p =  Posicio(-1, -1);
+    return p;
 }
 
 void Moviments::afegirMoviment(const std::vector<Posicio>& p, int menjades)
@@ -51,7 +53,12 @@ void Moviments::afegirMoviment(const std::vector<Posicio>& p, int menjades)
 
 Posicio Moviments::getUltimaPosicio() const
 {
-    return m_posicions.empty() ? Posicio(-1, -1) : m_posicions.back();
+    Posicio p;
+    if (m_posicions.empty())
+        p = Posicio(-1, -1);
+    else
+        p = m_posicions.back();
+    return p;
 }
 
 bool Moviments::esUltimaPosicio(const Posicio& p) const
@@ -61,12 +68,16 @@ bool Moviments::esUltimaPosicio(const Posicio& p) const
 
 bool Moviments::estaDesti(const Posicio& p) const
 {
-    for (const auto& pos : m_posicions)
+    int  i = 0;
+    bool trobat = false;
+    while (i < m_posicions.size() && !trobat)
     {
+        Posicio pos = m_posicions[i];
         if (p == pos)
-            return true;
+            trobat = true;
+        i++;
     }
-    return false;
+    return trobat;
 }
 
 bool Moviments::operator==(const Moviments& m) const

@@ -1,4 +1,4 @@
-#include "tauler.hpp"
+﻿#include "tauler.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -9,7 +9,7 @@ const int MIDA_CASELLA = 80;
 
 Tauler::Tauler()
 {
-    m_tauler = new Fitxa * [N_FILES];
+    m_tauler = new Fitxa *[N_FILES];
     for (int i = 0; i < N_FILES; ++i)
     {
         m_tauler[i] = new Fitxa[N_COLUMNES];
@@ -99,15 +99,15 @@ bool Tauler::dinsTauler(int x, int y) const
     return (x >= 0 && x < N_FILES && y >= 0 && y < N_COLUMNES);
 }
 
-void Tauler::inicialitza(const std::string& nomFitxer)
+void Tauler::inicialitza(const string& nomFitxer)
 {
-    std::ifstream fitxer(nomFitxer);
+    ifstream fitxer(nomFitxer);
     netejaTauler();
 
     if (fitxer.is_open())
     {
         char tipus;
-        std::string posicioStr;
+        string posicioStr;
 
         while (fitxer >> tipus)
         {
@@ -289,6 +289,10 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
             {
                 Moviments mov(Posicio(nx2, ny2), false, false);
                 mov.afegirMort(Posicio(nx, ny));
+                if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                {
+                    mov.incrementarMenjadesDames();
+                }
                 pendents.push_back(mov);
                 f.setMoviment(mov);
             }
@@ -322,6 +326,10 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     Moviments nouMov = actual;
                     nouMov.afegirPosicio(Posicio(nx2, ny2));
                     nouMov.afegirMort(Posicio(nx, ny));
+                    if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                    {
+                        nouMov.incrementarMenjadesDames();
+                    }
                     pendents.push_back(nouMov);
                     trobat = true;
                     f.setMoviment(nouMov);
@@ -398,6 +406,10 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                 {
                     Moviments mov(Posicio(ex, ey), true, true);
                     mov.afegirMort(Posicio(nx, ny));
+                    if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                    {
+                        mov.incrementarMenjadesDames();
+                    }
                     std::vector<Posicio> comidas;
                     comidas.push_back(Posicio(nx, ny));
                     pendentsMov.push_back(mov);
@@ -422,15 +434,24 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                 int dy = direccions[dir][1];
                 int nx = ux + dx;
                 int ny = uy + dy;
+
                 while (dinsTauler(nx, ny) && m_tauler[nx][ny].getTipus() == TIPUS_EMPTY)
                 {
                     nx += dx;
                     ny += dy;
                 }
+
                 bool yaComida = false;
-                for (const auto& c : comidas)
+
+                for (int i = 0; i < comidas.size(); i++)
+                {
+                    Posicio c = comidas[i];
                     if (c == Posicio(nx, ny))
+                    {
                         yaComida = true;
+                    }
+                }
+
                 if (dinsTauler(nx, ny) && m_tauler[nx][ny].getColor() != f.getColor() &&
                     m_tauler[nx][ny].getTipus() != TIPUS_EMPTY && !yaComida)
                 {
@@ -441,6 +462,8 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                         Moviments mov2 = actual;
                         mov2.afegirPosicio(Posicio(ex, ey));
                         mov2.afegirMort(Posicio(nx, ny));
+                        if (m_tauler[nx][ny].getTipus() == TIPUS_DAMA)
+                            mov2.incrementarMenjadesDames();
                         std::vector<Posicio> comidas2 = comidas;
                         comidas2.push_back(Posicio(nx, ny));
                         pendentsMov.push_back(mov2);
@@ -449,11 +472,11 @@ void Tauler::calcularMovimentsValids(const Fitxa& fitxa)
                     }
                 }
             }
-            if (!trobat)
-                f.afegirMoviment(actual);
+            f.afegirMoviment(actual);
 
             p++;
         }
+        
     }
 }
 
@@ -479,7 +502,28 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
         }
         if (trobat)
         {
-            const Moviments& mov = m_tauler[xO][yO].getMoviment(i);
+            
+            Moviments mov = m_tauler[xO][yO].getMoviment(i);
+
+            int maxMenjades = getMaxMenjadesJugador(m_tauler[xO][yO].getColor());
+            int maxDamesMenjades = 0;
+
+            if (mov.getMenjades() == maxMenjades && maxMenjades > 0) 
+            {
+                maxDamesMenjades = getMaxDamesJugador(m_tauler[xO][yO].getColor());
+            }
+
+            bool calBufar = false;
+            if (maxMenjades > 0) 
+            {
+                if (mov.getMenjades() < maxMenjades) {
+                    calBufar = true;
+                }
+                else if (mov.getMenjades() == maxMenjades && mov.getDamesMenjades() < maxDamesMenjades) {
+                    calBufar = true;
+                }
+            }
+
             for (int j = 0; j < mov.getMenjades(); j++)
             {
                 Posicio p = mov.getFitxaMatada(j);
@@ -489,13 +533,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
                     m_tauler[x][y].setPosicioBuida();
             }
 
-            bool calBufar = false;
-            if (mov.getMenjades() < getMaxMenjadesJugador(m_tauler[xO][yO].getColor())
-                || !(mov.getMenjades() == getMaxMenjadesJugador(m_tauler[xO][yO].getColor()))
-                && mov.getDamesMenjades() == getMaxDamesJugador(m_tauler[xO][yO].getColor()))
-            {
-                calBufar = true;
-            }
+            
 
             m_tauler[xD][yD] = m_tauler[xO][yO];
             m_tauler[xD][yD].setPosicio(Posicio(xD, yD));
@@ -534,13 +572,15 @@ int Tauler::getMaxMenjadesJugador(ColorFitxa color) const
     {
         for (int j = 0; j < N_COLUMNES; j++)
         {
-            if (m_tauler[i][j].getColor() == color && m_tauler[i][j].getTipus() != TIPUS_EMPTY)
+            const Fitxa& f = m_tauler[i][j];
+            if (f.getColor() == color && f.getTipus() != TIPUS_EMPTY)
             {
-                int fitxaMax = m_tauler[i][j].getMaxMenjades();
-
-                if (fitxaMax > max)
+                int nMovs = f.getNumMoviments();
+                for (int k = 0; k < nMovs; k++)
                 {
-                    max = fitxaMax;
+                    int menjades = f.getMoviment(k).getMenjades();
+                    if (menjades > max)
+                        max = menjades;
                 }
             }
         }
@@ -550,23 +590,32 @@ int Tauler::getMaxMenjadesJugador(ColorFitxa color) const
 
 int Tauler::getMaxDamesJugador(ColorFitxa color) const
 {
-    int max = 0;
+    int maxMenjades = getMaxMenjadesJugador(color);
+    int maxDames = 0;
     for (int i = 0; i < N_FILES; i++)
     {
         for (int j = 0; j < N_COLUMNES; j++)
         {
-            if (m_tauler[i][j].getColor() == color && m_tauler[i][j].getTipus() != TIPUS_EMPTY)
+            const Fitxa& f = m_tauler[i][j];
+            if (f.getColor() == color && f.getTipus() != TIPUS_EMPTY)
             {
-                int fitxaMax = m_tauler[i][j].getDamesMaximes();
-                if (fitxaMax > max)
+                int nMovs = f.getNumMoviments();
+                for (int k = 0; k < nMovs; ++k)
                 {
-                    max = fitxaMax;
+                    const Moviments& mov = f.getMoviment(k);
+                    if (mov.getMenjades() == maxMenjades)
+                    {
+                        int damesMenjades = mov.getDamesMenjades();
+                        if (damesMenjades > maxDames)
+                            maxDames = damesMenjades;
+                    }
                 }
             }
         }
     }
-    return max;
+    return maxDames;
 }
+
 
 Posicio Tauler::getFitxaBufar(ColorFitxa color) const
 {

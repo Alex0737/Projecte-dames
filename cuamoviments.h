@@ -7,17 +7,16 @@
 class CuaMoviments
 {
 private:
-    NodeMoviment* primer;
-    NodeMoviment* ultim;
+    NodeMoviment* m_primer;
+    NodeMoviment* m_ultim;
 
 public:
     CuaMoviments();
     ~CuaMoviments();
-    CuaMoviments(Fitxa f, Posicio p1, Posicio p2);
     Moviments treuPrimerMoviment();
-    bool buida();
-    void carregaMoviments(const std::string& nomFitxer);
-    void guardarMoviments(const std::string& nom);
+    bool buida() const;
+    void carregaMoviments(const string& nomFitxer);
+    void guardarMoviments(const string& nom);
     void afegirMoviment(const Moviments& m);
     Moviments treuPrimer();
 };

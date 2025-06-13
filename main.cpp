@@ -42,7 +42,7 @@ int main(int argc, const char* argv[])
         else if (mode == 3) joc.setMode(MODE_JOC_UN);
     } while (mode != 1 && mode != 2 && mode != 3);
 
-    int inici;
+    int inici = 0;
     if (joc.getMode() == MODE_JOC_NORMAL || joc.getMode() == MODE_JOC_UN)
     {
         do
@@ -100,10 +100,13 @@ int main(int argc, const char* argv[])
                 std::cout << "Ha acabat la partida" << std::endl;
                 if (joc.getColorGuanyador() == COLOR_BLANC)
                     std::cout << "guanyador: Color Blanc" << std::endl;
-                else if (joc.getColorGuanyador() == COLOR_NEGRE)
-                    std::cout << "guanyador: Color Negre" << std::endl;
-                else
-                    std::cout << "no hi ha guanyador" << std::endl;
+                else 
+                {
+                    if (joc.getColorGuanyador() == COLOR_NEGRE)
+                        std::cout << "guanyador: Color Negre" << std::endl;
+                    else
+                        std::cout << "no hi ha guanyador" << std::endl;
+                }
 
                 preguntar = true;
             }
@@ -112,7 +115,7 @@ int main(int argc, const char* argv[])
             {
                 float px = 50.0f, py = 630.0f;
                 GraphicManager::getInstance()
-                    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (1: Si / 2: No)");
+                    ->drawFont(FONT_WHITE_30, px, py, 0.8f, "Vols guardar partida? (Si: 1 / No: 2 o Esc)");
 
                 if (Keyboard_GetKeyTrg('1'))
                 {
